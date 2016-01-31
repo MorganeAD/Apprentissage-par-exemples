@@ -17,11 +17,10 @@
  */
 
 /**
- * @file
+ * @file main.c
  * @brief
  *
  * Description, sujet traite
- * trace d'execution'
  */
 
 #include <stdio.h>
@@ -32,95 +31,10 @@
 #include "type_element.h"
 #include "function_element.h"
 
+#include "type_example.h"
+#include "function_example.h"
+
 /*----------------------------------------------------------------------*/
-/*                           EXAMPLE SECTION                            */
-/*----------------------------------------------------------------------*/
-
-/** @brief example
- *
- * "example" structure's definition. Examples will be compared to a model
- * (see the model section).
- * @field type [element*] is the character's type.
- * @field influence [int] is the character's fame.
- * @field alignment [int] is the character's alignment.
- * @name example
- * @pointer ptr_example
- */
-
-typedef struct example
-{
-	struct element* type;
-	int influence;
-	int alignment;
-}example, *ptr_example;
-
-/** @brief createExample
- *
- * Create a new example.
- * @param t [ptr_element] is the character's type. 
- * @param i [int] is the example's influence. 
- * @param a [int] is the example's alignment. 
- * @return example [ptr_example] is example's pointer.
- */
-
-ptr_example createExample(ptr_element t, int i, int a)
-{
-	ptr_example example=(ptr_example)malloc(sizeof(example));
-	example->type=t;
-	example->influence=i;
-	example->alignment=a;
-	return example;
-} 
-
-/** @brief getType
- *
- * Give the type of an example.
- * @param example [ptr_example] is the example. 
- * @return example->type [int] is example's type.
- */
-
-ptr_element getType(ptr_example example)
-{
-	return example->type;
-}
-
-/** @brief getInfluence
- *
- * Give the influence of an example.
- * @param example [ptr_example] is the example. 
- * @return example->influence [int] is example's influence.
- */
-
-int getInfluence(ptr_example example)
-{
-	return example->influence;
-}
-
-/** @brief getAlignment
- *
- * Give the alignment of an example.
- * @param example [ptr_example] is the example. 
- * @return example->alignment [int] is the example's alignment.
- */
-
-int getAlignment(ptr_example example)
-{
-	return example->alignment;
-}
-
-/** @brief displayExample
- *
- * Display the example.
- * @param example [ptr_example] is the example to display.
- * @return [void]
- */
-
-void displayExample(ptr_example example)
-{
-	printf("<type : %d> ", getValue(getType(example)));
-	printf("<influence : %d> ", getInfluence(example));
-	printf("<alignment : %d>\n", getAlignment(example));
-}
 
 /*----------------------------------------------------------------------*/
 /*                            MODEL SECTION                             */
