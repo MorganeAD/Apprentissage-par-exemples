@@ -1,7 +1,47 @@
+/**
+ * Polytech Marseille
+ * Case 925 - 163, avenue de Luminy
+ * 13288 Marseille CEDEX 9
+ *
+ * Ce fichier est l'oeuvre d'eleves de Polytech Marseille. Il ne peut etre
+ * reproduit, utilise ou modifie sans l'avis express de ses auteurs.
+ */
+
+/**
+ * @author BENMILOUD--JOSSELIN Alexis <alexis.benmiloud.josselin@gmail.com>
+ * @author ALONSO Morgane <alonso.morgane@gmail.com>
+ *
+ * @version 0.0.1 / 25/01/2016
+ * @todo
+ * @bug #0000 line 320 : Erreur de segmentation (core dumped) after return(0)
+ */
+
+/**
+ * @file
+ * @brief
+ *
+ * Description, sujet traite
+ * trace d'execution'
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <malloc.h>
-#include <assert.h>   test
+#include <assert.h>
+
+/*----------------------------------------------------------------------*/
+/*                           ELEMENT SECTION                            */
+/*----------------------------------------------------------------------*/
+
+/** @brief element
+ *
+ * "element" structure's definition. It will be use to create a tree which
+ * will describe all the character/s types.
+ * @field value [int] is the element's value.
+ * @field father [element*] is the element's father.
+ * @name element
+ * @pointer ptr_element
+ */
 
 typedef struct element
 {
@@ -9,34 +49,83 @@ typedef struct element
 	struct element* father;
 }element , *ptr_element;
 
-int isTheDaddy(ptr_element this)
+/** @brief isTheDaddy
+ *
+ * Tell if an element is the daddy.
+ * @param element [ptr_element] is the element. 
+ * @return element->father [ptr_element] represent a boolean value
+ */
+
+int isTheDaddy(ptr_element element)
 {
-	return this->father==NULL;
+	return element->father==NULL;
 }
+
+/** @brief createTheDaddy
+ *
+ * Create a the father of the tree.
+ * @param val [int] is the father's value. 
+ * @return daddy [ptr_element] is the daddy.
+ */
 
 ptr_element createTheDaddy(int val)
 {
-	ptr_element this = (ptr_element)malloc(sizeof(element));
-	this->value = val;
-	this->father = NULL;
+	ptr_element daddy=(ptr_element)malloc(sizeof(element));
+	daddy->value=val;
+	daddy->father=NULL;
+	return daddy;
 }
+
+/** @brief createSon
+ *
+ * Create a son.
+ * @param val [int] is the son's value. 
+ * @param dad [ptr_element] is the father. 
+ * @return son [ptr_element] is the son.
+ */
 
 ptr_element createSon(int val, ptr_element dad)
 {
-	ptr_element this = (ptr_element)malloc(sizeof(element));
-	this->value = val;
-	this->father = dad;
+	ptr_element this=(ptr_element)malloc(sizeof(element));
+	this->value=val;
+	this->father=dad;
 	return this;
 }
+
+/** @brief hisFather
+ *
+ * Give the father of an element of a tree.
+ * @param son [ptr_example] is the element. 
+ * @return son->father [ptr_element] is element's father.
+ */
 
 ptr_element hisFather(ptr_element son)
 {
 	return son->father;
 }
 
-void printBranch(ptr_element this)
+/** @brief getValue
+ *
+ * Give the value of an element of a tree.
+ * @param element [ptr_example] is the element. 
+ * @return element->value [int] is element's value.
+ */
+
+int getValue(ptr_element element)
 {
-	ptr_element tmp = this;
+	return element->value;
+}
+
+/** @brief displayBranch
+ *
+ * Display the branch of an element of a tree.
+ * @param branch [ptr_element] is the branch to display.
+ * @return [void]
+ */
+
+void displayBranch(ptr_element branch)
+{
+	ptr_element tmp=branch;
 	printf("%d -> ", getValue(tmp));
 	while(!isTheDaddy(tmp))
 	{
@@ -46,11 +135,19 @@ void printBranch(ptr_element this)
 	printf("\n");
 }
 
-ptr_element communFather(ptr_element son1, ptr_element son2)
+/** @brief commonFather
+ *
+ * Find the common father of two elements of a tree.
+ * @param son1 [ptr_element] is the first son.
+ * @param son2 [ptr_element] is the second son.
+ * @return j [ptr_element] is common father's pointer.
+ */
+
+ptr_element commonFather(ptr_element son1, ptr_element son2)
 {
-	ptr_element i = son1;
-	ptr_element j = son2;
-	int find = 0;
+	ptr_element i=son1;
+	ptr_element j=son2;
+	int find=0;
 
 	while(!find && !isTheDaddy(i))
 	{
@@ -71,80 +168,282 @@ ptr_element communFather(ptr_element son1, ptr_element son2)
 	return j;
 }
 
-int getValue(ptr_element this)
-{
-	return this->value;
-}
+/*----------------------------------------------------------------------*/
+/*                           EXAMPLE SECTION                            */
+/*----------------------------------------------------------------------*/
+
+/** @brief example
+ *
+ * "example" structure's definition. Examples will be compared to a model
+ * (see the model section).
+ * @field type [element*] is the character's type.
+ * @field influence [int] is the character's fame.
+ * @field alignment [int] is the character's alignment.
+ * @name example
+ * @pointer ptr_example
+ */
 
 typedef struct example
 {
 	struct element* type;
-	int caracteristique;
-	int alignement;
+	int influence;
+	int alignment;
 }example, *ptr_example;
 
-ptr_example createExample(ptr_element t, int c, int a)
+/** @brief createExample
+ *
+ * Create a new example.
+ * @param t [ptr_element] is the character's type. 
+ * @param i [int] is the example's influence. 
+ * @param a [int] is the example's alignment. 
+ * @return example [ptr_example] is example's pointer.
+ */
+
+ptr_example createExample(ptr_element t, int i, int a)
 {
-	ptr_example this = (ptr_example)malloc(sizeof(example));
-	this->type=t;
-	this->caracteristique=c;
-	this->alignement=a;
-	return this;
+	ptr_example example=(ptr_example)malloc(sizeof(example));
+	example->type=t;
+	example->influence=i;
+	example->alignment=a;
+	return example;
 } 
 
-ptr_element getType(ptr_example this)
+/** @brief getType
+ *
+ * Give the type of an example.
+ * @param example [ptr_example] is the example. 
+ * @return example->type [int] is example's type.
+ */
+
+ptr_element getType(ptr_example example)
 {
-	return this->type;
+	return example->type;
 }
 
-int getCaracterisque(ptr_example this)
+/** @brief getInfluence
+ *
+ * Give the influence of an example.
+ * @param example [ptr_example] is the example. 
+ * @return example->influence [int] is example's influence.
+ */
+
+int getInfluence(ptr_example example)
 {
-	return this->caracteristique;
+	return example->influence;
 }
 
-int getAlignement(ptr_example this)
+/** @brief getAlignment
+ *
+ * Give the alignment of an example.
+ * @param example [ptr_example] is the example. 
+ * @return example->alignment [int] is the example's alignment.
+ */
+
+int getAlignment(ptr_example example)
 {
-	return this->alignement;
+	return example->alignment;
 }
 
-void printExample(ptr_example this)
+/** @brief displayExample
+ *
+ * Display the example.
+ * @param example [ptr_example] is the example to display.
+ * @return [void]
+ */
+
+void displayExample(ptr_example example)
 {
-	printf("<type : %d> ", getValue(getType(this)));
-	printf("<caracteristique : %d> ", getCaracterisque(this));
-	printf("<alignement : %d>\n", getAlignement(this));
+	printf("<type : %d> ", getValue(getType(example)));
+	printf("<influence : %d> ", getInfluence(example));
+	printf("<alignment : %d>\n", getAlignment(example));
 }
 
-main()
+/*----------------------------------------------------------------------*/
+/*                            MODEL SECTION                             */
+/*----------------------------------------------------------------------*/
+
+/** @brief model
+ *
+ * "model" structure's definition.
+ * @field type [element*] is the character's type.
+ * @field minInfluence [int] is the fame's lower limit.
+ * @field maxInfluence [int] is the fame's upper limit.
+ * @field alignment [pointer] is the character's alignment.
+ * @field index [int] is the alignment's list index.
+ * @name model
+ * @pointer ptr_model
+ */
+
+typedef struct model
 {
-	ptr_element personnage = createTheDaddy(1);
+	struct element* type;
+	int minInfluence;
+	int maxInfluence;
+	int alignment[4];
+	int index;
+}model, *ptr_model;
 
-	ptr_element force = createSon(2, personnage);
-	ptr_element week = createSon(6, personnage);
+/** @brief initModel
+ *
+ * Create the first model.
+ * @param example [ptr_example] is the future new model.
+ * @return model [ptr_model] is the new model.
+ */
 
-	ptr_element jedi = createSon(3, force);
-	ptr_element sith = createSon(5, force);
+ptr_model initModel(ptr_example firstExample)
+{
+	ptr_model model=(ptr_model)malloc(sizeof(model));
 
-	ptr_element concil = createSon(4, jedi);
+	model->type=firstExample->type;
+	model->minInfluence=firstExample->influence;
+	model->maxInfluence=firstExample->influence;
+	model->alignment[0]=firstExample->alignment;
+	model->index=0;
 
-	ptr_element droid = createSon(7, week);
-	ptr_element bandi = createSon(10, week);
-	ptr_element senateur = createSon(12, week);
+	return model;
+}
 
-	ptr_element combat = createSon(8, droid);
-	ptr_element pacific = createSon(9, droid);
+/** @brief displayModel
+ *
+ * Display the model.
+ * @param model [ptr_model] is the model to display.
+ * @return [void]
+ */
 
-	ptr_element chasseur = createSon(11, bandi);
+void displayModel(ptr_model model)
+{
+	int count;
+	
+	printf("Current model :\n");
+	printf("<type : %d> ", model->type->value);
+	printf("<influence : from %d to %d> ", model->minInfluence, model->maxInfluence);
 
-	printBranch(combat);
-	printBranch(senateur);
+	// A "for" loop is needed to display the list of alignments.
+	printf("<alignments : ");
+	for(count=0 ; count<=model->index ; count++)
+	{
+		printf("%d", model->alignment[count]);
+		if(count<model->index)
+		{
+			printf(" ; ");
+		}
+	}
+	printf(">\n\n");
+}
 
-	printf("%d\n", getValue(communFather(combat,senateur)));
-	printf("%d\n", getValue(communFather(sith,jedi)));
+/*----------------------------------------------------------------------*/
+/*                         COMPARISON SECTION                           */
+/*----------------------------------------------------------------------*/
 
-	ptr_example e1 = createExample(senateur, 1, 3);
-	printExample(e1);
+/** @brief search
+ *
+ * Do a research of an element into a list.
+ * @param element [int] is the element.
+ * @param list [pointer] is the list.
+ * @return [int] represent a boolean value.
+ */
 
-	ptr_example e2 = createExample(jedi, 5, 2);
-	printExample(e2);	
+int search(int number, int list[4])
+{
+	int index, isInto;
+	
+	index=0;
+	isInto=0;
+	while(isInto==0 && number!=list[index] && index<=3)
+	{
+		index++;
+		if(number==list[index])
+		{
+			isInto=1;
+		}
+	}
+	return isInto;
+}
+	
+
+/** @brief comparison
+ *
+ * Do a comparison between the model and an example in order to enlarge,
+ * or not, the model.
+ * @param model [ptr_model] is the original model.
+ * @param example [ptr_example] is the original model.
+ * @return model [ptr_model] is the new model.
+ */
+
+ptr_model comparison(ptr_model model, ptr_example example)
+{
+	// Comparison of types.
+	model->type=commonFather(model->type, example->type);
+
+	// Comparison of influences.
+	if(model->minInfluence>example->influence)
+	{
+		model->minInfluence=example->influence;
+	}
+	else if(model->maxInfluence<example->influence)
+	{
+		model->maxInfluence=example->influence;
+	}
+	
+	// Comparison of alignments.
+	if(model->index<3 && search(example->alignment, model->alignment)==0)
+	{
+		model->index++;
+		model->alignment[model->index]=example->alignment;
+	}
+	return model;
+}
+
+//------------------------------------------------------------------------
+
+int main(int argc, char* argv[])
+{
+	// Creation of the tree of characters.
+	ptr_element personnage=createTheDaddy(1);
+
+	ptr_element force=createSon(2, personnage);
+	ptr_element week=createSon(6, personnage);
+
+	ptr_element jedi=createSon(3, force);
+	ptr_element sith=createSon(5, force);
+
+	ptr_element council=createSon(4, jedi);
+
+	ptr_element droid=createSon(7, week);
+	ptr_element bandi=createSon(10, week);
+	ptr_element senator=createSon(12, week);
+
+	ptr_element combat=createSon(8, droid);
+	ptr_element pacific=createSon(9, droid);
+
+	ptr_element chasseur=createSon(11, bandi);
+
+	printf("Example 1 :\n");
+	ptr_example e1=createExample(senator, 1, 3);
+	displayExample(e1);
+
+	printf("Example 2 :\n");
+	ptr_example e2=createExample(droid, 5, 2);
+	displayExample(e2);
+
+	printf("Example 3 :\n");
+	ptr_example e3=createExample(jedi, 4, 2);
+	displayExample(e3);
+
+	printf("\nModel initialization...\n\n");
+	
+	ptr_model model;
+	model=initModel(e1);
+	displayModel(model);
+	
+	printf("Comparison between model and example 2...\n");
+	comparison(model, e2);
+	displayModel(model);
+
+	printf("Comparison between model and example 3...\n");
+	comparison(model, e3);
+	displayModel(model);
+
+	return 0;
 }
 // typedef enum elements {personnage,force,jedi,conseil,sith,samedi,dimanche} Jour_de_Semaine;
