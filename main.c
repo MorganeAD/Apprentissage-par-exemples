@@ -37,72 +37,9 @@
 #include "type_model.h"
 #include "function_model.h"
 
-/*----------------------------------------------------------------------*/
+#include "comparison.h"
 
 /*----------------------------------------------------------------------*/
-/*                         COMPARISON SECTION                           */
-/*----------------------------------------------------------------------*/
-
-/** @brief search
- *
- * Do a research of an element into a list.
- * @param element [int] is the element.
- * @param list [pointer] is the list.
- * @return [int] represent a boolean value.
- */
-
-int search(int number, int list[4])
-{
-	int index, isInto;
-	
-	index=0;
-	isInto=0;
-	while(isInto==0 && number!=list[index] && index<=3)
-	{
-		index++;
-		if(number==list[index])
-		{
-			isInto=1;
-		}
-	}
-	return isInto;
-}
-	
-
-/** @brief comparison
- *
- * Do a comparison between the model and an example in order to enlarge,
- * or not, the model.
- * @param model [ptr_model] is the original model.
- * @param example [ptr_example] is the original model.
- * @return model [ptr_model] is the new model.
- */
-
-ptr_model comparison(ptr_model model, ptr_example example)
-{
-	// Comparison of types.
-	model->type=commonFather(model->type, example->type);
-
-	// Comparison of influences.
-	if(model->minInfluence>example->influence)
-	{
-		model->minInfluence=example->influence;
-	}
-	else if(model->maxInfluence<example->influence)
-	{
-		model->maxInfluence=example->influence;
-	}
-	
-	// Comparison of alignments.
-	if(model->index<3 && search(example->alignment, model->alignment)==0)
-	{
-		model->index++;
-		model->alignment[model->index]=example->alignment;
-	}
-	return model;
-}
-
-//------------------------------------------------------------------------
 
 int main(int argc, char* argv[])
 {

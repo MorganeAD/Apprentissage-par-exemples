@@ -1,8 +1,11 @@
-all: install main.o
-	gcc -o run main.o -L libs -lelement -lexample -lmodel
+all: install main.o comparison.o
+	gcc -o run main.o comparison.o -L libs -lelement -lexample -lmodel
 
 main.o: main.c
 	gcc -c -Wall -O3 -I headers main.c
+
+comparison.o: comparison.h comparison.c
+	gcc -c -Wall -O3 -I headers comparison.c
 
 install: installheaders installlibs
 
