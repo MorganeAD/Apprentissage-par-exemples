@@ -1,12 +1,12 @@
 all: install main.o
-	gcc -o run main.o -L libs -lelement -lexample
+	gcc -o run main.o -L libs -lelement -lexample -lmodel
 
 main.o: main.c
 	gcc -c -Wall -O3 -I headers main.c
 
 install: installheaders installlibs
 
-installlibs: libelement libexample
+installlibs: libelement libexample libmodel
 
 libelement:
 	cd element && $(MAKE) lib
@@ -14,7 +14,10 @@ libelement:
 libexample:
 	cd example && $(MAKE) lib
 
-installheaders: type_element.h function_element.h type_example.h function_example.h
+libmodel:
+	cd model && $(MAKE) lib
+
+installheaders: type_element.h function_element.h type_example.h function_example.h type_model.h function_model.h
 
 type_element.h:
 	-mkdir headers
@@ -32,9 +35,19 @@ function_example.h:
 	-mkdir headers
 	cp -p example/function_example.h headers
 
+type_model.h:
+	-mkdir headers
+	cp -p model/type_model.h headers	
+
+function_model.h:
+	-mkdir headers
+	cp -p model/function_model.h headers
+
 clean: 
 	-rm *.o
 	cd element && $(MAKE) clean 
+	cd example && $(MAKE) clean
+	cd model && $(MAKE) clean
 
 veryclean: clean
 	-rm run
