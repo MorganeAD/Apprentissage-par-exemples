@@ -35,6 +35,8 @@
 #include "type_model.h"
 #include "function_model.h"
 
+#include "comparison.h"
+
 #define MAX_ALIGNMENT 4
 
 /*-----------------------------------------------------------------------*/

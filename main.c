@@ -40,30 +40,14 @@
 #include "function_model.h"
 
 #include "comparison.h"
+#include "class.h"
 
 /*-----------------------------------------------------------------------*/
 
 int main(int argc, char* argv[])
 {
 	/* Creation of the tree of characters.*/
-	ptr_element personnage=createTheDaddy(1);
-
-	ptr_element force=createSon(2, personnage);
-	ptr_element week=createSon(6, personnage);
-
-	ptr_element jedi=createSon(3, force);
-	ptr_element sith=createSon(5, force);
-
-	ptr_element council=createSon(4, jedi);
-
-	ptr_element droid=createSon(7, week);
-	ptr_element bandi=createSon(10, week);
-	ptr_element senator=createSon(12, week);
-
-	ptr_element combat=createSon(8, droid);
-	ptr_element pacific=createSon(9, droid);
-
-	ptr_element chasseur=createSon(11, bandi);
+	initClass();
 
 	printf("Example 1 :\n");
 	ptr_example e1=createExample(senator, 1, 3);
