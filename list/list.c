@@ -28,8 +28,17 @@
 #include <stdio.h>
 #include <malloc.h>
 
+#include "type_element.h"
+#include "function_element.h"
+
 #include "type_list.h"
 #include "function_list.h"
+
+#include "type_example.h"
+#include "function_example.h"
+
+#include "type_model.h"
+#include "function_model.h"
 
 /*-----------------------------------------------------------------------*/
 
@@ -70,7 +79,7 @@ int isEmpty(ptr_list list)
  * @return new [ptr_list]
  */
 
-ptr_list addToList(ptr_list list, int element)
+ptr_list addToList(ptr_list list, void *element)
 {
 	link *new;
 	new=(link*)malloc(sizeof(link));
@@ -91,14 +100,14 @@ int headList(ptr_list list)
 	return list->data;
 }
 
-/** @brief endList
+/** @brief nextList
  *
  * Give the following link of the list.
  * @param list [ptr_list]
  * @return list->next [ptr_list]
  */
 
-ptr_list endList(ptr_list list)
+ptr_list nextList(ptr_list list)
 {
 	list=list->next;
 	
@@ -112,20 +121,35 @@ ptr_list endList(ptr_list list)
  * @return [void]
  */
 
-void displayList(ptr_list list)
+void displayList(ptr_list list, char type)
 {
-	printf("The list : ");
-	printf("(");
-	while(list!=NULL)
+	/* Display a list of models. */
+	if(type=='m')
 	{
-		printf("%d", list->data);
-		list=list->next;
-		if(list!=NULL)
+		printf("The models list : \n");
+		while(list!=NULL)
 		{
-			printf(",");
+			displayModel(list->data);
+			list=list->next;
 		}
 	}
-	printf(")\n");
+	
+	/* Display a list of examples. */
+	else if(type=='e')
+	{
+		printf("The examples list : \n");
+		while(list!=NULL)
+		{
+			displayExample(list->data);
+			list=list->next;
+		}
+	}
+	
+	/* In case of the given type is not 'm' or 'e'. */
+	else
+	{
+		printf("ERROR : Wrong type given ! Unable to display\n");
+	}
 }
 
 /** @brief lengthList
@@ -142,8 +166,8 @@ int lengthList(ptr_list list)
 	length=0;
 	while(list!=NULL)
 	{
-		length++;
 		list=list->next;
+		length++;
 	}
 	return length;
 }
@@ -194,7 +218,7 @@ ptr_list copyList(ptr_list list)
  * @return list [ptr_list]
  */
 
-ptr_list searchList(ptr_list list, int element)
+ptr_list searchList(ptr_list list, void *element)
 {
 	int found;
 
@@ -221,7 +245,7 @@ ptr_list searchList(ptr_list list, int element)
  * @return list [ptr_list]
  */
 
-ptr_list delete(ptr_list list, int element)
+ptr_list delete(ptr_list list, void *element)
 {
 	ptr_list previous, copiedList;
 

@@ -51,7 +51,7 @@ int isEmpty(ptr_list list);
  * @return pointer [ptr_list]
  */
 
-ptr_list addToList(ptr_list list, int element);
+ptr_list addToList(ptr_list list, void *element);
 
 /** @brief headList
  *
@@ -62,14 +62,14 @@ ptr_list addToList(ptr_list list, int element);
 
 int headList(ptr_list list);
 
-/** @brief endList
+/** @brief nextList
  *
  * Give the following link of the list.
  * @param list [ptr_list]
  * @return list->next [ptr_list]
  */
 
-ptr_list endList(ptr_list list);
+ptr_list nextList(ptr_list list);
 
 /** @brief displayList
  *
@@ -78,7 +78,7 @@ ptr_list endList(ptr_list list);
  * @return [void]
  */
 
-void displayList(ptr_list list);
+void displayList(ptr_list list, char type);
 
 /** @brief lengthList
  *
@@ -117,7 +117,7 @@ ptr_list copyList(ptr_list list);
  * @return list [ptr_list]
  */
 
-ptr_list searchList(ptr_list list, int element);
+ptr_list searchList(ptr_list list, void *element);
 
 /** @brief delete
  *
@@ -127,4 +127,4 @@ ptr_list searchList(ptr_list list, int element);
  * @return list [ptr_list]
  */
 
-ptr_list delete(ptr_list list, int element);
+ptr_list delete(ptr_list list, void *element);
