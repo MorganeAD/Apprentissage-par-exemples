@@ -8,25 +8,27 @@
  */
 
 /**
- * @author BENMILOUD--JOSSELIN Alexis <alexis.benmiloud.josselin@gmail.com>
  * @author ALONSO Morgane <alonso.morgane@gmail.com>
+ * @author BENMILOUD--JOSSELIN Alexis <alexis.benmiloud.josselin@gmail.com>
  *
- * @version 0.0.1 / 25/01/2016
- * @todo
- * @bug #0000 line 320 : Erreur de segmentation (core dumped) after return(0)
+ * @version 0.0.1 / 2016/01/25
+ * @todo #0000
+ * @bug #0000 [FIXED] : line 320 : Erreur de segmentation (core dumped)
+ * after return(0).
  */
 
 /**
  * @file main.c
  * @brief
  *
- * Description, sujet traite
+ * 
  */
+
+/*-----------------------------------------------------------------------*/
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <malloc.h>
-#include <assert.h>
 
 #include "type_element.h"
 #include "function_element.h"
@@ -39,11 +41,11 @@
 
 #include "comparison.h"
 
-/*----------------------------------------------------------------------*/
+/*-----------------------------------------------------------------------*/
 
 int main(int argc, char* argv[])
 {
-	// Creation of the tree of characters.
+	/* Creation of the tree of characters.*/
 	ptr_element personnage=createTheDaddy(1);
 
 	ptr_element force=createSon(2, personnage);
