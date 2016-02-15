@@ -1,5 +1,5 @@
 all: install main.o comparison.o class.o
-	gcc -o run main.o comparison.o class.o -L libs -lelement -lexample -lmodel -llist
+	gcc -o run main.o comparison.o class.o -L libs -ltree -lcharacter -lmodel -llist
 
 main.o: main.c
 	gcc -c -Wall -O3 -I headers main.c
@@ -12,13 +12,13 @@ class.o:
 
 install: installheaders installlibs
 
-installlibs: libelement libexample libmodel liblist
+installlibs: libtree libcharacter libmodel liblist
 
-libelement:
-	cd element && $(MAKE) lib
+libtree:
+	cd tree && $(MAKE) lib
 
-libexample:
-	cd example && $(MAKE) lib
+libcharacter:
+	cd character && $(MAKE) lib
 
 libmodel:
 	cd model && $(MAKE) lib
@@ -26,27 +26,27 @@ libmodel:
 liblist:
 	cd list && $(MAKE) lib
 
-installheaders: type_element.h function_element.h type_example.h function_example.h type_model.h function_model.h type_list.h function_list.h
+installheaders: type_tree.h function_tree.h type_character.h function_character.h type_model.h function_model.h type_list.h function_list.h
 
-# Elements :
+# Trees :
 
-type_element.h:
+type_tree.h:
 	-mkdir headers
-	cp -p element/type_element.h headers
+	cp -p tree/type_tree.h headers
 
-function_element.h:
+function_tree.h:
 	-mkdir headers
-	cp -p element/function_element.h headers
+	cp -p tree/function_tree.h headers
 
-# Examples :
+# Characters :
 
-type_example.h:
+type_character.h:
 	-mkdir headers
-	cp -p example/type_example.h headers
+	cp -p character/type_character.h headers
 
-function_example.h:
+function_character.h:
 	-mkdir headers
-	cp -p example/function_example.h headers
+	cp -p character/function_character.h headers
 
 # Models :
 
@@ -72,8 +72,8 @@ function_list.h:
 
 clean: 
 	-rm *.o
-	cd element && $(MAKE) clean 
-	cd example && $(MAKE) clean
+	cd tree && $(MAKE) clean 
+	cd character && $(MAKE) clean
 	cd model && $(MAKE) clean
 	cd list && $(MAKE) clean
 

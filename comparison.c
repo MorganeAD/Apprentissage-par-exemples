@@ -3,8 +3,8 @@
  * Case 925 - 163, avenue de Luminy
  * 13288 Marseille CEDEX 9
  *
- * Ce fichier est l'oeuvre d'eleves de Polytech Marseille. Il ne peut etre
- * reproduit, utilise ou modifie sans l'avis express de ses auteurs.
+ * This file is the work of students from Polytech Marseille. It can not be
+ * reproduced, modified or used without the express opinion of its authors.
  */
 
 /**
@@ -21,16 +21,16 @@
  * @brief 
  *
  * This file describes all the functions to compare between a model and an
- * example.
+ * character.
  */
 
 /*-----------------------------------------------------------------------*/
 
-#include "type_element.h"
-#include "function_element.h"
+#include "type_tree.h"
+#include "function_tree.h"
 
-#include "type_example.h"
-#include "function_example.h"
+#include "type_character.h"
+#include "function_character.h"
 
 #include "type_model.h"
 #include "function_model.h"
@@ -45,8 +45,8 @@
 /** @brief searchAlignment
  *
  * Do a research of an alignment into a list of alignment (see the
- * "type_example.c" file).
- * @param element [int]
+ * "type_character.c" file).
+ * @param tree [int]
  * @param list [pointer]
  * @return isInto [int]
  */
@@ -71,52 +71,49 @@ int searchAlignment(int alignment, int list[MAX_ALIGNMENT])
 
 /** @brief comparison
  *
- * Do a comparison between the model and an example in order to enlarge,
+ * Do a comparison between the model and an character in order to enlarge,
  * or not, the model.
  * @param model [ptr_model]
- * @param example [ptr_example]
+ * @param character [ptr_character]
  * @return model [ptr_model]
  */
 
-ptr_model comparison(ptr_model model, ptr_example example)
+ptr_model comparison(ptr_model model, ptr_character character)
 {
 	/* Comparison of types.*/
-	model->type=commonFather(model->type, example->type);
+	model->type=commonFather(model->type, character->type);
 
 	/* Comparison of influences.*/
-	if(model->minInfluence>example->influence)
+	if(model->minInfluence>character->influence)
 	{
-		model->minInfluence=example->influence;
+		model->minInfluence=character->influence;
 	}
-	else if(model->maxInfluence<example->influence)
+	else if(model->maxInfluence<character->influence)
 	{
-		model->maxInfluence=example->influence;
+		model->maxInfluence=character->influence;
 	}
 	
 	/* Comparison of alignments.*/
 	if(model->index<MAX_ALIGNMENT-1
-		&& searchAlignment(example->alignment, model->alignment)==0)
+		&& searchAlignment(character->alignment, model->alignment)==0)
 	{
 		model->index++;
-		model->alignment[model->index]=example->alignment;
+		model->alignment[model->index]=character->alignment;
 	}
 	return model;
 }
 
 /** @brief comparison
  *
- * Do a comparison between an example and another example in order to
+ * Do a comparison between an character and another character in order to
  * generate models.
- * @param example1 [ptr_example]
- * @param example2 [ptr_example]
+ * @param character1 [ptr_character]
+ * @param character2 [ptr_character]
  * @return model [ptr_model]
  */
-
-ptr_model comparisonBis(ptr_example example1, ptr_example example2)
+/*
+ptr_model comparisonBis(ptr_character character1, ptr_character character2)
 {
-	ptr_model model;
-
-	/* Comparison of types.*/
 	
-
 }
+*/

@@ -28,11 +28,11 @@
 #include <stdio.h>
 #include <malloc.h>
 
-#include "type_element.h"
-#include "function_element.h"
+#include "type_tree.h"
+#include "function_tree.h"
 
-#include "type_example.h"
-#include "function_example.h"
+#include "type_character.h"
+#include "function_character.h"
 
 #include "type_model.h"
 #include "function_model.h"
@@ -41,19 +41,19 @@
 
 /** @brief initModel
  *
- * Create the first model from an example.
- * @param example [ptr_example]
+ * Create the first model from an character.
+ * @param character [ptr_character]
  * @return model [ptr_model]
  */
 
-ptr_model initModel(ptr_example firstExample)
+ptr_model initModel(ptr_character firstCharacter)
 {
 	ptr_model model=(ptr_model)malloc(sizeof(model));
 
-	model->type=firstExample->type;
-	model->minInfluence=firstExample->influence;
-	model->maxInfluence=firstExample->influence;
-	model->alignment[0]=firstExample->alignment;
+	model->type=firstCharacter->type;
+	model->minInfluence=firstCharacter->influence;
+	model->maxInfluence=firstCharacter->influence;
+	model->alignment[0]=firstCharacter->alignment;
 	model->index=0;
 
 	return model;

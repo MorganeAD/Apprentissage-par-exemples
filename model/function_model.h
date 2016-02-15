@@ -27,12 +27,12 @@
 
 /** @brief initModel
  *
- * Create the first model from an example.
- * @param example [ptr_example]
+ * Create the first model from an character.
+ * @param character [ptr_character]
  * @return model [ptr_model]
  */
 
-ptr_model initModel(ptr_example firstExample);
+ptr_model initModel(ptr_character firstCharacter);
 
 /** @brief displayModel
  *

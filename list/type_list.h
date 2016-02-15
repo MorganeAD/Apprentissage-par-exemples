@@ -28,8 +28,8 @@
 /** @brief link
  *
  * "link" structure's definition. Link are lists's element which will be
- * used to store models (see the type_model.c) and examples (see the
- * type_example.c). The field data is a generic pointer that point to an
+ * used to store models (see the type_model.c) and characters (see the
+ * type_character.c). The field data is a generic pointer that point to an
  * exmaple or a model.
  * @field data [pointer]
  * @field next [pointer]

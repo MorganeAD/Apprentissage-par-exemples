@@ -60,7 +60,7 @@ ptr_list addToList(ptr_list list, void *element);
  * @return list->data [pointer]
  */
 
-int headList(ptr_list list);
+void *headList(ptr_list list);
 
 /** @brief nextList
  *

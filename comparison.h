@@ -3,8 +3,8 @@
  * Case 925 - 163, avenue de Luminy
  * 13288 Marseille CEDEX 9
  *
- * Ce fichier est l'oeuvre d'eleves de Polytech Marseille. Il ne peut etre
- * reproduit, utilise ou modifie sans l'avis express de ses auteurs.
+ * This file is the work of students from Polytech Marseille. It can not be
+ * reproduced, modified or used without the express opinion of its authors.
  */
 
 /**
@@ -21,7 +21,7 @@
  * @brief 
  *
  * This file contains the prototype of the functions related to comparison
- * between a model and an example.
+ * between a model and an character.
  */
 
 /*-----------------------------------------------------------------------*/
@@ -29,8 +29,8 @@
 /** @brief searchAlignment
  *
  * Do a research of an alignment into a list of alignment (see the
- * "type_example.c" file).
- * @param element [int]
+ * "type_character.c" file).
+ * @param tree [int]
  * @param list [pointer]
  * @return isInto [int]
  */
@@ -39,11 +39,11 @@ int searchAlignment(int alignment, int list[4]);
 
 /** @brief comparison
  *
- * Do a comparison between the model and an example in order to enlarge,
+ * Do a comparison between the model and an character in order to enlarge,
  * or not, the model.
  * @param model [ptr_model]
- * @param example [ptr_example]
+ * @param character [ptr_character]
  * @return model [ptr_model]
  */
 
-ptr_model comparison(ptr_model model, ptr_example example);
+ptr_model comparison(ptr_model model, ptr_character character);

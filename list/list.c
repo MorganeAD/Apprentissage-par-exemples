@@ -12,7 +12,7 @@
  * @author BENMILOUD--JOSSELIN Alexis <alexis.benmiloud.josselin@gmail.com>
  *
  * @version 0.0.1 / 2016/02/13
- * @todo #0000 [] Adapt functions to models and examples.
+ * @todo #0000 [] Adapt functions to models and characters.
  * @bug #0000 []
  */
 
@@ -28,14 +28,14 @@
 #include <stdio.h>
 #include <malloc.h>
 
-#include "type_element.h"
-#include "function_element.h"
+#include "type_tree.h"
+#include "function_tree.h"
 
 #include "type_list.h"
 #include "function_list.h"
 
-#include "type_example.h"
-#include "function_example.h"
+#include "type_character.h"
+#include "function_character.h"
 
 #include "type_model.h"
 #include "function_model.h"
@@ -95,7 +95,7 @@ ptr_list addToList(ptr_list list, void *element)
  * @return list->data [pointer]
  */
 
-int headList(ptr_list list)
+void *headList(ptr_list list)
 {
 	return list->data;
 }
@@ -116,7 +116,7 @@ ptr_list nextList(ptr_list list)
 
 /** @brief displayList
  *
- * Display the element of the list.
+ * Display the elements of the list.
  * @param list [ptr_list]
  * @return [void]
  */
@@ -134,13 +134,13 @@ void displayList(ptr_list list, char type)
 		}
 	}
 	
-	/* Display a list of examples. */
+	/* Display a list of characters. */
 	else if(type=='e')
 	{
-		printf("The examples list : \n");
+		printf("The characters list : \n");
 		while(list!=NULL)
 		{
-			displayExample(list->data);
+			displayCharacter(list->data);
 			list=list->next;
 		}
 	}

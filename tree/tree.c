@@ -17,10 +17,10 @@
  */
 
 /**
- * @file element.c
+ * @file tree.c
  * @brief
  *
- * This file contains all the functions related to elements.
+ * This file contains all the functions related to trees.
  */
 
 /*-----------------------------------------------------------------------*/
@@ -29,33 +29,33 @@
 #include <stdlib.h>
 #include <malloc.h>
 
-#include "type_element.h"
-#include "function_element.h"
+#include "type_tree.h"
+#include "function_tree.h"
 
 /*-----------------------------------------------------------------------*/
 
 /** @brief isTheDaddy
  *
- * Tell if an element is the daddy. The daddy's father is "NULL"
- * @param element [ptr_element]
+ * Tell if an tree is the daddy. The daddy's father is "NULL"
+ * @param tree [ptr_tree]
  * @return boolean [int]
  */
 
-int isTheDaddy(ptr_element element)
+int isTheDaddy(ptr_tree tree)
 {
-	return element->father==NULL;
+	return tree->father==NULL;
 }
 
 /** @brief createTheDaddy
  *
  * Create a the father of the tree.
  * @param val [int]
- * @return daddy [ptr_element]
+ * @return daddy [ptr_tree]
  */
 
-ptr_element createTheDaddy(int val)
+ptr_tree createTheDaddy(int val)
 {
-	ptr_element daddy=(ptr_element)malloc(sizeof(element));
+	ptr_tree daddy=(ptr_tree)malloc(sizeof(tree));
 	daddy->value=val;
 	daddy->father=NULL;
 	return daddy;
@@ -65,13 +65,13 @@ ptr_element createTheDaddy(int val)
  *
  * Create a son.
  * @param val [int]
- * @param dad [ptr_element] 
- * @return son [ptr_element]
+ * @param dad [ptr_tree] 
+ * @return son [ptr_tree]
  */
 
-ptr_element createSon(int val, ptr_element dad)
+ptr_tree createSon(int val, ptr_tree dad)
 {
-	ptr_element this=(ptr_element)malloc(sizeof(element));
+	ptr_tree this=(ptr_tree)malloc(sizeof(tree));
 	this->value=val;
 	this->father=dad;
 	return this;
@@ -79,38 +79,38 @@ ptr_element createSon(int val, ptr_element dad)
 
 /** @brief hisFather
  *
- * Give the father of the element.
+ * Give the father of the tree.
  * @param son [ptr_example]
- * @return son->father [ptr_element]
+ * @return son->father [ptr_tree]
  */
 
-ptr_element hisFather(ptr_element son)
+ptr_tree hisFather(ptr_tree son)
 {
 	return son->father;
 }
 
 /** @brief getValue
  *
- * Give the value of an element of a tree.
- * @param element [ptr_example]
- * @return element->value [int]
+ * Give the value of an tree of a tree.
+ * @param tree [ptr_example]
+ * @return tree->value [int]
  */
 
-int getValue(ptr_element element)
+int getValue(ptr_tree tree)
 {
-	return element->value;
+	return tree->value;
 }
 
 /** @brief displayBranch
  *
- * Display the branch of an element of a tree.
- * @param branch [ptr_element]
+ * Display the branch of an tree of a tree.
+ * @param branch [ptr_tree]
  * @return [void]
  */
 
-void displayBranch(ptr_element branch)
+void displayBranch(ptr_tree branch)
 {
-	ptr_element tmp=branch;
+	ptr_tree tmp=branch;
 	printf("%d -> ", getValue(tmp));
 	while(!isTheDaddy(tmp))
 	{
@@ -122,16 +122,16 @@ void displayBranch(ptr_element branch)
 
 /** @brief commonFather
  *
- * Find the common father of two elements.
- * @param son1 [ptr_element]
- * @param son2 [ptr_element]
- * @return j [ptr_element]
+ * Find the common father of two trees.
+ * @param son1 [ptr_tree]
+ * @param son2 [ptr_tree]
+ * @return j [ptr_tree]
  */
 
-ptr_element commonFather(ptr_element son1, ptr_element son2)
+ptr_tree commonFather(ptr_tree son1, ptr_tree son2)
 {
-	ptr_element i=son1;
-	ptr_element j=son2;
+	ptr_tree i=son1;
+	ptr_tree j=son2;
 	int find=0;
 
 	while(!find && !isTheDaddy(i))

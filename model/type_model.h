@@ -30,7 +30,7 @@
  * "model" structure's definition. A model is composed of a character type
  * called "type", a minimal and a maximal influence and an array of
  * alignments.
- * @field type [element*]
+ * @field type [tree *]
  * @field minInfluence [int]
  * @field maxInfluence [int]
  * @field alignment [pointer]
@@ -41,7 +41,7 @@
 
 typedef struct model
 {
-	struct element *type;
+	struct tree *type;
 	int minInfluence;
 	int maxInfluence;
 	int alignment[4];

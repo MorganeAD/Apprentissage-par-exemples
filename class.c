@@ -3,8 +3,8 @@
  * Case 925 - 163, avenue de Luminy
  * 13288 Marseille CEDEX 9
  *
- * Ce fichier est l'oeuvre d'eleves de Polytech Marseille. Il ne peut etre
- * reproduit, utilise ou modifie sans l'avis express de ses auteurs.
+ * This file is the work of students from Polytech Marseille. It can not be
+ * reproduced, modified or used without the express opinion of its authors.
  */
 
 /**
@@ -22,11 +22,12 @@
  * @file class.c
  * @brief 
  *
- * This file contains the prototype of the functions related to reverse hierarchy tree
+ * This file contains the prototype of the functions related to reversed
+ * hierarchy tree.
  */
 
-#include "type_element.h"
-#include "function_element.h"
+#include "type_tree.h"
+#include "function_tree.h"
 
 #include "class.h"
 
@@ -34,17 +35,17 @@
 
 /** @brief initClass
  *
- * Initialise all the element of the reverse hierarchy tree
- * @param void
- * @return void
+ * Initialise all the tree of the reverse hierarchy tree
+ * @param [void]
+ * @return [void]
  */
 
 void initClass(void)
 {
-	character=createTheDaddy(1);
+	person=createTheDaddy(1);
 
-	force=createSon(2, character);
-	weak=createSon(6, character);
+	force=createSon(2, person);
+	weak=createSon(6, person);
 
 	jedi=createSon(3, force);
 	sith=createSon(5, force);

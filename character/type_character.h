@@ -17,29 +17,29 @@
  */
 
 /**
- * @file type_example.h
+ * @file type_character.h
  * @brief
  *
- * This file describes the "example" type.
+ * This file describes the "character" type.
  */
 
 /*-----------------------------------------------------------------------*/
 
-/** @brief example
+/** @brief character
  *
- * "example" structure's definition. Examples will be compared to a model
- * (see the model folder). An example(i.e. a character) is composed of a
+ * "character" structure's definition. Characters will be compared to a model
+ * (see the model folder). An character(i.e. a character) is composed of a
  * type, an influence and an alignment.
- * @field type [element*]
+ * @field type [tree*]
  * @field influence [int]
  * @field alignment [int]
- * @name example
- * @pointer ptr_example
+ * @name character
+ * @pointer ptr_character
  */
 
-typedef struct example
+typedef struct character
 {
-	struct element* type;
+	struct tree* type;
 	int influence;
 	int alignment;
-}example, *ptr_example;
+}character, *ptr_character;

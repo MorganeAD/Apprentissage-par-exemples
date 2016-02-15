@@ -17,27 +17,27 @@
  */
 
 /**
- * @file type_element.h
+ * @file type_tree.h
  * @brief
  *
- * This file describes the "element" type.
+ * This file describes the "tree" type.
  */
 
 /*-----------------------------------------------------------------------*/
 
-/** @brief element
+/** @brief tree
  *
- * "element" structure's definition. It will be use to create a tree which
+ * "tree" structure's definition. It will be use to create a tree which
  * will describe all the character's types. The field value describes the
  * character's type.
  * @field value [int]
- * @field father [element*]
- * @name element
- * @pointer ptr_element
+ * @field father [tree*]
+ * @name tree
+ * @pointer ptr_tree
  */
 
-typedef struct element
+typedef struct tree
 {
 	int value;
-	struct element* father;
-}element , *ptr_element;
+	struct tree* father;
+}tree , *ptr_tree;
