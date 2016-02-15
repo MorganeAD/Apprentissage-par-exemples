@@ -1,5 +1,5 @@
 all: install main.o comparison.o class.o
-	gcc -o run main.o comparison.o class.o -L libs -ltree -lcharacter -lmodel -llist
+	gcc -o run main.o comparison.o class.o -L libs -ltree -lcharacter -lmodel -llist -lrelationship
 
 main.o: main.c
 	gcc -c -Wall -O3 -I headers main.c
@@ -12,7 +12,7 @@ class.o:
 
 install: installheaders installlibs
 
-installlibs: libtree libcharacter libmodel liblist
+installlibs: libtree libcharacter libmodel liblist librelationship
 
 libtree:
 	cd tree && $(MAKE) lib
@@ -26,7 +26,10 @@ libmodel:
 liblist:
 	cd list && $(MAKE) lib
 
-installheaders: type_tree.h function_tree.h type_character.h function_character.h type_model.h function_model.h type_list.h function_list.h
+librelationship: 
+	cd relationship && $(MAKE) lib
+
+installheaders: type_tree.h function_tree.h type_character.h function_character.h type_model.h function_model.h type_list.h function_list.h type_relationship.h function_relationship.h
 
 # Trees :
 
@@ -68,6 +71,16 @@ function_list.h:
 	-mkdir headers
 	cp -p list/function_list.h headers
 
+# Relationship :
+
+type_relationship.h:
+	-mkdir headers
+	cp -p relationship/type_relationship.h headers
+
+function_relationship.h:
+	-mkdir headers
+	cp -p relationship/function_relationship.h headers
+
 # Clean :
 
 clean: 
@@ -76,6 +89,7 @@ clean:
 	cd character && $(MAKE) clean
 	cd model && $(MAKE) clean
 	cd list && $(MAKE) clean
+	cd relationship && $(MAKE) clean
 
 veryclean: clean
 	-rm run

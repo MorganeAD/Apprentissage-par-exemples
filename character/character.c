@@ -99,7 +99,67 @@ int getAlignment(ptr_character character)
 
 void displayCharacter(ptr_character character)
 {
-	printf("<type : %d> ", getValue(getType(character)));
-	printf("<influence : %d> ", getInfluence(character));
-	printf("<alignment : %d>\n", getAlignment(character));
+	printf("(Type : ");
+	switch (getValue(getType(character))) 
+	{
+		case 1 :
+			printf("Person");
+			break;
+		case 2 :
+			printf("Force");
+			break;
+		case 3 :
+			printf("Jedi");
+			break;
+		case 4 :
+			printf("Council");
+			break;
+		case 5 :
+			printf("Sith");
+			break;
+		case 6 :
+			printf("Weak");
+			break;
+		case 7 :
+			printf("Droid");
+			break;
+		case 8 :
+			printf("Combat");
+			break;
+		case 9 :
+			printf("Pacific");
+			break;			
+		case 10 :
+			printf("Bandit");
+			break;
+		case 11 :
+			printf("Hunter");
+			break;
+		case 12 :
+			printf("Senator");
+			break;
+		default: 
+			printf("Unknown");
+	}
+	printf("; ");
+	printf("Influence : %d; ", getInfluence(character));
+	printf("Alignment : ");
+	switch (getAlignment(character)) 
+	{
+		case 1 :
+			printf("Vilain");
+			break;
+		case 2 :
+			printf("Neutral");
+			break;
+		case 3 :
+			printf("Kind");
+			break;
+		case 4 :
+			printf("Good");
+			break;
+		default: 
+			printf("Unknown");
+	}
+	printf(")");
 }

@@ -69,20 +69,76 @@ ptr_model initModel(ptr_character firstCharacter)
 void displayModel(ptr_model model)
 {
 	int count;
-	
-	printf("Current model :\n");
-	printf("<type : %d> ", model->type->value);
-	printf("<influence : from %d to %d> ", model->minInfluence, model->maxInfluence);
+	printf("(Type : ");
+	switch (model->type->value) 
+	{
+		case 1 :
+			printf("Person");
+			break;
+		case 2 :
+			printf("Force");
+			break;
+		case 3 :
+			printf("Jedi");
+			break;
+		case 4 :
+			printf("Council");
+			break;
+		case 5 :
+			printf("Sith");
+			break;
+		case 6 :
+			printf("Weak");
+			break;
+		case 7 :
+			printf("Droid");
+			break;
+		case 8 :
+			printf("Combat");
+			break;
+		case 9 :
+			printf("Pacific");
+			break;			
+		case 10 :
+			printf("Bandit");
+			break;
+		case 11 :
+			printf("Hunter");
+			break;
+		case 12 :
+			printf("Senator");
+			break;
+		default: 
+			printf("Unknown");
+	}
+	printf("; ");
+	printf("Influence : from %d to %d; ", model->minInfluence, model->maxInfluence);
 
 	// A "for" loop is needed to display the list of alignments.
-	printf("<alignments : ");
+	printf("Alignment : ");
 	for(count=0 ; count<=model->index ; count++)
 	{
-		printf("%d", model->alignment[count]);
+		switch (model->alignment[count]) 
+		{
+			case 1 :
+				printf("Vilain");
+				break;
+			case 2 :
+				printf("Neutral");
+				break;
+			case 3 :
+				printf("Kind");
+				break;
+			case 4 :
+				printf("Good");
+				break;
+			default: 
+				printf("Unknown");
+		}		
 		if(count<model->index)
 		{
-			printf(" ; ");
+			printf(", ");
 		}
 	}
-	printf(">\n\n");
+	printf(")");
 }

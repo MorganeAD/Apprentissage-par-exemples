@@ -42,6 +42,9 @@
 #include "comparison.h"
 #include "class.h"
 
+#include "type_relationship.h"
+#include "function_relationship.h"
+
 /*-----------------------------------------------------------------------*/
 
 int main(int argc, char* argv[])
@@ -50,30 +53,43 @@ int main(int argc, char* argv[])
 	initClass();
 
 	printf("Character 1 :\n");
-	ptr_character e1=createCharacter(senator, 1, 3);
-	displayCharacter(e1);
+	ptr_character c1=createCharacter(senator, 1, 3);
+	displayCharacter(c1);
+	printf("\n");
 
 	printf("Character 2 :\n");
-	ptr_character e2=createCharacter(droid, 5, 2);
-	displayCharacter(e2);
+	ptr_character c2=createCharacter(droid, 5, 2);
+	displayCharacter(c2);
+	printf("\n");
 
 	printf("Character 3 :\n");
-	ptr_character e3=createCharacter(jedi, 4, 2);
-	displayCharacter(e3);
+	ptr_character c3=createCharacter(jedi, 4, 2);
+	displayCharacter(c3);
+	printf("\n");
 
 	printf("\nModel initialization...\n\n");
 	
 	ptr_model model;
-	model=initModel(e1);
+	model=initModel(c1);
 	displayModel(model);
-	
+	printf("\n");
+
 	printf("Comparison between model and character 2...\n");
-	comparison(model, e2);
+	comparison(model, c2);
 	displayModel(model);
+	printf("\n");
 
 	printf("Comparison between model and character 3...\n");
-	comparison(model, e3);
+	comparison(model, c3);
 	displayModel(model);
+	printf("\n");
+
+	printf("Test of the relationship\n");
+	ptr_relationship r1;
+	r1 = createRelationship(c1, c2, 0);
+	displayRelationship(r1);
+	printf("\n");
+
 
 	return 0;
 }
