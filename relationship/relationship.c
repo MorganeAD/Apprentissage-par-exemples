@@ -25,7 +25,11 @@
 
 /*-----------------------------------------------------------------------*/
 
+#ifndef STDIO
+#define STDIO
 #include <stdio.h>
+#endif 
+
 #include <malloc.h>
 
 #include "type_tree.h"

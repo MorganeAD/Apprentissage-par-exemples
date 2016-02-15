@@ -33,7 +33,6 @@
  */
 
 ptr_list createEmpty(void);
-
 /** @brief isEmpty
  *
  * Tell if the list is empty.
@@ -42,29 +41,28 @@ ptr_list createEmpty(void);
  */
 
 int isEmpty(ptr_list list);
-
 /** @brief addToList
  *
  * Add the element to the list.
  * @param list [ptr_list]
- * @param element [pointer]
- * @return pointer [ptr_list]
+ * @param element [void*]
+ * @return tmp [ptr_list]
  */
 
 ptr_list addToList(ptr_list list, void *element);
 
 /** @brief headList
  *
- * Give the data of the first link of the list.
+ * Give the data of the first list of the list.
  * @param list [ptr_list]
- * @return list->data [pointer]
+ * @return list->data [void*]
  */
 
-void *headList(ptr_list list);
+void* headList(ptr_list list);
 
 /** @brief nextList
  *
- * Give the following link of the list.
+ * Give the following list of the list.
  * @param list [ptr_list]
  * @return list->next [ptr_list]
  */
@@ -73,12 +71,11 @@ ptr_list nextList(ptr_list list);
 
 /** @brief displayList
  *
- * Display the element of the list.
+ * Display the elements of the list.
  * @param list [ptr_list]
  * @return [void]
  */
 
-void displayList(ptr_list list, char type);
 
 /** @brief lengthList
  *
@@ -110,10 +107,10 @@ ptr_list copyList(ptr_list list);
 /** @brief searchListe
  *
  * Tell if an element is in the list or not. If it is, the function will
- * return a list with this element as first link, otherwise, it will return
+ * return a list with this element as first list, otherwise, it will return
  * the empty list.
  * @param list [ptr_list]
- * @param element [pointer]
+ * @param element [void*]
  * @return list [ptr_list]
  */
 
@@ -123,8 +120,18 @@ ptr_list searchList(ptr_list list, void *element);
  *
  * Delete an element of the list, if possible.
  * @param list [ptr_list]
- * @param element [pointer]
+ * @param element [void*]
  * @return list [ptr_list]
  */
 
 ptr_list delete(ptr_list list, void *element);
+
+/** @brief getElementI
+ *
+ * Give the element at the position i
+ * @param list [ptr_list]
+ * @param n [int]
+ * @return tmp->data [void*]
+ */
+
+ptr_list getElementI(ptr_list l, int n);

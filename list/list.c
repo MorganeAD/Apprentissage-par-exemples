@@ -25,20 +25,28 @@
 
 /*-----------------------------------------------------------------------*/
 
+#ifndef STDIO
+#define STDIO
 #include <stdio.h>
+#endif 
+
 #include <malloc.h>
 
 #include "type_tree.h"
 #include "function_tree.h"
 
-#include "type_list.h"
-#include "function_list.h"
-
 #include "type_character.h"
 #include "function_character.h"
 
+#include "type_relationship.h"
+#include "function_relationship.h"
+
 #include "type_model.h"
 #include "function_model.h"
+
+#include "type_list.h"
+#include "function_list.h"
+
 
 /*-----------------------------------------------------------------------*/
 
@@ -75,34 +83,34 @@ int isEmpty(ptr_list list)
  *
  * Add the element to the list.
  * @param list [ptr_list]
- * @param element [pointer]
- * @return new [ptr_list]
+ * @param element [void*]
+ * @return tmp [ptr_list]
  */
 
 ptr_list addToList(ptr_list list, void *element)
 {
-	link *new;
-	new=(link*)malloc(sizeof(link));
-	new->data=element;
-	new->next=list;
-	return new;
+	ptr_list tmp;
+	tmp=(ptr_list)malloc(sizeof(list));
+	tmp->data=element;
+	tmp->next=list;
+	return tmp;
 }
 
 /** @brief headList
  *
- * Give the data of the first link of the list.
+ * Give the data of the first list of the list.
  * @param list [ptr_list]
- * @return list->data [pointer]
+ * @return list->data [void*]
  */
 
-void *headList(ptr_list list)
+void* headList(ptr_list list)
 {
 	return list->data;
 }
 
 /** @brief nextList
  *
- * Give the following link of the list.
+ * Give the following list of the list.
  * @param list [ptr_list]
  * @return list->next [ptr_list]
  */
@@ -121,36 +129,6 @@ ptr_list nextList(ptr_list list)
  * @return [void]
  */
 
-void displayList(ptr_list list, char type)
-{
-	/* Display a list of models. */
-	if(type=='m')
-	{
-		printf("The models list : \n");
-		while(list!=NULL)
-		{
-			displayModel(list->data);
-			list=list->next;
-		}
-	}
-	
-	/* Display a list of characters. */
-	else if(type=='e')
-	{
-		printf("The characters list : \n");
-		while(list!=NULL)
-		{
-			displayCharacter(list->data);
-			list=list->next;
-		}
-	}
-	
-	/* In case of the given type is not 'm' or 'e'. */
-	else
-	{
-		printf("ERROR : Wrong type given ! Unable to display\n");
-	}
-}
 
 /** @brief lengthList
  *
@@ -211,10 +189,10 @@ ptr_list copyList(ptr_list list)
 /** @brief searchListe
  *
  * Tell if an element is in the list or not. If it is, the function will
- * return a list with this element as first link, otherwise, it will return
+ * return a list with this element as first list, otherwise, it will return
  * the empty list.
  * @param list [ptr_list]
- * @param element [pointer]
+ * @param element [void*]
  * @return list [ptr_list]
  */
 
@@ -241,7 +219,7 @@ ptr_list searchList(ptr_list list, void *element)
  *
  * Delete an element of the list, if possible.
  * @param list [ptr_list]
- * @param element [pointer]
+ * @param element [void*]
  * @return list [ptr_list]
  */
 
@@ -268,4 +246,23 @@ ptr_list delete(ptr_list list, void *element)
 		}
 	}
 	return list;
+}
+
+/** @brief getElementI
+ *
+ * Give the element at the position i
+ * @param list [ptr_list]
+ * @param n [int]
+ * @return tmp->data [void*]
+ */
+
+ptr_list getElementI(ptr_list l, int n)
+{
+	ptr_list tmp = l;
+	int i;
+	for (i = 0; i < n; i++)
+	{
+		tmp = nextList(tmp);
+	}
+	return headList(tmp);
 }

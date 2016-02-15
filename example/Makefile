@@ -20,20 +20,20 @@
  # @file Makefile
  # @brief
  #
- # This file is the main Makefile of the model library
+ # This file is the main Makefile of the example library
 ##
 
 #-----------------------------------------------------------------------
-lib: libmodel.a
+lib: libexample.a
 
-libmodel.a: function_model.o
-	-rm libmodel.a
-	ar -r libmodel.a model.o
+libexample.a: function_example.o
+	-rm libexample.a
+	ar -r libexample.a example.o
 	-mkdir ../libs
-	cp -p libmodel.a ../libs
+	cp -p libexample.a ../libs
 
-function_model.o: model.c function_model.h type_model.h
-	gcc -c -Wall -O3 -I ../headers model.c
+function_example.o: example.c function_example.h type_example.h
+	gcc -c -Wall -O3 -I ../headers example.c
 
 clean: 
 	-rm *.o

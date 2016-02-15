@@ -1,5 +1,37 @@
+##
+ # Polytech Marseille
+ # Case 925 - 163, avenue de Luminy
+ # 13288 Marseille CEDEX 9
+ #
+ # This file is the work of students from Polytech Marseille. It can not be
+ # reproduced, modified or used without the express opinion of its authors.
+ #
+
+
+ # @author ALONSO Morgane <alonso.morgane@gmail.com>
+ # @author BENMILOUD--JOSSELIN Alexis <alexis.benmiloud.josselin@gmail.com>
+ #
+ # @version 0.0.1 / 2016/01/31
+ # @todo #0000 []
+ # @bug #0000 []
+ #
+
+ #
+ # @file Makefile
+ # @brief
+ #
+ # This file is the main Makefile of the project Supervised Learning
+##
+
+#-----------------------------------------------------------------------
+
+# 1. if add a lib foo
+# 2. if add a foo.c
+
+# 1. add -lfoo
+# 2. add foo.o 
 all: install main.o comparison.o class.o
-	gcc -o run main.o comparison.o class.o -L libs -ltree -lcharacter -lmodel -llist -lrelationship
+	gcc -o run main.o comparison.o class.o -L libs -ltree -lcharacter -lmodel -llist -lrelationship -lexample
 
 main.o: main.c
 	gcc -c -Wall -O3 -I headers main.c
@@ -10,9 +42,14 @@ comparison.o: comparison.h comparison.c
 class.o:
 	gcc -c -Wall -O3 -I headers class.c
 
+# 2. uncomment
+# foo.o:
+# 	gcc -c -Wall -O3 -I headers foo.c
+
 install: installheaders installlibs
 
-installlibs: libtree libcharacter libmodel liblist librelationship
+# 1. add libfoo
+installlibs: libtree libcharacter libmodel liblist librelationship libexample
 
 libtree:
 	cd tree && $(MAKE) lib
@@ -29,7 +66,15 @@ liblist:
 librelationship: 
 	cd relationship && $(MAKE) lib
 
-installheaders: type_tree.h function_tree.h type_character.h function_character.h type_model.h function_model.h type_list.h function_list.h type_relationship.h function_relationship.h
+libexample: 
+	cd example && $(MAKE) lib
+
+# 1. uncomment
+# libfoo: 
+# 	cd foo && $(MAKE) lib
+
+# 1. add type_foo.h function_foo.h
+installheaders: type_tree.h function_tree.h type_character.h function_character.h type_model.h function_model.h type_list.h function_list.h type_relationship.h function_relationship.h type_example.h function_example.h
 
 # Trees :
 
@@ -81,6 +126,25 @@ function_relationship.h:
 	-mkdir headers
 	cp -p relationship/function_relationship.h headers
 
+# Example :
+
+type_example.h:
+	-mkdir headers
+	cp -p example/type_example.h headers
+
+function_example.h:
+	-mkdir headers
+	cp -p example/function_example.h headers
+
+# 1. uncomment
+# type_foo.h:
+# 	-mkdir headers
+# 	cp -p foo/type_foo.h headers
+
+# function_foo.h:
+# 	-mkdir headers
+# 	cp -p foo/function_foo.h headers
+
 # Clean :
 
 clean: 
@@ -90,6 +154,9 @@ clean:
 	cd model && $(MAKE) clean
 	cd list && $(MAKE) clean
 	cd relationship && $(MAKE) clean
+	cd example && $(MAKE) clean
+# 1. uncomment 
+# cd foo && $(MAKE) clean
 
 veryclean: clean
 	-rm run
