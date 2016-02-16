@@ -45,5 +45,5 @@ typedef struct model
 	int minInfluence;
 	int maxInfluence;
 	int alignment[4];
-	int index;
+	int nbAlign;
 }model, *ptr_model;

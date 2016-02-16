@@ -26,6 +26,35 @@
 
 /*-----------------------------------------------------------------------*/
 
+/**
+ * Polytech Marseille
+ * Case 925 - 163, avenue de Luminy
+ * 13288 Marseille CEDEX 9
+ *
+ * This file is the work of students from Polytech Marseille. It can not be
+ * reproduced, modified or used without the express opinion of its authors.
+ */
+
+/**
+ * @author ALONSO Morgane <alonso.morgane@gmail.com>
+ * @author BENMILOUD--JOSSELIN Alexis <alexis.benmiloud.josselin@gmail.com>
+ *
+ * @version 0.0.1 / 2016/01/25
+ * @version 0.0.2 / 2016/02/15
+ * @todo #0000 []
+ * @bug #0000 []
+ */
+
+/**
+ * @file comparison.c
+ * @brief 
+ *
+ * This file describes all the functions to compare between a model and an
+ * character.
+ */
+
+/*-----------------------------------------------------------------------*/
+
 /** @brief searchAlignment
  *
  * Do a research of an alignment into a list of alignment (see the
@@ -35,7 +64,43 @@
  * @return isInto [int]
  */
 
-int searchAlignment(int alignment, int list[4]);
+int searchAlignment(int alignment, int list[]);
+
+/** @brief typeComparison
+ *
+ * Do a comparison of types between the model and an character in order to
+ * enlarge, or not, the model.
+ * @param type1 [ptr_tree]
+ * @param type2 [ptr_tree]
+ * @return model [ptr_tree]
+ */
+
+ptr_model typeComparison(ptr_model model, ptr_character character);
+
+/** @brief influencesComparison
+ *
+ * Do a comparison of influences between the model and an character in
+ * order to enlarge, or not, the model.
+ * @param type1 [ptr_tree]
+ * @param type2 [ptr_tree]
+ * @return model [ptr_tree]
+ */
+
+ptr_model influencesComparison(ptr_model model, ptr_character character);
+
+/** @brief alignementsComparison
+ *
+ * Do a comparison of alignments between the model and an character in
+ * order to enlarge, or not, the model.
+ * @param type1 [ptr_tree]
+ * @param type2 [ptr_tree]
+ * @return model [ptr_tree]
+ */
+
+ptr_model alignmentsComparison(ptr_model model, ptr_character character);
+/*-----------------------------------------------------------------------*/
+/*                         COMPARISON FUNCTIONS                          */
+/*-----------------------------------------------------------------------*/
 
 /** @brief comparison
  *

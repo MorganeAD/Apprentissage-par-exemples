@@ -116,19 +116,19 @@ int main(int argc, char* argv[])
 
 	printf("\nModel initialization...\n\n");
 	
-	ptr_model model;
-	model=initModel(c1);
-	displayModel(model);
+	ptr_model m1;
+	m1=initModel(c1);
+	displayModel(m1);
 	printf("\n");
 
 	printf("Comparison between model and character 2...\n");
-	comparison(model, c2);
-	displayModel(model);
+	comparison(m1, c2);
+	displayModel(m1);
 	printf("\n");
 
 	printf("Comparison between model and character 3...\n");
-	comparison(model, c3);
-	displayModel(model);
+	comparison(m1, c3);
+	displayModel(m1);
 	printf("\n");
 
 	printf("Test of the relationship\n");
@@ -148,12 +148,12 @@ int main(int argc, char* argv[])
 	printf("\n");
 
 	ptr_example e1;
-	ptr_character cs1[4] = {c1, c2, c3, c4};
-	ptr_relationship rs1[3] = {r1, r2, r3};
+	// ptr_character cs1[4] = {c1, c2, c3, c4};
+	// ptr_relationship rs1[3] = {r1, r2, r3};
 	e1 = createEmptyExample();
 	// e1 = addCharactersFromTab(e1, cs1);
 	// e1 = addRelationsFromTab(e1, rs1);
-
+	// displayExample(e1);
 
 	e1 = addCharacter(e1, c1);
 	e1 = addCharacter(e1, c2);

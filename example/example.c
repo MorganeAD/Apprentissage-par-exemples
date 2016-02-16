@@ -146,16 +146,16 @@ ptr_example addRelation(ptr_example e, ptr_relationship r)
  * @return tmp [ptr_example]
  */
 
-ptr_example addCharactersFromTab(ptr_example e, ptr_character* cs)
-{
-	ptr_example tmp = e;
-	int i;
-	for (i = 0; i < (sizeof(cs)/sizeof(cs[0])); i++)
-	{
-		tmp->characters = addToList(tmp->characters, cs[i]);
-	}
-	return tmp;
-}
+// ptr_example addCharactersFromTab(ptr_example e, ptr_character cs[])
+// {
+// 	ptr_example tmp = e;
+// 	int i;
+// 	for (i = 0; i < (sizeof(cs)/sizeof(cs[0])); i++)
+// 	{
+// 		tmp->characters = addToList(tmp->characters, cs[i]);
+// 	}
+// 	return tmp;
+// }
 
 /** @brief addRelationsFromTab
  *
@@ -165,16 +165,16 @@ ptr_example addCharactersFromTab(ptr_example e, ptr_character* cs)
  * @return tmp [ptr_example]
  */
 
-ptr_example addRelationsFromTab(ptr_example e, ptr_relationship* rs)
-{
-	ptr_example tmp = e;
-	int i;
-	for (i = 0; i < (sizeof(rs)/sizeof(rs[0])); i++)
-	{
-		tmp->relations = addToList(tmp->relations, rs[i]);
-	}
-	return tmp;
-}
+// ptr_example addRelationsFromTab(ptr_example e, ptr_relationship rs[])
+// {
+// 	ptr_example tmp = e;
+// 	int i;
+// 	for (i = 0; i < (sizeof(rs)/sizeof(rs[0])); i++)
+// 	{
+// 		tmp->relations = addToList(tmp->relations, rs[i]);
+// 	}
+// 	return tmp;
+// }
 
 /** @brief displayExample
  *

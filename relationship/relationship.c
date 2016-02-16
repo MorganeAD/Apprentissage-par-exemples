@@ -121,7 +121,7 @@ void displayRelationship(ptr_relationship r)
 	printf("[");
 	displayCharacter(r->ch1);
 
-	if (r->relation == 0)
+	if (getRelation(r) == 0)
 	{
 		printf(" serves ");
 	}

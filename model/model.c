@@ -62,17 +62,17 @@
  * @return model [ptr_model]
  */
 
-ptr_model initModel(ptr_character firstCharacter)
+ptr_model initModel(ptr_character c)
 {
-	ptr_model model=(ptr_model)malloc(sizeof(model));
+	ptr_model tmp=(ptr_model)malloc(sizeof(model));
 
-	model->type=firstCharacter->type;
-	model->minInfluence=firstCharacter->influence;
-	model->maxInfluence=firstCharacter->influence;
-	model->alignment[0]=firstCharacter->alignment;
-	model->index=0;
+	tmp->type=c->type;
+	tmp->minInfluence=c->influence;
+	tmp->maxInfluence=c->influence;
+	tmp->alignment[0]=c->alignment;
+	tmp->nbAlign=1;
 
-	return model;
+	return tmp;
 }
 
 /** @brief displayModel
@@ -82,11 +82,11 @@ ptr_model initModel(ptr_character firstCharacter)
  * @return [void]
  */
 
-void displayModel(ptr_model model)
+void displayModel(ptr_model m)
 {
 	int count;
 	printf("(Type : ");
-	switch (model->type->value) 
+	switch (m->type->value) 
 	{
 		case 1 :
 			printf("Person");
@@ -128,13 +128,13 @@ void displayModel(ptr_model model)
 			printf("Unknown");
 	}
 	printf("; ");
-	printf("Influence : from %d to %d; ", model->minInfluence, model->maxInfluence);
+	printf("Influence : from %d to %d; ", m->minInfluence, m->maxInfluence);
 
 	// A "for" loop is needed to display the list of alignments.
 	printf("Alignment : ");
-	for(count=0 ; count<=model->index ; count++)
+	for(count=0 ; count<m->nbAlign; count++)
 	{
-		switch (model->alignment[count]) 
+		switch (m->alignment[count]) 
 		{
 			case 1 :
 				printf("Vilain");
@@ -148,10 +148,10 @@ void displayModel(ptr_model model)
 			case 4 :
 				printf("Good");
 				break;
-			default: 
-				printf("Unknown");
+			// default: 
+			// 	printf("Unknown");
 		}		
-		if(count<model->index)
+		if(count < m->nbAlign-1)
 		{
 			printf(", ");
 		}

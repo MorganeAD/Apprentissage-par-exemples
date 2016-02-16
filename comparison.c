@@ -59,22 +59,24 @@
  * @return isInto [int]
  */
 
-int searchAlignment(int alignment, int list[MAX_ALIGNMENT])
+int searchAlignment(int alignment, int list[])
 {
-	int index, isInto;
+	int i, find;
 	
-	index=0;
-	isInto=0;
-	while(isInto==0 && alignment!=list[index] && index<=MAX_ALIGNMENT-1)
+	i=0;
+	find=0;
+	while(!find && i<MAX_ALIGNMENT)
 	{
-		index++;
-		if(alignment==list[index])
+		if(alignment==list[i])
 		{
-			isInto=1;
+			find=1;
+		}
+		else
+		{
+			i++;
 		}
 	}
-	
-	return isInto;
+	return find;
 }
 
 /** @brief typeComparison
@@ -126,11 +128,10 @@ ptr_model influencesComparison(ptr_model model, ptr_character character)
 
 ptr_model alignmentsComparison(ptr_model model, ptr_character character)
 {
-	if(model->index<MAX_ALIGNMENT-1
-		&& searchAlignment(character->alignment, model->alignment)==0)
+	if(!searchAlignment(character->alignment, model->alignment))
 	{
-		model->index++;
-		model->alignment[model->index]=character->alignment;
+		model->alignment[model->nbAlign]=character->alignment;
+		model->nbAlign++;
 	}
 
 	return model;
@@ -149,18 +150,18 @@ ptr_model alignmentsComparison(ptr_model model, ptr_character character)
  * @return model [ptr_model]
  */
 
-ptr_model comparison(ptr_model model, ptr_character character)
+ptr_model comparison(ptr_model m, ptr_character c)
 {
 	/* Comparison of types.*/
-	model=typeComparison(model, character);
+	m=typeComparison(m, c);
 
 	/* Comparison of influences.*/
-	model=influencesComparison(model, character);
+	m=influencesComparison(m, c);
 
 	/* Comparison of alignments.*/
-	model=alignmentsComparison(model, character);
+	m=alignmentsComparison(m, c);
 	
-	return model;
+	return m;
 }
 
 /** @brief modelGenerator
