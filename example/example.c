@@ -118,7 +118,7 @@ ptr_relationship getRelationI(ptr_example e, int n)
 
 ptr_example addCharacter(ptr_example e, ptr_character c)
 {
-	ptr_example tmp = createEmptyExample();
+	ptr_example tmp = e;
 	tmp->characters = addToList(tmp->characters, c);
 	return tmp;
 }
@@ -133,7 +133,7 @@ ptr_example addCharacter(ptr_example e, ptr_character c)
 
 ptr_example addRelation(ptr_example e, ptr_relationship r)
 {
-	ptr_example tmp = createEmptyExample();
+	ptr_example tmp = e;
 	tmp->relations = addToList(tmp->relations, r);
 	return tmp;
 }
@@ -191,6 +191,7 @@ void displayExample(ptr_example e)
 	while(!isEmpty(tmp))
 	{
 		displayCharacter(headList(tmp));
+		printf("\n");
 		tmp=nextList(tmp);
 	}
 	tmp = e->relations;
@@ -198,6 +199,7 @@ void displayExample(ptr_example e)
 	while(!isEmpty(tmp))
 	{
 		displayRelationship((relationship*)headList(tmp));
+		printf("\n");
 		tmp=nextList(tmp);
 	}
 }

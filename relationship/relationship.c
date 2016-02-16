@@ -130,5 +130,5 @@ void displayRelationship(ptr_relationship r)
 		printf(" tracks ");
 	}
 	displayCharacter(r->ch2);
-	printf("]\n");
+	printf("]");
 }
