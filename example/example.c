@@ -148,7 +148,7 @@ ptr_example addRelation(ptr_example e, ptr_relationship r)
 
 ptr_example addCharactersFromTab(ptr_example e, ptr_character* cs)
 {
-	ptr_example tmp = createEmptyExample();
+	ptr_example tmp = e;
 	int i;
 	for (i = 0; i < (sizeof(cs)/sizeof(cs[0])); i++)
 	{
@@ -167,7 +167,7 @@ ptr_example addCharactersFromTab(ptr_example e, ptr_character* cs)
 
 ptr_example addRelationsFromTab(ptr_example e, ptr_relationship* rs)
 {
-	ptr_example tmp = createEmptyExample();
+	ptr_example tmp = e;
 	int i;
 	for (i = 0; i < (sizeof(rs)/sizeof(rs[0])); i++)
 	{
