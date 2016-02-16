@@ -25,21 +25,33 @@
 
 /*-----------------------------------------------------------------------*/
 
-#ifndef STDIO
-#define STDIO
+#ifndef LSTDIO
+#define LSTDIO
 #include <stdio.h>
 #endif 
 
+#ifndef LMALLOC
+#define LMALLOC
 #include <malloc.h>
+#endif 
 
+#ifndef LTREE
+#define LTREE
 #include "type_tree.h"
 #include "function_tree.h"
+#endif 
 
+#ifndef LCHR
+#define LCHR
 #include "type_character.h"
 #include "function_character.h"
+#endif 
 
+#ifndef LRLT
+#define LRLT
 #include "type_relationship.h"
 #include "function_relationship.h"
+#endif 
 
 /*-----------------------------------------------------------------------*/
 

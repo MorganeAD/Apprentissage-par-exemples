@@ -26,34 +26,66 @@
 
 /*-----------------------------------------------------------------------*/
 
-#ifndef STDIO
-#define STDIO
+#ifndef LSTDIO
+#define LSTDIO
 #include <stdio.h>
 #endif 
 
+#ifndef LSTDLIB
+#define LSTDLIB
 #include <stdlib.h>
-#include <malloc.h>
+#endif 
 
+#ifndef LMALLOC
+#define LMALLOC
+#include <malloc.h>
+#endif 
+
+#ifndef LTREE
+#define LTREE
 #include "type_tree.h"
 #include "function_tree.h"
+#endif 
 
-#include "type_character.h"
-#include "function_character.h"
-
-#include "type_model.h"
-#include "function_model.h"
-
-#include "type_relationship.h"
-#include "function_relationship.h"
-
+#ifndef LLIST
+#define LLIST
 #include "type_list.h"
 #include "function_list.h"
+#endif 
 
+#ifndef LCHR
+#define LCHR
+#include "type_character.h"
+#include "function_character.h"
+#endif 
+
+#ifndef LMDL
+#define LMDL
+#include "type_model.h"
+#include "function_model.h"
+#endif 
+
+#ifndef LRLT
+#define LRLT
+#include "type_relationship.h"
+#include "function_relationship.h"
+#endif 
+
+#ifndef LEXP
+#define LEXP
 #include "type_example.h"
 #include "function_example.h"
+#endif 
 
+#ifndef COMP
+#define COMP
 #include "comparison.h"
+#endif 
+ 
+#ifndef CLASS
+#define CLASS
 #include "class.h"
+#endif 
 
 /*-----------------------------------------------------------------------*/
 
@@ -131,4 +163,3 @@ int main(int argc, char* argv[])
 
 	return 0;
 }
-// typedef enum trees {personnage,force,jedi,conseil,sith,samedi,dimanche} Jour_de_Semaine;

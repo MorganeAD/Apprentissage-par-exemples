@@ -25,27 +25,21 @@
 
 /*-----------------------------------------------------------------------*/
 
-#ifndef STDIO
-#define STDIO
+#ifndef LSTDIO
+#define LSTDIO
 #include <stdio.h>
 #endif 
 
+#ifndef LMALLOC
+#define LMALLOC
 #include <malloc.h>
+#endif 
 
-#include "type_tree.h"
-#include "function_tree.h"
-
-#include "type_character.h"
-#include "function_character.h"
-
-#include "type_relationship.h"
-#include "function_relationship.h"
-
-#include "type_model.h"
-#include "function_model.h"
-
+#ifndef LLIST
+#define LLIST
 #include "type_list.h"
 #include "function_list.h"
+#endif 
 
 
 /*-----------------------------------------------------------------------*/

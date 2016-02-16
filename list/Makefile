@@ -33,7 +33,7 @@ liblist.a: function_list.o
 	cp -p liblist.a ../libs
 
 function_list.o: list.c function_list.h type_list.h
-	gcc -c -Wall -O3 -I ../headers list.c
+	gcc -c -Wall -O3 list.c
 
 clean: 
 	-rm *.o

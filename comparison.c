@@ -26,16 +26,28 @@
 
 /*-----------------------------------------------------------------------*/
 
+#ifndef LTREE
+#define LTREE
 #include "type_tree.h"
 #include "function_tree.h"
+#endif 
 
+#ifndef LCHR
+#define LCHR
 #include "type_character.h"
 #include "function_character.h"
+#endif 
 
+#ifndef LMDL
+#define LMDL
 #include "type_model.h"
 #include "function_model.h"
+#endif 
 
+#ifndef COMP
+#define COMP
 #include "comparison.h"
+#endif 
 
 #define MAX_ALIGNMENT 4
 

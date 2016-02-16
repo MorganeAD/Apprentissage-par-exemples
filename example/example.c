@@ -30,22 +30,40 @@
 #include <stdio.h>
 #endif 
 
+#ifndef LMALLOC
+#define LMALLOC
 #include <malloc.h>
+#endif 
 
+#ifndef LTREE
+#define LTREE
 #include "type_tree.h"
 #include "function_tree.h"
+#endif 
 
+#ifndef LLIST
+#define LLIST
+#include "type_list.h"
+#include "function_list.h"
+#endif 
+
+#ifndef LCHR
+#define LCHR
 #include "type_character.h"
 #include "function_character.h"
+#endif 
 
+#ifndef LRLT
+#define LRLT
 #include "type_relationship.h"
 #include "function_relationship.h"
+#endif 
 
+#ifndef LEXP
+#define LEXP
 #include "type_example.h"
 #include "function_example.h"
-
-// #include "type_list.h"
-// #include "function_list.h"
+#endif 
 
 /*-----------------------------------------------------------------------*/
 

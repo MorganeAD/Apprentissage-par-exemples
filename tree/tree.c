@@ -25,15 +25,26 @@
 
 /*-----------------------------------------------------------------------*/
 
-#ifndef STDIO
-#define STDIO
+#ifndef LSTDIO
+#define LSTDIO
 #include <stdio.h>
 #endif 
-#include <stdlib.h>
-#include <malloc.h>
 
+#ifndef LSTDLIB
+#define LSTDLIB
+#include <stdlib.h>
+#endif 
+
+#ifndef LMALLOC
+#define LMALLOC
+#include <malloc.h>
+#endif 
+
+#ifndef LTREE
+#define LTREE
 #include "type_tree.h"
 #include "function_tree.h"
+#endif 
 
 /*-----------------------------------------------------------------------*/
 

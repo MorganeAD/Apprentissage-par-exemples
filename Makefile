@@ -31,7 +31,7 @@
 # 1. add -lfoo
 # 2. add foo.o 
 all: install main.o comparison.o class.o
-	gcc -o run main.o comparison.o class.o -L libs -ltree -lcharacter -lmodel -llist -lrelationship -lexample
+	gcc -o run main.o comparison.o class.o list/list.o -L libs -ltree -lcharacter -lmodel -llist -lrelationship -lexample
 
 main.o: main.c
 	gcc -c -Wall -O3 -I headers main.c
@@ -66,7 +66,7 @@ liblist:
 librelationship: 
 	cd relationship && $(MAKE) lib
 
-libexample: 
+libexample: liblist
 	cd example && $(MAKE) lib
 
 # 1. uncomment
@@ -128,11 +128,11 @@ function_relationship.h:
 
 # Example :
 
-type_example.h:
+type_example.h: type_list.h function_list.h
 	-mkdir headers
 	cp -p example/type_example.h headers
 
-function_example.h:
+function_example.h: type_list.h function_list.h
 	-mkdir headers
 	cp -p example/function_example.h headers
 

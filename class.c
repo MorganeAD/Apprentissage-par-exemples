@@ -26,10 +26,18 @@
  * hierarchy tree.
  */
 
+#ifndef LTREE
+#define LTREE
 #include "type_tree.h"
 #include "function_tree.h"
+#endif 
 
+#ifndef CLASS
+#define CLASS
 #include "class.h"
+#endif 
+
+
 
 /*-----------------------------------------------------------------------*/
 
