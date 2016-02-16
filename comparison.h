@@ -47,3 +47,17 @@ int searchAlignment(int alignment, int list[4]);
  */
 
 ptr_model comparison(ptr_model model, ptr_character character);
+
+/** @brief modelGenerator
+ *
+ * Generate models and add them to the list of models. Add models came from
+ * a comparison between a character and existing models. This function will
+ * add new models to a list called "modelsListAux" which will be linked to
+ * "modelsList" at the end of the function. "listBrowser" will be used to
+ * browse the modelsList (ie. the original models list).
+ * @param modelsList [ptr_list]
+ * @param character [ptr_character]
+ * @return  [ptr_list]
+ */
+
+ptr_list modelGenerator(ptr_list modelsList, ptr_character character);
