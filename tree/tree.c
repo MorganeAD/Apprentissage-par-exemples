@@ -35,11 +35,6 @@
 #include <stdlib.h>
 #endif 
 
-#ifndef LMALLOC
-#define LMALLOC
-#include <malloc.h>
-#endif 
-
 #ifndef LTREE
 #define LTREE
 #include "type_tree.h"

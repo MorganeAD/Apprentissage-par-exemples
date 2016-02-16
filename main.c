@@ -34,12 +34,7 @@
 #ifndef LSTDLIB
 #define LSTDLIB
 #include <stdlib.h>
-#endif 
-
-#ifndef LMALLOC
-#define LMALLOC
-#include <malloc.h>
-#endif 
+#endif
 
 #ifndef LTREE
 #define LTREE

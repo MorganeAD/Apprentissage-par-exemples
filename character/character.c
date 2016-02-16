@@ -30,10 +30,10 @@
 #include <stdio.h>
 #endif 
 
-#ifndef LMALLOC
-#define LMALLOC
-#include <malloc.h>
-#endif 
+#ifndef LSTDLIB
+#define LSTDLIB
+#include <stdlib.h>
+#endif
 
 #ifndef LTREE
 #define LTREE
