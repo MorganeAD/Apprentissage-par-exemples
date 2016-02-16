@@ -31,7 +31,7 @@
 # 1. add -lfoo
 # 2. add foo.o 
 all: install main.o comparison.o class.o
-	gcc -o run main.o comparison.o class.o list/list.o -L libs -ltree -lcharacter -lmodel -llist -lrelationship -lexample
+	gcc -o run main.o comparison.o class.o -L libs -ltree -lcharacter -lmodel -llist -lrelationship -lexample
 
 main.o: main.c
 	gcc -c -Wall -O3 -I headers main.c
