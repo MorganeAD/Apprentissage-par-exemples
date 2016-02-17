@@ -21,25 +21,40 @@
  * @file comparison.c
  * @brief 
  *
- * This file describes all the functions to compare between a model and an
+ * This file describes all the functions to compare between a stereotype and an
  * character.
  */
 
 /*-----------------------------------------------------------------------*/
 
+#ifndef LTREE
+#define LTREE
 #include "type_tree.h"
 #include "function_tree.h"
+#endif 
 
+#ifndef LCHR
+#define LCHR
 #include "type_character.h"
 #include "function_character.h"
+#endif 
 
-#include "type_model.h"
-#include "function_model.h"
+#ifndef LSTR
+#define LSTR
+#include "type_stereotype.h"
+#include "function_stereotype.h"
+#endif
 
+#ifndef LROW
+#define LROW
 #include "type_row.h"
 #include "function_row.h"
+#endif 
 
+#ifndef COMP
+#define COMP
 #include "comparison.h"
+#endif 
 
 #define NULL 0
 #define MAX_ALIGNMENT 4
@@ -54,12 +69,12 @@
  *
  * Do a research of an alignment into a row of alignment (see the
  * "type_character.c" file).
- * @param tree [int]
- * @param row [pointer]
+ * @param a [int]
+ * @param row [int array]
  * @return isInto [int]
  */
 
-int searchAlignment(int alignment, int row[])
+int searchAlignment(int a, int row[])
 {
 	int i, find;
 	
@@ -67,7 +82,7 @@ int searchAlignment(int alignment, int row[])
 	find=0;
 	while(!find && i<MAX_ALIGNMENT)
 	{
-		if(alignment==row[i])
+		if(a==row[i])
 		{
 			find=1;
 		}
@@ -81,60 +96,60 @@ int searchAlignment(int alignment, int row[])
 
 /** @brief typeComparison
  *
- * Do a comparison of types between the model and an character in order to
- * enlarge, or not, the model.
+ * Do a comparison of types between the stereotype and an character in order to
+ * enlarge, or not, the stereotype.
  * @param type1 [ptr_tree]
  * @param type2 [ptr_tree]
- * @return model [ptr_tree]
+ * @return stereotype [ptr_tree]
  */
 
-ptr_model typeComparison(ptr_model model, ptr_character character)
+ptr_stereotype typeComparison(ptr_stereotype s, ptr_character c)
 {
-	model->type=commonFather(model->type, character->type);
-	return model;
+	s->type=commonFather(s->type, c->type);
+	return s;
 }
 
 /** @brief influencesComparison
  *
- * Do a comparison of influences between the model and an character in
- * order to enlarge, or not, the model.
+ * Do a comparison of influences between the stereotype and an character in
+ * order to enlarge, or not, the stereotype.
  * @param type1 [ptr_tree]
  * @param type2 [ptr_tree]
- * @return model [ptr_tree]
+ * @return stereotype [ptr_tree]
  */
 
-ptr_model influencesComparison(ptr_model model, ptr_character character)
+ptr_stereotype influencesComparison(ptr_stereotype s, ptr_character c)
 {
-	if(model->minInfluence>character->influence)
+	if(s->minInfluence>c->influence)
 	{
-		model->minInfluence=character->influence;
+		s->minInfluence=c->influence;
 	}
-	else if(model->maxInfluence<character->influence)
+	else if(s->maxInfluence<c->influence)
 	{
-		model->maxInfluence=character->influence;
+		s->maxInfluence=c->influence;
 	}
 
-	return model;
+	return s;
 }
 
 /** @brief alignementsComparison
  *
- * Do a comparison of alignments between the model and an character in
- * order to enlarge, or not, the model.
+ * Do a comparison of alignments between the stereotype and an character in
+ * order to enlarge, or not, the stereotype.
  * @param type1 [ptr_tree]
  * @param type2 [ptr_tree]
- * @return model [ptr_tree]
+ * @return stereotype [ptr_tree]
  */
 
-ptr_model alignmentsComparison(ptr_model model, ptr_character character)
+ptr_stereotype alignmentsComparison(ptr_stereotype s, ptr_character c)
 {
-	if(!searchAlignment(character->alignment, model->alignment))
+	if(!searchAlignment(c->alignment, s->alignment))
 	{
-		model->alignment[model->nbAlign]=character->alignment;
-		model->nbAlign++;
+		s->alignment[s->nbAlign]=c->alignment;
+		s->nbAlign++;
 	}
 
-	return model;
+	return s;
 }
 
 /*-----------------------------------------------------------------------*/
@@ -143,113 +158,113 @@ ptr_model alignmentsComparison(ptr_model model, ptr_character character)
 
 /** @brief comparison
  *
- * Do a comparison between the model and an character in order to enlarge,
- * or not, the model.
- * @param model [ptr_model]
+ * Do a comparison between the stereotype and an character in order to enlarge,
+ * or not, the stereotype.
+ * @param stereotype [ptr_stereotype]
  * @param character [ptr_character]
- * @return model [ptr_model]
+ * @return stereotype [ptr_stereotype]
  */
 
-ptr_model comparison(ptr_model m, ptr_character c)
+ptr_stereotype comparison(ptr_stereotype s, ptr_character c)
 {
 	/* Comparison of types.*/
-	m=typeComparison(m, c);
+	s=typeComparison(s, c);
 
 	/* Comparison of influences.*/
-	m=influencesComparison(m, c);
+	s=influencesComparison(s, c);
 
 	/* Comparison of alignments.*/
-	m=alignmentsComparison(m, c);
+	s=alignmentsComparison(s, c);
 	
-	return m;
+	return s;
 }
 
-/** @brief modelGenerator
+/** @brief stereotypeGenerator
  *
- * Generate models and add them to the row of models. Add models came from
- * a comparison between a character and existing models. This function will
- * add new models to a row called "modelsRowAux" which will be linked to
- * "modelsRow" at the end of the function. "rowBrowser" will be used to
- * browse the modelsRow (ie. the original models row).
- * @param modelsRow [ptr_row]
+ * Generate stereotypes and add them to the row of stereotypes. Add stereotypes came from
+ * a comparison between a character and existing stereotypes. This function will
+ * add new stereotypes to a row called "stereotypesRowAux" which will be linked to
+ * "stereotypesRow" at the end of the function. "rowBrowser" will be used to
+ * browse the stereotypesRow (ie. the original stereotypes row).
+ * @param stereotypesRow [ptr_row]
  * @param character [ptr_character]
  * @return  [ptr_row]
  */
 
-ptr_row modelGenerator(ptr_row modelsRow, ptr_character character)
+ptr_row stereotypeGenerator(ptr_row stereotypesRow, ptr_character c)
 {
-	ptr_row  modelsRowAux, rowBrowser;
-	ptr_model toAdd;
+	ptr_row  stereotypesRowAux, rowBrowser;
+	ptr_stereotype toAdd;
 
-	modelsRowAux=createEmpty();
-	rowBrowser=modelsRow;
+	stereotypesRowAux=createEmpty();
+	rowBrowser=stereotypesRow;
 	while(rowBrowser->next!=NULL)
 	{
-		toAdd=modelsRow->data;
+		toAdd=stereotypesRow->data;
 
 		/* Comparison of types.*/
-		toAdd=typeComparison(toAdd, character);
+		toAdd=typeComparison(toAdd, c);
 
-		/* Add the "toAdd" model to the row of models "modelsRowAux".*/
-		addToRow(modelsRowAux, toAdd);
+		/* Add the "toAdd" stereotype to the row of stereotypes "stereotypesRowAux".*/
+		addToRow(stereotypesRowAux, toAdd);
 
 		/* Comparison of influences.*/
-		toAdd=influencesComparison(toAdd, character);
+		toAdd=influencesComparison(toAdd, c);
 
-		/* Add the "toAdd" model to the row of models "modelsRowAux".*/
-		addToRow(modelsRowAux, toAdd);
+		/* Add the "toAdd" stereotype to the row of stereotypes "stereotypesRowAux".*/
+		addToRow(stereotypesRowAux, toAdd);
 	
 		/* Comparison of alignments.*/
-		toAdd=alignmentsComparison(toAdd, character);
+		toAdd=alignmentsComparison(toAdd, c);
 
-		/* Add the "toAdd" model to the row of models "modelsRowAux".*/
-		addToRow(modelsRowAux, toAdd);
+		/* Add the "toAdd" stereotype to the row of stereotypes "stereotypesRowAux".*/
+		addToRow(stereotypesRowAux, toAdd);
 
 		/*---------------------------------------------------------------*/
 		/* Now, the program will do the same thing but without the
 		comparison of alignments.*/
 		
-		/* Re-initialization of the "toAdd" model.*/
-		toAdd=modelsRow->data;
+		/* Re-initialization of the "toAdd" stereotype.*/
+		toAdd=stereotypesRow->data;
 
 		/* Comparison of influences.*/
-		toAdd=influencesComparison(toAdd, character);
+		toAdd=influencesComparison(toAdd, c);
 
-		/* Add the "toAdd" model to the row of models "modelsRowAux".*/
-		addToRow(modelsRowAux, toAdd);
+		/* Add the "toAdd" stereotype to the row of stereotypes "stereotypesRowAux".*/
+		addToRow(stereotypesRowAux, toAdd);
 
 		/* Comparison of alignments.*/
-		toAdd=alignmentsComparison(toAdd, character);
+		toAdd=alignmentsComparison(toAdd, c);
 
-		/* Add the "toAdd" model to the row of models "modelsRowAux".*/
-		addToRow(modelsRowAux, toAdd);
+		/* Add the "toAdd" stereotype to the row of stereotypes "stereotypesRowAux".*/
+		addToRow(stereotypesRowAux, toAdd);
 
 		/*---------------------------------------------------------------*/
 		/* Now, the program will do the same thing but without the
 		comparison of alignments and influences.*/
 
-		/* Re-initialization of the "toAdd" model.*/
-		toAdd=modelsRow->data;
+		/* Re-initialization of the "toAdd" stereotype.*/
+		toAdd=stereotypesRow->data;
 
 		/* Comparison of alignments.*/
-		toAdd=alignmentsComparison(toAdd, character);
+		toAdd=alignmentsComparison(toAdd, c);
 
-		/* Add the "toAdd" model to the row of models "modelsRowAux".*/
-		addToRow(modelsRowAux, toAdd);
+		/* Add the "toAdd" stereotype to the row of stereotypes "stereotypesRowAux".*/
+		addToRow(stereotypesRowAux, toAdd);
 
 		/* Now the program will do same same comparisons but with the
-		following existing model.*/
+		following existing stereotype.*/
 		rowBrowser=rowBrowser->next;
 	}
 
-	/* At the end, the program add the model obtained by the example
+	/* At the end, the program add the stereotype obtained by the example
 	itself.*/
-	toAdd=initModel(character);
-	addToRow(modelsRowAux, toAdd);
+	toAdd=initStereotype(c);
+	addToRow(stereotypesRowAux, toAdd);
 
-	/* The last thing to do is to link the new row of models to the
+	/* The last thing to do is to link the new row of stereotypes to the
 	original one.*/
-	rowBrowser->next=modelsRowAux;
-	return modelsRow;
+	rowBrowser->next=stereotypesRowAux;
+	return stereotypesRow;
 
 }

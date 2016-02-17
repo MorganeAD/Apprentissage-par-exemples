@@ -59,12 +59,12 @@
  *
  * Do a research of an alignment into a row of alignment (see the
  * "type_character.c" file).
- * @param tree [int]
- * @param row [pointer]
+ * @param a [int]
+ * @param row [int array]
  * @return isInto [int]
  */
 
-int searchAlignment(int alignment, int row[]);
+int searchAlignment(int a, int row[]);
 
 /** @brief typeComparison
  *
@@ -75,29 +75,29 @@ int searchAlignment(int alignment, int row[]);
  * @return model [ptr_tree]
  */
 
-ptr_model typeComparison(ptr_model model, ptr_character character);
-
+ptr_stereotype typeComparison(ptr_stereotype s, ptr_character c);
 /** @brief influencesComparison
  *
- * Do a comparison of influences between the model and an character in
- * order to enlarge, or not, the model.
+ * Do a comparison of influences between the stereotype and an character in
+ * order to enlarge, or not, the stereotype.
  * @param type1 [ptr_tree]
  * @param type2 [ptr_tree]
- * @return model [ptr_tree]
+ * @return stereotype [ptr_tree]
  */
 
-ptr_model influencesComparison(ptr_model model, ptr_character character);
+ptr_stereotype influencesComparison(ptr_stereotype s, ptr_character c);
 
 /** @brief alignementsComparison
  *
- * Do a comparison of alignments between the model and an character in
- * order to enlarge, or not, the model.
+ * Do a comparison of alignments between the stereotype and an character in
+ * order to enlarge, or not, the stereotype.
  * @param type1 [ptr_tree]
  * @param type2 [ptr_tree]
- * @return model [ptr_tree]
+ * @return stereotype [ptr_tree]
  */
 
-ptr_model alignmentsComparison(ptr_model model, ptr_character character);
+ptr_stereotype alignmentsComparison(ptr_stereotype s, ptr_character c);
+
 /*-----------------------------------------------------------------------*/
 /*                         COMPARISON FUNCTIONS                          */
 /*-----------------------------------------------------------------------*/
@@ -106,23 +106,23 @@ ptr_model alignmentsComparison(ptr_model model, ptr_character character);
  *
  * Do a comparison between the model and an character in order to enlarge,
  * or not, the model.
- * @param model [ptr_model]
+ * @param model [ptr_stereotype]
  * @param character [ptr_character]
- * @return model [ptr_model]
+ * @return model [ptr_stereotype]
  */
 
-ptr_model comparison(ptr_model model, ptr_character character);
+ptr_stereotype comparison(ptr_stereotype s, ptr_character c);
 
 /** @brief modelGenerator
  *
  * Generate models and add them to the row of models. Add models came from
  * a comparison between a character and existing models. This function will
- * add new models to a row called "modelsRowAux" which will be linked to
- * "modelsRow" at the end of the function. "rowBrowser" will be used to
- * browse the modelsRow (ie. the original models row).
- * @param modelsRow [ptr_row]
+ * add new models to a row called "stereotypesRowAux" which will be linked to
+ * "stereotypesRow" at the end of the function. "rowBrowser" will be used to
+ * browse the stereotypesRow (ie. the original models row).
+ * @param stereotypesRow [ptr_row]
  * @param character [ptr_character]
  * @return  [ptr_row]
  */
 
-ptr_row modelGenerator(ptr_row modelsRow, ptr_character character);
+ptr_row modelGenerator(ptr_row stereotypesRow, ptr_character c);

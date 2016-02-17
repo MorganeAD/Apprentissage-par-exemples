@@ -17,29 +17,29 @@
  */
 
 /**
- * @file function_model.c
+ * @file function_stereotype.c
  * @brief 
  *
- * This file contains the prototype of all functions related to models.
+ * This file contains the prototype of all functions related to stereotypes.
  */
 
 /*-----------------------------------------------------------------------*/
 
-/** @brief initModel
+/** @brief initStereotype
  *
- * Create the first model from an character.
+ * Create the first stereotype from an character.
  * @param character [ptr_character]
- * @return model [ptr_model]
+ * @return stereotype [ptr_stereotype]
  */
 
-ptr_model initModel(ptr_character firstCharacter);
+ptr_stereotype initStereotype(ptr_character c);
 
-/** @brief displayModel
+/** @brief displaystereotype
  *
- * Display the model.
- * @param model [ptr_model]
+ * Display the stereotype.
+ * @param stereotype [ptr_stereotype]
  * @return [void]
  */
 
-void displayModel(ptr_model model);
+void displayStereotype(ptr_stereotype s);
 

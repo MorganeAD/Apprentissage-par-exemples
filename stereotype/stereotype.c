@@ -17,10 +17,10 @@
  */
 
 /**
- * @file model.c
+ * @file stereotype.c
  * @brief 
  *
- * This file contains all the functions to work with models.
+ * This file contains all the functions to work with stereotypes.
  */
 
 /*-----------------------------------------------------------------------*/
@@ -47,24 +47,24 @@
 #include "function_character.h"
 #endif 
 
-#ifndef LMDL
-#define LMDL
-#include "type_model.h"
-#include "function_model.h"
+#ifndef LSTR
+#define LSTR
+#include "type_stereotype.h"
+#include "function_stereotype.h"
 #endif
 
 /*-----------------------------------------------------------------------*/
 
-/** @brief initModel
+/** @brief initstereotype
  *
- * Create the first model from an character.
+ * Create the first stereotype from an character.
  * @param character [ptr_character]
- * @return model [ptr_model]
+ * @return stereotype [ptr_stereotype]
  */
 
-ptr_model initModel(ptr_character c)
+ptr_stereotype initStereotype(ptr_character c)
 {
-	ptr_model tmp=(ptr_model)malloc(sizeof(model));
+	ptr_stereotype tmp=(ptr_stereotype)malloc(sizeof(stereotype));
 
 	tmp->type=c->type;
 	tmp->minInfluence=c->influence;
@@ -75,18 +75,18 @@ ptr_model initModel(ptr_character c)
 	return tmp;
 }
 
-/** @brief displayModel
+/** @brief displaystereotype
  *
- * Display the model.
- * @param model [ptr_model]
+ * Display the stereotype.
+ * @param stereotype [ptr_stereotype]
  * @return [void]
  */
 
-void displayModel(ptr_model m)
+void displayStereotype(ptr_stereotype s)
 {
 	int count;
 	printf("(Type : ");
-	switch (m->type->value) 
+	switch (s->type->value) 
 	{
 		case 1 :
 			printf("Person");
@@ -128,13 +128,13 @@ void displayModel(ptr_model m)
 			printf("Unknown");
 	}
 	printf("; ");
-	printf("Influence : from %d to %d; ", m->minInfluence, m->maxInfluence);
+	printf("Influence : from %d to %d; ", s->minInfluence, s->maxInfluence);
 
 	// A "for" loop is needed to display the list of alignments.
 	printf("Alignment : ");
-	for(count=0 ; count<m->nbAlign; count++)
+	for(count=0 ; count<s->nbAlign; count++)
 	{
-		switch (m->alignment[count]) 
+		switch (s->alignment[count]) 
 		{
 			case 1 :
 				printf("Vilain");
@@ -151,7 +151,7 @@ void displayModel(ptr_model m)
 			// default: 
 			// 	printf("Unknown");
 		}		
-		if(count < m->nbAlign-1)
+		if(count < s->nbAlign-1)
 		{
 			printf(", ");
 		}

@@ -20,20 +20,20 @@
  # @file Makefile
  # @brief
  #
- # This file is the main Makefile of the model library
+ # This file is the main Makefile of the stereotype library
 ##
 
 #-----------------------------------------------------------------------
-lib: libmodel.a
+lib: libstereotype.a
 
-libmodel.a: function_model.o
-	-rm libmodel.a
-	ar -r libmodel.a model.o
+libstereotype.a: function_stereotype.o
+	-rm libstereotype.a
+	ar -r libstereotype.a stereotype.o
 	-mkdir ../libs
-	cp -p libmodel.a ../libs
+	cp -p libstereotype.a ../libs
 
-function_model.o: model.c function_model.h type_model.h
-	gcc -c -Wall -O3 -I ../headers model.c
+function_stereotype.o: stereotype.c function_stereotype.h type_stereotype.h
+	gcc -c -Wall -O3 -I ../headers stereotype.c
 
 clean: 
 	-rm *.o

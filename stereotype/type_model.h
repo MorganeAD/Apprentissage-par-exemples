@@ -17,17 +17,17 @@
  */
 
 /**
- * @file type_model.h
+ * @file type_stereotype.h
  * @brief 
  *
- * This file describes the "model" structure.
+ * This file describes the "stereotype" structure.
  */
 
 /*-----------------------------------------------------------------------*/
 
-/** @brief model
+/** @brief stereotype
  *
- * "model" structure's definition. A model is composed of a character type
+ * "stereotype" structure's definition. A stereotype is composed of a character type
  * called "type", a minimal and a maximal influence and an array of
  * alignments.
  * @field type [tree *]
@@ -35,15 +35,15 @@
  * @field maxInfluence [int]
  * @field alignment [pointer]
  * @field index [int]
- * @name model
- * @pointer ptr_model
+ * @name stereotype
+ * @pointer ptr_stereotype
  */
 
-typedef struct model
+typedef struct stereotype
 {
 	struct tree *type;
 	int minInfluence;
 	int maxInfluence;
 	int alignment[4];
 	int nbAlign;
-}model, *ptr_model;
+}stereotype, *ptr_stereotype;

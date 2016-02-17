@@ -54,10 +54,10 @@
 #include "function_character.h"
 #endif 
 
-#ifndef LMDL
-#define LMDL
-#include "type_model.h"
-#include "function_model.h"
+#ifndef LSTR
+#define LSTR
+#include "type_stereotype.h"
+#include "function_stereotype.h"
 #endif 
 
 #ifndef LRLT
@@ -116,19 +116,19 @@ int main(int argc, char* argv[])
 
 	printf("\nModel initialization...\n\n");
 	
-	ptr_model m1;
-	m1=initModel(c1);
-	displayModel(m1);
+	ptr_stereotype s1;
+	s1=initStereotype(c1);
+	displayStereotype(s1);
 	printf("\n");
 
 	printf("Comparison between model and character 2...\n");
-	comparison(m1, c2);
-	displayModel(m1);
+	comparison(s1, c2);
+	displayStereotype(s1);
 	printf("\n");
 
 	printf("Comparison between model and character 3...\n");
-	comparison(m1, c3);
-	displayModel(m1);
+	comparison(s1, c3);
+	displayStereotype(s1);
 	printf("\n");
 
 	printf("Test of the relationship\n");

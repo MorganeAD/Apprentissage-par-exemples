@@ -31,7 +31,7 @@
 # 1. add -lfoo
 # 2. add foo.o 
 all: install main.o comparison.o class.o
-	gcc -o run main.o comparison.o class.o -L libs -ltree -lcharacter -lmodel -lrow -lrelationship -lexample
+	gcc -o run main.o comparison.o class.o -L libs -ltree -lcharacter -lstereotype -lrow -lrelationship -lexample
 
 main.o: main.c
 	gcc -c -Wall -O3 -I headers main.c
@@ -49,7 +49,7 @@ class.o:
 install: installheaders installlibs
 
 # 1. add libfoo
-installlibs: libtree libcharacter libmodel librow librelationship libexample
+installlibs: libtree libcharacter libstereotype librow librelationship libexample
 
 libtree:
 	cd tree && $(MAKE) lib
@@ -57,8 +57,8 @@ libtree:
 libcharacter:
 	cd character && $(MAKE) lib
 
-libmodel:
-	cd model && $(MAKE) lib
+libstereotype:
+	cd stereotype && $(MAKE) lib
 
 librow:
 	cd row && $(MAKE) lib
@@ -74,7 +74,7 @@ libexample: librow
 # 	cd foo && $(MAKE) lib
 
 # 1. add type_foo.h function_foo.h
-installheaders: type_tree.h function_tree.h type_character.h function_character.h type_model.h function_model.h type_row.h function_row.h type_relationship.h function_relationship.h type_example.h function_example.h
+installheaders: type_tree.h function_tree.h type_character.h function_character.h type_stereotype.h function_stereotype.h type_row.h function_row.h type_relationship.h function_relationship.h type_example.h function_example.h
 
 # Trees :
 
@@ -96,15 +96,15 @@ function_character.h:
 	-mkdir headers
 	cp -p character/function_character.h headers
 
-# Models :
+# stereotypes :
 
-type_model.h:
+type_stereotype.h:
 	-mkdir headers
-	cp -p model/type_model.h headers	
+	cp -p stereotype/type_stereotype.h headers	
 
-function_model.h:
+function_stereotype.h:
 	-mkdir headers
-	cp -p model/function_model.h headers
+	cp -p stereotype/function_stereotype.h headers
 
 # rows :
 
@@ -151,7 +151,7 @@ clean:
 	-rm *.o
 	cd tree && $(MAKE) clean 
 	cd character && $(MAKE) clean
-	cd model && $(MAKE) clean
+	cd stereotype && $(MAKE) clean
 	cd row && $(MAKE) clean
 	cd relationship && $(MAKE) clean
 	cd example && $(MAKE) clean
