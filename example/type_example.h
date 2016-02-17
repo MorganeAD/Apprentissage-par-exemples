@@ -38,6 +38,5 @@
 
 typedef struct example
 {
-	struct list* characters;
 	struct list* relations;
 }example, *ptr_example;

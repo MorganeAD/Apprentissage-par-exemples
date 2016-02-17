@@ -77,35 +77,76 @@
 ptr_example createEmptyExample(void)
 {
 	ptr_example tmp=(ptr_example)malloc(sizeof(example));
-	tmp->characters=createEmpty();
 	tmp->relations=createEmpty();
 	return tmp;
 } 
 
-/** @brief getCharacterI
+/** @brief getRelations
  *
- * Give the character at the position i
+ * Give the list of the relationships
  * @param e [ptr-example]
- * @param i [int]
- * @return e->characters[i] [ptr_character]
+ * @return e->relations [ptr_list]
  */
 
-ptr_character getCharacterI(ptr_example e, int n)
+ptr_list getRelations(ptr_example e)
 {
-	return (ptr_character) getElementI(e->characters, n);
+	return e->relations;
 }
 
 /** @brief getRelationI
  *
  * Give the relationship at the position i
  * @param e [ptr-example]
- * @param i [int]
- * @return e->relations[i] [ptr_relationship]
+ * @param n [int]
+ * @return e->relations[n] [ptr_relationship]
  */
 
 ptr_relationship getRelationI(ptr_example e, int n)
 {
-	return (ptr_relationship) getElementI(e->relations, n);
+	return (ptr_relationship) getElementI(getRelations(e), n);
+}
+
+/** @brief getCharacterI
+ *
+ * Give the character at the position i
+ * @param e [ptr-example]
+ * @param n [int]
+ * @return e->relations[i]->data1 [ptr_character]
+ */
+
+ptr_character getCharacterI(ptr_example e, int n)
+{
+	ptr_relationship tmp = getRelationI(e, n);
+	return getData1(tmp);
+}
+
+/** @brief addFirstCharacter
+ *
+ * Add a character into the list characters
+ * @param e [ptr_example]
+ * @param c [ptr_character]
+ * @return tmp [ptr_example]
+ */
+
+ptr_example addFirstCharacter(ptr_example e, ptr_character c)
+{
+	ptr_example tmpExp = e;
+	ptr_relationship tmpRel = createRelationshipOneObject(c);
+	tmpExp->relations = addToList(getRelations(tmpExp), tmpRel);
+	return tmpExp;
+}
+
+/** @brief addSecondCharacter
+ *
+ * Add a character into the list characters
+ * @param e [ptr_example]
+ * @param c [ptr_character]
+ * @return tmp [ptr_example]
+ */
+
+void addSecondCharacter(ptr_example e, ptr_character c, int r)
+{
+	modifyRelation(headList(getRelations(e)), c, r);
 }
 
 /** @brief addCharacter
@@ -116,64 +157,9 @@ ptr_relationship getRelationI(ptr_example e, int n)
  * @return tmp [ptr_example]
  */
 
-ptr_example addCharacter(ptr_example e, ptr_character c)
-{
-	ptr_example tmp = e;
-	tmp->characters = addToList(tmp->characters, c);
-	return tmp;
-}
-
-/** @brief addRelation
- *
- * Add a relationship into the list relations
- * @param e [ptr_example]
- * @param r [ptr_relationship]
- * @return tmp [ptr_example]
- */
-
-ptr_example addRelation(ptr_example e, ptr_relationship r)
-{
-	ptr_example tmp = e;
-	tmp->relations = addToList(tmp->relations, r);
-	return tmp;
-}
-
-/** @brief addCharactersFromTab
- *
- * Add characters from a array into the list characters
- * @param e [ptr_example]
- * @param cs [ptr_character[]]
- * @return tmp [ptr_example]
- */
-
-// ptr_example addCharactersFromTab(ptr_example e, ptr_character cs[])
+// void addCharacter(ptr_example e, ptr_character c, int r)
 // {
-// 	ptr_example tmp = e;
-// 	int i;
-// 	for (i = 0; i < (sizeof(cs)/sizeof(cs[0])); i++)
-// 	{
-// 		tmp->characters = addToList(tmp->characters, cs[i]);
-// 	}
-// 	return tmp;
-// }
-
-/** @brief addRelationsFromTab
- *
- * Add relationships from a array into the list relations
- * @param e [ptr_example]
- * @param rs [ptr_relationship[]]
- * @return tmp [ptr_example]
- */
-
-// ptr_example addRelationsFromTab(ptr_example e, ptr_relationship rs[])
-// {
-// 	ptr_example tmp = e;
-// 	int i;
-// 	for (i = 0; i < (sizeof(rs)/sizeof(rs[0])); i++)
-// 	{
-// 		tmp->relations = addToList(tmp->relations, rs[i]);
-// 	}
-// 	return tmp;
+// 	modifyRelation(headList(getRelations(e)), c, r);
 // }
 
 /** @brief displayExample
@@ -186,20 +172,34 @@ ptr_example addRelation(ptr_example e, ptr_relationship r)
 void displayExample(ptr_example e)
 {
 	ptr_list tmp;
-	tmp = e->characters;
-	printf("Characters : \n");
-	while(!isEmpty(tmp))
+	tmp = getRelations(e);
+	printf("{");
+	if (isEmpty(tmp))
 	{
-		displayCharacter(headList(tmp));
-		printf("\n");
-		tmp=nextList(tmp);
+		printf("Empty!");
 	}
-	tmp = e->relations;
-	printf("Relationships : \n");
-	while(!isEmpty(tmp))
+	else if (isRelationshipOneObject(headList(tmp)))
 	{
-		displayRelationship((relationship*)headList(tmp));
-		printf("\n");
-		tmp=nextList(tmp);
+		displayCharacter(getData1(headList(tmp)));
 	}
+	else
+	{
+		while(!isEmpty(tmp))
+		{
+			printf("[");
+			displayCharacter(getData1(headList(tmp)));
+			if (getRelation(headList(tmp)) == 0)
+			{
+				printf(" serves ");
+			}
+			else
+			{
+				printf(" tracks ");
+			}
+			displayCharacter(getData2(headList(tmp)));
+			printf("]");
+			tmp = nextList(tmp);
+		}
+	}
+	printf("}");
 }

@@ -150,27 +150,14 @@ int main(int argc, char* argv[])
 	printf("Test of the example\n");
 
 	ptr_example e1;
-	// ptr_character cs1[4] = {c1, c2, c3, c4};
-	// ptr_relationship rs1[3] = {r1, r2, r3};
 	e1 = createEmptyExample();
-	// e1 = addCharactersFromTab(e1, cs1);
-	// e1 = addRelationsFromTab(e1, rs1);
-	// displayExample(e1);
-
-	e1 = addCharacter(e1, c1);
-	e1 = addCharacter(e1, c2);
-	e1 = addCharacter(e1, c3);
-	e1 = addCharacter(e1, c4);
-	e1 = addRelation(e1, r1);
-	e1 = addRelation(e1, r2);
-	e1 = addRelation(e1, r3);	
-
-	
-
 	displayExample(e1);
 	printf("\n");
-
-	displayCharacter(getCharacterI(e1, 3));
+	e1 = addFirstCharacter(e1, c1);
+	displayExample(e1);
+	printf("\n");
+	addSecondCharacter(e1, c2, 0);
+	displayExample(e1);
 	printf("\n");
 
 	return 0;
