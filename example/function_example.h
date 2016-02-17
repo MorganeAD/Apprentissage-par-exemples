@@ -34,25 +34,55 @@
 
 ptr_example createEmptyExample(void);
 
-/** @brief getCharacterI
+/** @brief getRelations
  *
- * Give the character at the position i
+ * Give the row of the relationships
  * @param e [ptr-example]
- * @param i [int]
- * @return e->characters[i] [ptr_character]
+ * @return e->relations [ptr_row]
  */
 
-ptr_character getCharacterI(ptr_example e, int n);
+ptr_row getRelations(ptr_example e);
 
 /** @brief getRelationI
  *
  * Give the relationship at the position i
  * @param e [ptr-example]
- * @param i [int]
- * @return e->relations[i] [ptr_relationship]
+ * @param n [int]
+ * @return e->relations[n] [ptr_relationship]
  */
 
 ptr_relationship getRelationI(ptr_example e, int n);
+
+/** @brief getCharacterI
+ *
+ * Give the character at the position i
+ * @param e [ptr-example]
+ * @param n [int]
+ * @return e->relations[i]->data1 [ptr_character]
+ */
+
+ptr_character getCharacterI(ptr_example e, int n);
+
+/** @brief addFirstCharacter
+ *
+ * Add a character into the row characters
+ * @param e [ptr_example]
+ * @param c [ptr_character]
+ * @return tmp [ptr_example]
+ */
+
+void addFirstCharacter(ptr_example e, ptr_character c);
+
+/** @brief addSecondCharacter
+ *
+ * Add a character into the row characters
+ * @param e [ptr_example]
+ * @param c [ptr_character]
+ * @return tmp [ptr_example]
+ */
+
+void addSecondCharacter(ptr_example e, ptr_character c, int r);
+
 /** @brief addCharacter
  *
  * Add a character into the row characters
@@ -61,37 +91,7 @@ ptr_relationship getRelationI(ptr_example e, int n);
  * @return tmp [ptr_example]
  */
 
-ptr_example addCharacter(ptr_example e, ptr_character c);
-
-/** @brief addRelation
- *
- * Add a relationship into the row relations
- * @param e [ptr_example]
- * @param r [ptr_relationship]
- * @return tmp [ptr_example]
- */
-
-ptr_example addRelation(ptr_example e, ptr_relationship r);
-
-/** @brief addCharactersFromTab
- *
- * Add characters from a array into the row characters
- * @param e [ptr_example]
- * @param cs [ptr_character[]]
- * @return tmp [ptr_example]
- */
-
-ptr_example addCharactersFromTab(ptr_example e, ptr_character cs[]);
-
-/** @brief addRelationsFromTab
- *
- * Add relationships from a array into the row relations
- * @param e [ptr_example]
- * @param rs [ptr_relationship[]]
- * @return tmp [ptr_example]
- */
-
-ptr_example addRelationsFromTab(ptr_example e, ptr_relationship rs[]);
+void addCharacter(ptr_example e, ptr_character c, int r);
 
 /** @brief displayExample
  *

@@ -152,13 +152,19 @@ int main(int argc, char* argv[])
 	ptr_example e1;
 	e1 = createEmptyExample();
 	displayExample(e1);
-	printf("\n");
-	e1 = addFirstCharacter(e1, c1);
+	printf("\n\n");
+	addFirstCharacter(e1, c1);
 	displayExample(e1);
-	printf("\n");
+	printf("\n\n");
 	addSecondCharacter(e1, c2, 0);
 	displayExample(e1);
-	printf("\n");
+	printf("\n\n");
+	addCharacter(e1, c3, 1);
+	displayExample(e1);
+	printf("\n\n");
+	addCharacter(e1, c4, 0);
+	displayExample(e1);
+	printf("\n\n");
 
 	return 0;
 }

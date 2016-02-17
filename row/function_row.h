@@ -71,7 +71,7 @@ ptr_row nextRow(ptr_row l);
 
 void addToRow(ptr_row l, void* n);
 
-/** @brief getElementI
+/** @brief getDataI
  *
  * Give the element at the position i
  * @param list [ptr_queue]
@@ -79,4 +79,14 @@ void addToRow(ptr_row l, void* n);
  * @return tmp->data [void*]
  */
 
-void* getElementI(ptr_row q, int n);
+void* getDataI(ptr_row q, int n);
+
+
+/** @brief getLastData(ptr_row q, int n)
+ *
+ * Give the last element
+ * @param list [ptr_queue]
+ * @return tmp->data [void*]
+ */
+
+void* getLastData(ptr_row q);

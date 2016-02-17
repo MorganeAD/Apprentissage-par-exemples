@@ -130,7 +130,7 @@ void addToRow(ptr_row q, void* n)
 	}
 }
 
-/** @brief getElementI
+/** @brief getDataI
  *
  * Give the element at the position i
  * @param list [ptr_queue]
@@ -138,11 +138,28 @@ void addToRow(ptr_row q, void* n)
  * @return tmp->data [void*]
  */
 
-void* getElementI(ptr_row q, int n)
+void* getDataI(ptr_row q, int n)
 {
 	ptr_row tmp = q;
 	int i;
 	for (i = 0; i < n; i++)
+	{
+		tmp = nextRow(tmp);
+	}
+	return getData(tmp);
+}
+
+/** @brief getLastData(ptr_row q, int n)
+ *
+ * Give the last element
+ * @param list [ptr_queue]
+ * @return tmp->data [void*]
+ */
+
+void* getLastData(ptr_row q)
+{
+	ptr_row tmp = q;
+	while(!isEmpty(nextRow(tmp)))
 	{
 		tmp = nextRow(tmp);
 	}

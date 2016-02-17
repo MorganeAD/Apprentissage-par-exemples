@@ -103,7 +103,7 @@ ptr_row getRelations(ptr_example e)
 
 ptr_relationship getRelationI(ptr_example e, int n)
 {
-	return (ptr_relationship)getElementI(getRelations(e), n);
+	return (ptr_relationship)getDataI(getRelations(e), n);
 }
 
 /** @brief getCharacterI
@@ -128,12 +128,10 @@ ptr_character getCharacterI(ptr_example e, int n)
  * @return tmp [ptr_example]
  */
 
-ptr_example addFirstCharacter(ptr_example e, ptr_character c)
+void addFirstCharacter(ptr_example e, ptr_character c)
 {
-	ptr_example tmpExp = e;
-	ptr_relationship tmpRel = createRelationshipOneObject(c);
-	addToRow(getRelations(tmpExp), tmpRel);
-	return tmpExp;
+	ptr_relationship tmp = createRelationshipOneObject(c);
+	addToRow(getRelations(e), tmp);
 }
 
 /** @brief addSecondCharacter
@@ -157,10 +155,11 @@ void addSecondCharacter(ptr_example e, ptr_character c, int r)
  * @return tmp [ptr_example]
  */
 
-// void addCharacter(ptr_example e, ptr_character c, int r)
-// {
-// 	modifyRelation(getData(getRelations(e)), c, r);
-// }
+void addCharacter(ptr_example e, ptr_character c, int r)
+{
+	ptr_relationship tmp = createRelationship(getData2(getLastData(getRelations(e))),c , r);
+	addToRow(getRelations(e), tmp);
+}
 
 /** @brief displayExample
  *
@@ -199,6 +198,10 @@ void displayExample(ptr_example e)
 			displayCharacter(getData2(getData(tmp)));
 			printf("]");
 			tmp = nextRow(tmp);
+			if (!isEmpty(tmp))
+			{
+				printf("\n");
+			}
 		}
 	}
 	printf("}");
