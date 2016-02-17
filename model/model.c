@@ -51,7 +51,7 @@
 #define LMDL
 #include "type_model.h"
 #include "function_model.h"
-#endif 
+#endif
 
 /*-----------------------------------------------------------------------*/
 

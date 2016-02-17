@@ -12,6 +12,7 @@
  * @author BENMILOUD--JOSSELIN Alexis <alexis.benmiloud.josselin@gmail.com>
  *
  * @version 0.0.1 / 2016/01/31
+ * @version 0.0.2 / 2016/02/17
  * @todo #0000 []
  * @bug #0000 []
  */
@@ -20,7 +21,7 @@
  * @file relationship.c
  * @brief
  *
- * Define all the functions related to examples.
+ * Define all the functions related to relationships.
  */
 
 /*-----------------------------------------------------------------------*/
@@ -58,43 +59,62 @@
 /** @brief createRelationship
  *
  * Create a new relationship (see the "type_relationship.h" file).
- * @param c1 [character*]
- * @param c2 [character*]
- * @param r [int]
+ * @param element1 [void*]
+ * @param element2 [void*]
+ * @param relation [int]
  * @return tmp [ptr_relationship]
  */
 
-ptr_relationship createRelationship(character* c1 , character* c2, int r)
+ptr_relationship createRelationship(void* element1, void* element2, int r)
 {
-	ptr_relationship tmp=(ptr_relationship)malloc(sizeof(relationship));
-	tmp->ch1=c1;
-	tmp->ch2=c2;
+	ptr_relationship tmp;
+	tmp=(ptr_relationship)malloc(sizeof(relationship));
+	tmp->data1=element1;
+	tmp->data2=element2;
 	tmp->relation=r;
 	return tmp;
 } 
 
-/** @brief getCh1
+/** @brief createRelationshipOneObject
  *
- * Give the character1 of the relationship.
- * @param r [ptr_relationship]
- * @return r->ch1 [character*]
+ * Create a new relationship with one object using the "-1" relation (ie.
+ * "no relation") (see the "type_relationship.h" file).
+ * @param element1 [void*]
+ * @return tmp [ptr_relationship]
  */
 
-ptr_character getCh1(ptr_relationship r)
+ptr_relationship createRelationshipOneObject(void* element1)
 {
-	return r->ch1;
+	ptr_relationship tmp;
+	tmp=(ptr_relationship)malloc(sizeof(relationship));
+	tmp->data1=element1;
+	tmp->data2=NULL;
+	tmp->relation=-1;
+	return tmp;
+} 
+
+/** @brief getData1
+ *
+ * Give the data1 of the relationship.
+ * @param relation [ptr_relationship]
+ * @return relation->data1 [character*]
+ */
+
+void* getData1(ptr_relationship r)
+{
+	return r->data1;
 }
 
-/** @brief getCh2
+/** @brief getData2
  *
- * Give the character2 of the relationship.
- * @param r [ptr_relationship]
- * @return r->ch2 [character*]
+ * Give the data2 of the relationship.
+ * @param relation [ptr_relationship]
+ * @return relation->data2 [character*]
  */
 
-ptr_character getCh2(ptr_relationship r)
+void* getData2(ptr_relationship r)
 {
-	return r->ch2;
+	return r->data2;
 }
 
 /** @brief getRelation
@@ -109,26 +129,38 @@ int getRelation(ptr_relationship r)
 	return r->relation;
 }
 
-/** @brief displayRelationship
+/** @brief isRelationshipOneObject
  *
- * Display the relationship.
+ * Tell is a relationship is composed of one object, ie. there is no
+ * relation in the relationship.
  * @param r [ptr_relationship]
- * @return [void]
+ * @return answer [int]
  */
 
-void displayRelationship(ptr_relationship r)
+int isRelationshipOneObject(ptr_relationship r)
 {
-	printf("[");
-	displayCharacter(r->ch1);
+	int answer;
 
-	if (getRelation(r) == 0)
+	answer=0;
+	if(getRelation(r)==-1)
 	{
-		printf(" serves ");
+		answer=1;
 	}
-	else
-	{
-		printf(" tracks ");
-	}
-	displayCharacter(r->ch2);
-	printf("]");
+
+	return answer;
+}
+
+/** @brief modifyRelation
+ *
+ * Change a relation of one object by adding another object. An object can
+ * be a model or a character.
+ * @param object [void*]
+ * @param r [int]
+ * @return  [void]
+ */
+
+void modifyRelation(ptr_relationship r, void* element, int newRelation)
+{
+	r->data2=element;
+	r->relation=newRelation;
 }

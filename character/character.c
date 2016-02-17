@@ -45,7 +45,7 @@
 #define LCHR
 #include "type_character.h"
 #include "function_character.h"
-#endif 
+#endif
 
 /*-----------------------------------------------------------------------*/
 

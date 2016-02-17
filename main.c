@@ -134,18 +134,20 @@ int main(int argc, char* argv[])
 	printf("Test of the relationship\n");
 	ptr_relationship r1;
 	r1 = createRelationship(c1, c2, 0);
-	displayRelationship(r1);
+	/*displayRelationship(r1); <-- N'EXISTE PLUS !!!*/
 	printf("\n");
 
 	ptr_relationship r2;
 	r2 = createRelationship(c2, c3, 0);
-	displayRelationship(r2);
+	/*displayRelationship(r2); <-- N'EXISTE PLUS !!!*/
 	printf("\n");
 
 	ptr_relationship r3;
 	r3 = createRelationship(c3, c4, 0);
-	displayRelationship(r3);
+	/*displayRelationship(r3); <-- N'EXISTE PLUS !!!*/
 	printf("\n");
+
+	printf("Test of the example\n");
 
 	ptr_example e1;
 	// ptr_character cs1[4] = {c1, c2, c3, c4};
@@ -163,6 +165,7 @@ int main(int argc, char* argv[])
 	e1 = addRelation(e1, r2);
 	e1 = addRelation(e1, r3);	
 
+	
 
 	displayExample(e1);
 	printf("\n");

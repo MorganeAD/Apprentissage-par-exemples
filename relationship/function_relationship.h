@@ -28,31 +28,42 @@
 /** @brief createRelationship
  *
  * Create a new relationship (see the "type_relationship.h" file).
- * @param c1 [character*]
- * @param c2 [character*]
- * @param r [int]
- * @return relationship [ptr_relationship]
+ * @param element1 [void*]
+ * @param element2 [void*]
+ * @param relation [int]
+ * @return tmp [ptr_relationship]
  */
 
-ptr_relationship createRelationship(character* c1 , character* c2, int r);
+ptr_relationship createRelationship(void* element1, void* element2, int r);
 
-/** @brief getCh1
+/** @brief createRelationshipOneObject
  *
- * Give the character1 of the relationship.
- * @param r [ptr_relationship]
- * @return r->ch1 [character*]
+ * Create a new relationship with one object using the "-1" relation (ie.
+ * "no relation") (see the "type_relationship.h" file).
+ * @param element1 [void*]
+ * @return tmp [ptr_relationship]
  */
 
-ptr_character getCh1(ptr_relationship r);
+ptr_relationship createRelationshipOneObject(void* element1);
 
-/** @brief getCh2
+/** @brief getData1
  *
- * Give the character2 of the relationship.
- * @param r [ptr_relationship]
- * @return r->ch2 [character*]
+ * Give the data1 of the relationship.
+ * @param relation [ptr_relationship]
+ * @return relation->data1 [character*]
  */
 
-ptr_character getCh2(ptr_relationship r);
+void* getData1(ptr_relationship relation);
+
+/** @brief getData2
+ *
+ * Give the data2 of the relationship.
+ * @param relation [ptr_relationship]
+ * @return relation->data2 [character*]
+ */
+
+void* getData2(ptr_relationship relation);
+
 
 /** @brief getRelation
  *
@@ -63,11 +74,23 @@ ptr_character getCh2(ptr_relationship r);
 
 int getRelation(ptr_relationship r);
 
-/** @brief displayRelationship
+/** @brief isRelationshipOneObject
  *
- * Display the relationship.
+ * Tell is a relationship is composed of one object, ie. there is no
+ * relation in the relationship.
  * @param r [ptr_relationship]
- * @return [void]
+ * @return answer [int]
  */
 
-void displayRelationship(ptr_relationship r);
+int isRelationshipOneObject(ptr_relationship r);
+
+/** @brief modifyRelation
+ *
+ * Change a relation of one object by adding another object. An object can
+ * be a model or a character.
+ * @param object [void*]
+ * @param r [int]
+ * @return  [void]
+ */
+
+void modifyRelation(ptr_relationship r, void* element, int newRelation);

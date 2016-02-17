@@ -27,10 +27,10 @@
 
 /** @brief relationship
  *
- * "relationship" structure's definition. relationships will be between to character in an example or a model. An relationship is composed of a
- * character1, a character2 and an int which represents the kind of the relationship (0 : to verse, 1 : to track).
- * @field ch1 [character*]
- * @field ch2 [character*]
+ * "relationship" structure's definition. Relationships will be between two
+ * character or two models.
+ * @field data1 [void*]
+ * @field data2 [void*]
  * @field relation [int]
  * @name relationship
  * @pointer ptr_relationship
@@ -38,7 +38,7 @@
 
 typedef struct relationship
 {
-	struct character* ch1;
-	struct character* ch2;
+	void* data1;
+	void* data2;
 	int relation;
 }relationship, *ptr_relationship;
