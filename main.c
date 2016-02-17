@@ -42,10 +42,10 @@
 #include "function_tree.h"
 #endif 
 
-#ifndef LLIST
-#define LLIST
-#include "type_list.h"
-#include "function_list.h"
+#ifndef LROW
+#define LROW
+#include "type_row.h"
+#include "function_row.h"
 #endif 
 
 #ifndef LCHR

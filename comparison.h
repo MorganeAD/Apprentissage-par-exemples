@@ -57,14 +57,14 @@
 
 /** @brief searchAlignment
  *
- * Do a research of an alignment into a list of alignment (see the
+ * Do a research of an alignment into a row of alignment (see the
  * "type_character.c" file).
  * @param tree [int]
- * @param list [pointer]
+ * @param row [pointer]
  * @return isInto [int]
  */
 
-int searchAlignment(int alignment, int list[]);
+int searchAlignment(int alignment, int row[]);
 
 /** @brief typeComparison
  *
@@ -115,14 +115,14 @@ ptr_model comparison(ptr_model model, ptr_character character);
 
 /** @brief modelGenerator
  *
- * Generate models and add them to the list of models. Add models came from
+ * Generate models and add them to the row of models. Add models came from
  * a comparison between a character and existing models. This function will
- * add new models to a list called "modelsListAux" which will be linked to
- * "modelsList" at the end of the function. "listBrowser" will be used to
- * browse the modelsList (ie. the original models list).
- * @param modelsList [ptr_list]
+ * add new models to a row called "modelsRowAux" which will be linked to
+ * "modelsRow" at the end of the function. "rowBrowser" will be used to
+ * browse the modelsRow (ie. the original models row).
+ * @param modelsRow [ptr_row]
  * @param character [ptr_character]
- * @return  [ptr_list]
+ * @return  [ptr_row]
  */
 
-ptr_list modelGenerator(ptr_list modelsList, ptr_character character);
+ptr_row modelGenerator(ptr_row modelsRow, ptr_character character);

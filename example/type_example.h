@@ -38,5 +38,5 @@
 
 typedef struct example
 {
-	struct list* relations;
+	struct typeRow* relations;
 }example, *ptr_example;

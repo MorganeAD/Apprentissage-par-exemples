@@ -20,20 +20,20 @@
  # @file Makefile
  # @brief
  #
- # This file is the main Makefile of the list library
+ # This file is the main Makefile of the row library
 ##
 
 #-----------------------------------------------------------------------
-lib: liblist.a
+lib: librow.a
 
-liblist.a: function_list.o
-	-rm liblist.a
-	ar -r liblist.a list.o
+librow.a: function_row.o
+	-rm librow.a
+	ar -r librow.a row.o
 	-mkdir ../libs
-	cp -p liblist.a ../libs
+	cp -p librow.a ../libs
 
-function_list.o: list.c function_list.h type_list.h
-	gcc -c -Wall -O3 list.c
+function_row.o: row.c function_row.h type_row.h
+	gcc -c -Wall -O3 row.c
 
 clean: 
 	-rm *.o

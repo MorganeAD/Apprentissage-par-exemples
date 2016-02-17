@@ -31,7 +31,7 @@
 # 1. add -lfoo
 # 2. add foo.o 
 all: install main.o comparison.o class.o
-	gcc -o run main.o comparison.o class.o -L libs -ltree -lcharacter -lmodel -llist -lrelationship -lexample
+	gcc -o run main.o comparison.o class.o -L libs -ltree -lcharacter -lmodel -lrow -lrelationship -lexample
 
 main.o: main.c
 	gcc -c -Wall -O3 -I headers main.c
@@ -49,7 +49,7 @@ class.o:
 install: installheaders installlibs
 
 # 1. add libfoo
-installlibs: libtree libcharacter libmodel liblist librelationship libexample
+installlibs: libtree libcharacter libmodel librow librelationship libexample
 
 libtree:
 	cd tree && $(MAKE) lib
@@ -60,13 +60,13 @@ libcharacter:
 libmodel:
 	cd model && $(MAKE) lib
 
-liblist:
-	cd list && $(MAKE) lib
+librow:
+	cd row && $(MAKE) lib
 
 librelationship: 
 	cd relationship && $(MAKE) lib
 
-libexample: liblist
+libexample: librow
 	cd example && $(MAKE) lib
 
 # 1. uncomment
@@ -74,7 +74,7 @@ libexample: liblist
 # 	cd foo && $(MAKE) lib
 
 # 1. add type_foo.h function_foo.h
-installheaders: type_tree.h function_tree.h type_character.h function_character.h type_model.h function_model.h type_list.h function_list.h type_relationship.h function_relationship.h type_example.h function_example.h
+installheaders: type_tree.h function_tree.h type_character.h function_character.h type_model.h function_model.h type_row.h function_row.h type_relationship.h function_relationship.h type_example.h function_example.h
 
 # Trees :
 
@@ -106,15 +106,15 @@ function_model.h:
 	-mkdir headers
 	cp -p model/function_model.h headers
 
-# Lists :
+# rows :
 
-type_list.h:
+type_row.h:
 	-mkdir headers
-	cp -p list/type_list.h headers
+	cp -p row/type_row.h headers
 
-function_list.h:
+function_row.h:
 	-mkdir headers
-	cp -p list/function_list.h headers
+	cp -p row/function_row.h headers
 
 # Relationship :
 
@@ -128,11 +128,11 @@ function_relationship.h:
 
 # Example :
 
-type_example.h: type_list.h function_list.h
+type_example.h: type_row.h function_row.h
 	-mkdir headers
 	cp -p example/type_example.h headers
 
-function_example.h: type_list.h function_list.h
+function_example.h: type_row.h function_row.h
 	-mkdir headers
 	cp -p example/function_example.h headers
 
@@ -152,7 +152,7 @@ clean:
 	cd tree && $(MAKE) clean 
 	cd character && $(MAKE) clean
 	cd model && $(MAKE) clean
-	cd list && $(MAKE) clean
+	cd row && $(MAKE) clean
 	cd relationship && $(MAKE) clean
 	cd example && $(MAKE) clean
 # 1. uncomment 

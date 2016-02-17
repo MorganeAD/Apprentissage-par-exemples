@@ -11,34 +11,32 @@
  * @author ALONSO Morgane <alonso.morgane@gmail.com>
  * @author BENMILOUD--JOSSELIN Alexis <alexis.benmiloud.josselin@gmail.com>
  *
- * @version 0.0.1 / 2016/02/14
+ * @version 0.0.1 / 2016/02/17
  * @todo #0000 []
  * @bug #0000 []
  */
 
 /**
- * @file type_list.c
+ * @file type_row.c
  * @brief
  *
- * This file describes the "link" structure which is used to create lists.
+ * This file describes the "link" structure which is used to create rows.
  */
 
 /*-----------------------------------------------------------------------*/
 
-/** @brief link
+/** @brief typeFile
  *
- * "list" structure's definition. List are lists's element which will be
- * used to store models (see the type_model.c) and characters (see the
- * type_character.c). The field data is a generic pointer that point to an
+ * "row" structure's definition.
  * exmaple or a model.
- * @field data [pointer]
+ * @field data [void*]
  * @field next [pointer]
- * @name list
- * @pointer ptr_list
+ * @name row
+ * @pointer ptr_row
  */
 
-typedef struct list
+typedef struct typeRow
 {
 	void* data;
-	struct list* next;
-}list, *ptr_list;
+	struct typeRow* next;
+}row , *ptr_row ;

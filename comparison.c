@@ -36,8 +36,8 @@
 #include "type_model.h"
 #include "function_model.h"
 
-#include "type_list.h"
-#include "function_list.h"
+#include "type_row.h"
+#include "function_row.h"
 
 #include "comparison.h"
 
@@ -52,14 +52,14 @@
 
 /** @brief searchAlignment
  *
- * Do a research of an alignment into a list of alignment (see the
+ * Do a research of an alignment into a row of alignment (see the
  * "type_character.c" file).
  * @param tree [int]
- * @param list [pointer]
+ * @param row [pointer]
  * @return isInto [int]
  */
 
-int searchAlignment(int alignment, int list[])
+int searchAlignment(int alignment, int row[])
 {
 	int i, find;
 	
@@ -67,7 +67,7 @@ int searchAlignment(int alignment, int list[])
 	find=0;
 	while(!find && i<MAX_ALIGNMENT)
 	{
-		if(alignment==list[i])
+		if(alignment==row[i])
 		{
 			find=1;
 		}
@@ -166,90 +166,90 @@ ptr_model comparison(ptr_model m, ptr_character c)
 
 /** @brief modelGenerator
  *
- * Generate models and add them to the list of models. Add models came from
+ * Generate models and add them to the row of models. Add models came from
  * a comparison between a character and existing models. This function will
- * add new models to a list called "modelsListAux" which will be linked to
- * "modelsList" at the end of the function. "listBrowser" will be used to
- * browse the modelsList (ie. the original models list).
- * @param modelsList [ptr_list]
+ * add new models to a row called "modelsRowAux" which will be linked to
+ * "modelsRow" at the end of the function. "rowBrowser" will be used to
+ * browse the modelsRow (ie. the original models row).
+ * @param modelsRow [ptr_row]
  * @param character [ptr_character]
- * @return  [ptr_list]
+ * @return  [ptr_row]
  */
 
-ptr_list modelGenerator(ptr_list modelsList, ptr_character character)
+ptr_row modelGenerator(ptr_row modelsRow, ptr_character character)
 {
-	ptr_list  modelsListAux, listBrowser;
+	ptr_row  modelsRowAux, rowBrowser;
 	ptr_model toAdd;
 
-	modelsListAux=createEmpty();
-	listBrowser=modelsList;
-	while(listBrowser->next!=NULL)
+	modelsRowAux=createEmpty();
+	rowBrowser=modelsRow;
+	while(rowBrowser->next!=NULL)
 	{
-		toAdd=modelsList->data;
+		toAdd=modelsRow->data;
 
 		/* Comparison of types.*/
 		toAdd=typeComparison(toAdd, character);
 
-		/* Add the "toAdd" model to the list of models "modelsListAux".*/
-		modelsListAux=addToList(modelsListAux, toAdd);
+		/* Add the "toAdd" model to the row of models "modelsRowAux".*/
+		addToRow(modelsRowAux, toAdd);
 
 		/* Comparison of influences.*/
 		toAdd=influencesComparison(toAdd, character);
 
-		/* Add the "toAdd" model to the list of models "modelsListAux".*/
-		modelsListAux=addToList(modelsListAux, toAdd);
+		/* Add the "toAdd" model to the row of models "modelsRowAux".*/
+		addToRow(modelsRowAux, toAdd);
 	
 		/* Comparison of alignments.*/
 		toAdd=alignmentsComparison(toAdd, character);
 
-		/* Add the "toAdd" model to the list of models "modelsListAux".*/
-		modelsListAux=addToList(modelsListAux, toAdd);
+		/* Add the "toAdd" model to the row of models "modelsRowAux".*/
+		addToRow(modelsRowAux, toAdd);
 
 		/*---------------------------------------------------------------*/
 		/* Now, the program will do the same thing but without the
 		comparison of alignments.*/
 		
 		/* Re-initialization of the "toAdd" model.*/
-		toAdd=modelsList->data;
+		toAdd=modelsRow->data;
 
 		/* Comparison of influences.*/
 		toAdd=influencesComparison(toAdd, character);
 
-		/* Add the "toAdd" model to the list of models "modelsListAux".*/
-		modelsListAux=addToList(modelsListAux, toAdd);
+		/* Add the "toAdd" model to the row of models "modelsRowAux".*/
+		addToRow(modelsRowAux, toAdd);
 
 		/* Comparison of alignments.*/
 		toAdd=alignmentsComparison(toAdd, character);
 
-		/* Add the "toAdd" model to the list of models "modelsListAux".*/
-		modelsListAux=addToList(modelsListAux, toAdd);
+		/* Add the "toAdd" model to the row of models "modelsRowAux".*/
+		addToRow(modelsRowAux, toAdd);
 
 		/*---------------------------------------------------------------*/
 		/* Now, the program will do the same thing but without the
 		comparison of alignments and influences.*/
 
 		/* Re-initialization of the "toAdd" model.*/
-		toAdd=modelsList->data;
+		toAdd=modelsRow->data;
 
 		/* Comparison of alignments.*/
 		toAdd=alignmentsComparison(toAdd, character);
 
-		/* Add the "toAdd" model to the list of models "modelsListAux".*/
-		modelsListAux=addToList(modelsListAux, toAdd);
+		/* Add the "toAdd" model to the row of models "modelsRowAux".*/
+		addToRow(modelsRowAux, toAdd);
 
 		/* Now the program will do same same comparisons but with the
 		following existing model.*/
-		listBrowser=listBrowser->next;
+		rowBrowser=rowBrowser->next;
 	}
 
 	/* At the end, the program add the model obtained by the example
 	itself.*/
 	toAdd=initModel(character);
-	modelsListAux=addToList(modelsListAux, toAdd);
+	addToRow(modelsRowAux, toAdd);
 
-	/* The last thing to do is to link the new list of models to the
+	/* The last thing to do is to link the new row of models to the
 	original one.*/
-	listBrowser->next=modelsListAux;
-	return modelsList;
+	rowBrowser->next=modelsRowAux;
+	return modelsRow;
 
 }

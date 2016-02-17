@@ -41,10 +41,10 @@
 #include "function_tree.h"
 #endif 
 
-#ifndef LLIST
-#define LLIST
-#include "type_list.h"
-#include "function_list.h"
+#ifndef LROW
+#define LROW
+#include "type_row.h"
+#include "function_row.h"
 #endif 
 
 #ifndef LCHR
@@ -83,12 +83,12 @@ ptr_example createEmptyExample(void)
 
 /** @brief getRelations
  *
- * Give the list of the relationships
+ * Give the row of the relationships
  * @param e [ptr-example]
- * @return e->relations [ptr_list]
+ * @return e->relations [ptr_row]
  */
 
-ptr_list getRelations(ptr_example e)
+ptr_row getRelations(ptr_example e)
 {
 	return e->relations;
 }
@@ -103,7 +103,7 @@ ptr_list getRelations(ptr_example e)
 
 ptr_relationship getRelationI(ptr_example e, int n)
 {
-	return (ptr_relationship) getElementI(getRelations(e), n);
+	return (ptr_relationship)getElementI(getRelations(e), n);
 }
 
 /** @brief getCharacterI
@@ -122,7 +122,7 @@ ptr_character getCharacterI(ptr_example e, int n)
 
 /** @brief addFirstCharacter
  *
- * Add a character into the list characters
+ * Add a character into the row characters
  * @param e [ptr_example]
  * @param c [ptr_character]
  * @return tmp [ptr_example]
@@ -132,13 +132,13 @@ ptr_example addFirstCharacter(ptr_example e, ptr_character c)
 {
 	ptr_example tmpExp = e;
 	ptr_relationship tmpRel = createRelationshipOneObject(c);
-	tmpExp->relations = addToList(getRelations(tmpExp), tmpRel);
+	addToRow(getRelations(tmpExp), tmpRel);
 	return tmpExp;
 }
 
 /** @brief addSecondCharacter
  *
- * Add a character into the list characters
+ * Add a character into the row characters
  * @param e [ptr_example]
  * @param c [ptr_character]
  * @return tmp [ptr_example]
@@ -146,12 +146,12 @@ ptr_example addFirstCharacter(ptr_example e, ptr_character c)
 
 void addSecondCharacter(ptr_example e, ptr_character c, int r)
 {
-	modifyRelation(headList(getRelations(e)), c, r);
+	modifyRelation(getData(getRelations(e)), c, r);
 }
 
 /** @brief addCharacter
  *
- * Add a character into the list characters
+ * Add a character into the row characters
  * @param e [ptr_example]
  * @param c [ptr_character]
  * @return tmp [ptr_example]
@@ -159,7 +159,7 @@ void addSecondCharacter(ptr_example e, ptr_character c, int r)
 
 // void addCharacter(ptr_example e, ptr_character c, int r)
 // {
-// 	modifyRelation(headList(getRelations(e)), c, r);
+// 	modifyRelation(getData(getRelations(e)), c, r);
 // }
 
 /** @brief displayExample
@@ -171,24 +171,24 @@ void addSecondCharacter(ptr_example e, ptr_character c, int r)
 
 void displayExample(ptr_example e)
 {
-	ptr_list tmp;
+	ptr_row tmp;
 	tmp = getRelations(e);
 	printf("{");
 	if (isEmpty(tmp))
 	{
 		printf("Empty!");
 	}
-	else if (isRelationshipOneObject(headList(tmp)))
+	else if (isRelationshipOneObject(getData(tmp)))
 	{
-		displayCharacter(getData1(headList(tmp)));
+		displayCharacter(getData1(getData(tmp)));
 	}
 	else
 	{
 		while(!isEmpty(tmp))
 		{
 			printf("[");
-			displayCharacter(getData1(headList(tmp)));
-			if (getRelation(headList(tmp)) == 0)
+			displayCharacter(getData1(getData(tmp)));
+			if (getRelation(getData(tmp)) == 0)
 			{
 				printf(" serves ");
 			}
@@ -196,9 +196,9 @@ void displayExample(ptr_example e)
 			{
 				printf(" tracks ");
 			}
-			displayCharacter(getData2(headList(tmp)));
+			displayCharacter(getData2(getData(tmp)));
 			printf("]");
-			tmp = nextList(tmp);
+			tmp = nextRow(tmp);
 		}
 	}
 	printf("}");
