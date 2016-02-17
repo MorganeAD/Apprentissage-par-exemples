@@ -40,8 +40,8 @@
 #include <assert.h>
 #endif 
 
-#ifndef LQUE
-#define LQUE
+#ifndef LROW
+#define LROW
 #include "type_row.h"
 #include "function_row.h"
 #endif 

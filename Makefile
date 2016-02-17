@@ -31,7 +31,7 @@
 # 1. add -lfoo
 # 2. add foo.o 
 all: install main.o comparison.o class.o
-	gcc -o run main.o comparison.o class.o -L libs -ltree -lcharacter -lstereotype -lrow -lrelationship -lexample
+	gcc -o run main.o comparison.o class.o -L libs -ltree -lcharacter -lstereotype -lrow -lrelationship -lexample -lmodel
 
 main.o: main.c
 	gcc -c -Wall -O3 -I headers main.c
@@ -49,7 +49,7 @@ class.o:
 install: installheaders installlibs
 
 # 1. add libfoo
-installlibs: libtree libcharacter libstereotype librow librelationship libexample
+installlibs: libtree libcharacter libstereotype librow librelationship libexample libmodel
 
 libtree:
 	cd tree && $(MAKE) lib
@@ -69,12 +69,15 @@ librelationship:
 libexample: librow
 	cd example && $(MAKE) lib
 
+libmodel: 
+	cd model && $(MAKE) lib
+
 # 1. uncomment
 # libfoo: 
 # 	cd foo && $(MAKE) lib
 
 # 1. add type_foo.h function_foo.h
-installheaders: type_tree.h function_tree.h type_character.h function_character.h type_stereotype.h function_stereotype.h type_row.h function_row.h type_relationship.h function_relationship.h type_example.h function_example.h
+installheaders: type_tree.h function_tree.h type_character.h function_character.h type_stereotype.h function_stereotype.h type_row.h function_row.h type_relationship.h function_relationship.h type_example.h function_example.h type_model.h function_model.h
 
 # Trees :
 
@@ -136,6 +139,14 @@ function_example.h: type_row.h function_row.h
 	-mkdir headers
 	cp -p example/function_example.h headers
 
+type_model.h:
+	-mkdir headers
+	cp -p model/type_model.h headers
+
+function_model.h:
+	-mkdir headers
+	cp -p model/function_model.h headers
+
 # 1. uncomment
 # type_foo.h:
 # 	-mkdir headers
@@ -155,6 +166,7 @@ clean:
 	cd row && $(MAKE) clean
 	cd relationship && $(MAKE) clean
 	cd example && $(MAKE) clean
+	cd model && $(MAKE) clean
 # 1. uncomment 
 # cd foo && $(MAKE) clean
 

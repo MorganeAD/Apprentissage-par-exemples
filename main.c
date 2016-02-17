@@ -72,6 +72,12 @@
 #include "function_example.h"
 #endif 
 
+#ifndef LMDL
+#define LMDL
+#include "type_model.h"
+#include "function_model.h"
+#endif
+
 #ifndef COMP
 #define COMP
 #include "comparison.h"
@@ -127,24 +133,10 @@ int main(int argc, char* argv[])
 	printf("\n");
 
 	printf("Comparison between model and character 3...\n");
-	comparison(s1, c3);
-	displayStereotype(s1);
-	printf("\n");
-
-	printf("Test of the relationship\n");
-	ptr_relationship r1;
-	r1 = createRelationship(c1, c2, 0);
-	/*displayRelationship(r1); <-- N'EXISTE PLUS !!!*/
-	printf("\n");
-
-	ptr_relationship r2;
-	r2 = createRelationship(c2, c3, 0);
-	/*displayRelationship(r2); <-- N'EXISTE PLUS !!!*/
-	printf("\n");
-
-	ptr_relationship r3;
-	r3 = createRelationship(c3, c4, 0);
-	/*displayRelationship(r3); <-- N'EXISTE PLUS !!!*/
+	ptr_stereotype s2;
+	s2=initStereotype(c1);
+	comparison(s2, c3);
+	displayStereotype(s2);
 	printf("\n");
 
 	printf("Test of the example\n");
@@ -166,5 +158,26 @@ int main(int argc, char* argv[])
 	displayExample(e1);
 	printf("\n\n");
 
+	printf("Test of the model\n");
+	ptr_relationship r1;
+	r1 = createRelationship(s1, s2, 0);
+
+	ptr_relationship r2;
+	r2 = createRelationshipOneObject(s1);
+
+	ptr_model m1;
+	m1 = createEmptyModel();
+	displayModel(m1);
+	printf("\n\n");
+	addRelatioship(m1, r1);
+	displayModel(m1);
+	printf("\n\n");
+	addRelatioship(m1, r2);
+	displayModel(m1);
+	printf("\n\n");
+	addRelatioship(m1, r1);
+	displayModel(m1);
+	printf("\n\n");
+	
 	return 0;
 }

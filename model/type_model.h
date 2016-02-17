@@ -17,26 +17,27 @@
  */
 
 /**
- * @file type_example.h
+ * @file type_character.h
  * @brief
  *
- * This file describes the "example" type.
+ * This file describes the "model" type.
  */
 
 /*-----------------------------------------------------------------------*/
 
-/** @brief example
+/** @brief model
  *
- * "example" structure's definition. examples will contain a list of
- * characters and relationship
- * (see the character and relationship folder).
- * @field characters [list*]
- * @field exRelRow [list*]
- * @name example
- * @pointer ptr_example
+ * "model" structure's definition. models will be compared to a model
+ * (see the model folder). An model(i.e. a model) is composed of a
+ * type, an influence and an alignment.
+ * @field type [tree*]
+ * @field influence [int]
+ * @field alignment [int]
+ * @name model
+ * @pointer ptr_model
  */
 
-typedef struct example
+typedef struct model
 {
-	ptr_row exRelRow;
-}example, *ptr_example;
+	ptr_row modRelRow;
+}model, *ptr_model;
