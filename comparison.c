@@ -103,10 +103,9 @@ int searchAlignment(int a, int row[])
  * @return stereotype [ptr_tree]
  */
 
-ptr_stereotype typeComparison(ptr_stereotype s, ptr_character c)
+void typeComparison(ptr_stereotype s, ptr_character c)
 {
 	s->type=commonFather(s->type, c->type);
-	return s;
 }
 
 /** @brief influencesComparison
@@ -118,7 +117,7 @@ ptr_stereotype typeComparison(ptr_stereotype s, ptr_character c)
  * @return stereotype [ptr_tree]
  */
 
-ptr_stereotype influencesComparison(ptr_stereotype s, ptr_character c)
+void influencesComparison(ptr_stereotype s, ptr_character c)
 {
 	if(s->minInfluence>c->influence)
 	{
@@ -128,8 +127,6 @@ ptr_stereotype influencesComparison(ptr_stereotype s, ptr_character c)
 	{
 		s->maxInfluence=c->influence;
 	}
-
-	return s;
 }
 
 /** @brief alignementsComparison
@@ -141,15 +138,13 @@ ptr_stereotype influencesComparison(ptr_stereotype s, ptr_character c)
  * @return stereotype [ptr_tree]
  */
 
-ptr_stereotype alignmentsComparison(ptr_stereotype s, ptr_character c)
+void alignmentsComparison(ptr_stereotype s, ptr_character c)
 {
 	if(!searchAlignment(c->alignment, s->alignment))
 	{
 		s->alignment[s->nbAlign]=c->alignment;
 		s->nbAlign++;
 	}
-
-	return s;
 }
 
 /*-----------------------------------------------------------------------*/
@@ -165,17 +160,33 @@ ptr_stereotype alignmentsComparison(ptr_stereotype s, ptr_character c)
  * @return stereotype [ptr_stereotype]
  */
 
-ptr_stereotype comparison(ptr_stereotype s, ptr_character c)
+void comparison(ptr_stereotype s, ptr_character c)
 {
 	/* Comparison of types.*/
-	s=typeComparison(s, c);
+	typeComparison(s, c);
 
 	/* Comparison of influences.*/
-	s=influencesComparison(s, c);
+	influencesComparison(s, c);
 
 	/* Comparison of alignments.*/
-	s=alignmentsComparison(s, c);
-	
+	alignmentsComparison(s, c);
+}
+
+/** @brief compCharChar
+ *
+ * Do a comparison between two characters.
+ * @param c1 [ptr_character]
+ * @param c2 [ptr_character]
+ * @return stereotype [ptr_stereotype]
+ */
+
+ptr_stereotype compCharChar(ptr_character c1, ptr_character c2)
+{
+	ptr_stereotype s;
+
+	s=initStereotype(c1);
+	comparison(s, c2);
+
 	return s;
 }
 
@@ -198,73 +209,22 @@ ptr_row stereotypeGenerator(ptr_row stereotypesRow, ptr_character c)
 
 	stereotypesRowAux=createEmpty();
 	rowBrowser=stereotypesRow;
-	while(rowBrowser->next!=NULL)
+	while(rowBrowser->next!=createEmpty())
 	{
 		toAdd=stereotypesRow->data;
 
 		/* Comparison of types.*/
-		toAdd=typeComparison(toAdd, c);
-
-		/* Add the "toAdd" stereotype to the row of stereotypes "stereotypesRowAux".*/
-		addToRow(stereotypesRowAux, toAdd);
+		typeComparison(toAdd, c);
 
 		/* Comparison of influences.*/
-		toAdd=influencesComparison(toAdd, c);
-
-		/* Add the "toAdd" stereotype to the row of stereotypes "stereotypesRowAux".*/
-		addToRow(stereotypesRowAux, toAdd);
+		influencesComparison(toAdd, c);
 	
 		/* Comparison of alignments.*/
-		toAdd=alignmentsComparison(toAdd, c);
+		alignmentsComparison(toAdd, c);
 
 		/* Add the "toAdd" stereotype to the row of stereotypes "stereotypesRowAux".*/
 		addToRow(stereotypesRowAux, toAdd);
-
-		/*---------------------------------------------------------------*/
-		/* Now, the program will do the same thing but without the
-		comparison of alignments.*/
-		
-		/* Re-initialization of the "toAdd" stereotype.*/
-		toAdd=stereotypesRow->data;
-
-		/* Comparison of influences.*/
-		toAdd=influencesComparison(toAdd, c);
-
-		/* Add the "toAdd" stereotype to the row of stereotypes "stereotypesRowAux".*/
-		addToRow(stereotypesRowAux, toAdd);
-
-		/* Comparison of alignments.*/
-		toAdd=alignmentsComparison(toAdd, c);
-
-		/* Add the "toAdd" stereotype to the row of stereotypes "stereotypesRowAux".*/
-		addToRow(stereotypesRowAux, toAdd);
-
-		/*---------------------------------------------------------------*/
-		/* Now, the program will do the same thing but without the
-		comparison of alignments and influences.*/
-
-		/* Re-initialization of the "toAdd" stereotype.*/
-		toAdd=stereotypesRow->data;
-
-		/* Comparison of alignments.*/
-		toAdd=alignmentsComparison(toAdd, c);
-
-		/* Add the "toAdd" stereotype to the row of stereotypes "stereotypesRowAux".*/
-		addToRow(stereotypesRowAux, toAdd);
-
-		/* Now the program will do same same comparisons but with the
-		following existing stereotype.*/
-		rowBrowser=rowBrowser->next;
 	}
 
-	/* At the end, the program add the stereotype obtained by the example
-	itself.*/
-	toAdd=initStereotype(c);
-	addToRow(stereotypesRowAux, toAdd);
-
-	/* The last thing to do is to link the new row of stereotypes to the
-	original one.*/
-	rowBrowser->next=stereotypesRowAux;
 	return stereotypesRow;
-
 }

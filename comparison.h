@@ -75,7 +75,7 @@ int searchAlignment(int a, int row[]);
  * @return model [ptr_tree]
  */
 
-ptr_stereotype typeComparison(ptr_stereotype s, ptr_character c);
+void typeComparison(ptr_stereotype s, ptr_character c);
 /** @brief influencesComparison
  *
  * Do a comparison of influences between the stereotype and an character in
@@ -85,7 +85,7 @@ ptr_stereotype typeComparison(ptr_stereotype s, ptr_character c);
  * @return stereotype [ptr_tree]
  */
 
-ptr_stereotype influencesComparison(ptr_stereotype s, ptr_character c);
+void influencesComparison(ptr_stereotype s, ptr_character c);
 
 /** @brief alignementsComparison
  *
@@ -96,13 +96,13 @@ ptr_stereotype influencesComparison(ptr_stereotype s, ptr_character c);
  * @return stereotype [ptr_tree]
  */
 
-ptr_stereotype alignmentsComparison(ptr_stereotype s, ptr_character c);
+void alignmentsComparison(ptr_stereotype s, ptr_character c);
 
 /*-----------------------------------------------------------------------*/
 /*                         COMPARISON FUNCTIONS                          */
 /*-----------------------------------------------------------------------*/
 
-/** @brief comparison
+/** @brief comparisonSC
  *
  * Do a comparison between the model and an character in order to enlarge,
  * or not, the model.
@@ -111,7 +111,17 @@ ptr_stereotype alignmentsComparison(ptr_stereotype s, ptr_character c);
  * @return model [ptr_stereotype]
  */
 
-ptr_stereotype comparison(ptr_stereotype s, ptr_character c);
+void comparison(ptr_stereotype s, ptr_character c);
+
+/** @brief compCharChar
+ *
+ * Do a comparison between two characters.
+ * @param c1 [ptr_character]
+ * @param c2 [ptr_character]
+ * @return stereotype [ptr_stereotype]
+ */
+
+ptr_stereotype compCharChar(ptr_character c1, ptr_character c2);
 
 /** @brief modelGenerator
  *
