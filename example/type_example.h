@@ -38,5 +38,5 @@
 
 typedef struct example
 {
-	ptr_row exRelRow;
+	ptr_row expRelRow;
 }example, *ptr_example;

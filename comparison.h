@@ -102,7 +102,7 @@ void alignmentsComparison(ptr_stereotype s, ptr_character c);
 /*                         COMPARISON FUNCTIONS                          */
 /*-----------------------------------------------------------------------*/
 
-/** @brief comparisonSC
+/** @brief compSC
  *
  * Do a comparison between the model and an character in order to enlarge,
  * or not, the model.
@@ -111,17 +111,29 @@ void alignmentsComparison(ptr_stereotype s, ptr_character c);
  * @return model [ptr_stereotype]
  */
 
-void comparison(ptr_stereotype s, ptr_character c);
+void compSC(ptr_stereotype s, ptr_character c);
 
-/** @brief compCharChar
+/** @brief compCC
  *
  * Do a comparison between two characters.
  * @param c1 [ptr_character]
  * @param c2 [ptr_character]
  * @return stereotype [ptr_stereotype]
  */
+ 
+ /** @brief compEM
+ *
+ * Do the comparison between the example e - a row of relations between two
+ * characters - and the model m - a row of relations between two
+ * stereotypes.
+ * @param e [ptr_example]
+ * @param m [ptr_model]
+ * @return m [ptr_row]
+ */
 
-ptr_stereotype compCharChar(ptr_character c1, ptr_character c2);
+ptr_model compEM(ptr_example e, ptr_model m);
+
+ptr_stereotype compCC(ptr_character c1, ptr_character c2);
 
 /** @brief modelGenerator
  *

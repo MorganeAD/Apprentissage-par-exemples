@@ -34,14 +34,14 @@
 
 ptr_example createEmptyExample(void);
 
-/** @brief getRelations
+/** @brief getExpRelRow
  *
  * Give the row of the relationships
  * @param e [ptr-example]
  * @return e->relations [ptr_row]
  */
 
-ptr_row getRelations(ptr_example e);
+ptr_row getExpRelRow(ptr_example e);
 
 /** @brief getRelationI
  *

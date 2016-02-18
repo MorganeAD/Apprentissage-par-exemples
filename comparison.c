@@ -21,8 +21,8 @@
  * @file comparison.c
  * @brief 
  *
- * This file describes all the functions to compare between a stereotype and an
- * character.
+ * This file describes all the functions comparisons between characters and
+ * stereotypes, stereotypes and stereotypes, examples and models etc.
  */
 
 /*-----------------------------------------------------------------------*/
@@ -49,7 +49,25 @@
 #define LROW
 #include "type_row.h"
 #include "function_row.h"
-#endif 
+#endif
+
+#ifndef LRLT
+#define LRLT
+#include "type_relationship.h"
+#include "function_relationship.h"
+#endif
+
+#ifndef LEXP
+#define LEXP
+#include "type_example.h"
+#include "function_example.h"
+#endif
+
+#ifndef LMDL
+#define LMDL
+#include "type_model.h"
+#include "function_model.h"
+#endif
 
 #ifndef COMP
 #define COMP
@@ -151,7 +169,7 @@ void alignmentsComparison(ptr_stereotype s, ptr_character c)
 /*                         COMPARISON FUNCTIONS                          */
 /*-----------------------------------------------------------------------*/
 
-/** @brief comparison
+/** @brief compSC
  *
  * Do a comparison between the stereotype and an character in order to enlarge,
  * or not, the stereotype.
@@ -160,7 +178,7 @@ void alignmentsComparison(ptr_stereotype s, ptr_character c)
  * @return stereotype [ptr_stereotype]
  */
 
-void comparison(ptr_stereotype s, ptr_character c)
+void compSC(ptr_stereotype s, ptr_character c)
 {
 	/* Comparison of types.*/
 	typeComparison(s, c);
@@ -172,7 +190,7 @@ void comparison(ptr_stereotype s, ptr_character c)
 	alignmentsComparison(s, c);
 }
 
-/** @brief compCharChar
+/** @brief compCC
  *
  * Do a comparison between two characters.
  * @param c1 [ptr_character]
@@ -180,14 +198,50 @@ void comparison(ptr_stereotype s, ptr_character c)
  * @return stereotype [ptr_stereotype]
  */
 
-ptr_stereotype compCharChar(ptr_character c1, ptr_character c2)
+ptr_stereotype compCC(ptr_character c1, ptr_character c2)
 {
 	ptr_stereotype s;
 
 	s=initStereotype(c1);
-	comparison(s, c2);
+	compSC(s, c2);
 
 	return s;
+}
+
+/** @brief compEM
+ *
+ * Do the comparison between the example e - a row of relations between two
+ * characters - and the model m - a row of relations between two
+ * stereotypes.
+ * @param e [ptr_example]
+ * @param m [ptr_model]
+ * @return m [ptr_row]
+ */
+
+ptr_model compEM(ptr_example e, ptr_model m)
+{
+	ptr_row tmpExp, tmpMod;
+	ptr_model modelAux;
+
+	tmpExp=getExpRelRow(e);
+	tmpMod=getModRelRow(m);
+	modelAux=createEmptyModel();
+	while(tmpExp!=createEmpty())
+	{
+		tmpMod=getModRelRow(m);
+		while(tmpMod!=createEmpty())
+		{
+			RExpRModComp(modelAux,
+			getData(tmpExp),
+			getData(tmpMod));
+			tmpMod=nextRow(tmpMod);
+		}
+		tmpExp=nextRow(tmpExp);
+	}
+	deleteGeneralModRel(modelAux);
+	addToRow(getModRelRow(m), getModRelRow(modelAux));
+
+	return m;
 }
 
 /** @brief stereotypeGenerator

@@ -45,25 +45,25 @@
 #define LROW
 #include "type_row.h"
 #include "function_row.h"
-#endif 
+#endif
 
 #ifndef LCHR
 #define LCHR
 #include "type_character.h"
 #include "function_character.h"
-#endif 
+#endif
 
 #ifndef LRLT
 #define LRLT
 #include "type_relationship.h"
 #include "function_relationship.h"
-#endif 
+#endif
 
 #ifndef LEXP
 #define LEXP
 #include "type_example.h"
 #include "function_example.h"
-#endif 
+#endif
 
 /*-----------------------------------------------------------------------*/
 
@@ -77,20 +77,20 @@
 ptr_example createEmptyExample(void)
 {
 	ptr_example tmp=(ptr_example)malloc(sizeof(example));
-	tmp->exRelRow=createEmpty();
+	tmp->expRelRow=createEmpty();
 	return tmp;
 } 
 
-/** @brief getExRelRow
+/** @brief getExpRelRow
  *
  * Give the row of the relationships
  * @param e [ptr-example]
- * @return e->exRelRow [ptr_row]
+ * @return e->expRelRow [ptr_row]
  */
 
-ptr_row getExRelRow(ptr_example e)
+ptr_row getExpRelRow(ptr_example e)
 {
-	return e->exRelRow;
+	return e->expRelRow;
 }
 
 /** @brief getRelationI
@@ -98,12 +98,12 @@ ptr_row getExRelRow(ptr_example e)
  * Give the relationship at the position i
  * @param e [ptr-example]
  * @param n [int]
- * @return e->exRelRow[n] [ptr_relationship]
+ * @return e->expRelRow[n] [ptr_relationship]
  */
 
 ptr_relationship getRelationI(ptr_example e, int n)
 {
-	return (ptr_relationship)getDataI(getExRelRow(e), n);
+	return (ptr_relationship)getDataI(getExpRelRow(e), n);
 }
 
 /** @brief getCharacterI
@@ -111,7 +111,7 @@ ptr_relationship getRelationI(ptr_example e, int n)
  * Give the character at the position i
  * @param e [ptr-example]
  * @param n [int]
- * @return e->exRelRow[i]->data1 [ptr_character]
+ * @return e->expRelRow[i]->data1 [ptr_character]
  */
 
 ptr_character getCharacterI(ptr_example e, int n)
@@ -131,7 +131,7 @@ ptr_character getCharacterI(ptr_example e, int n)
 void addFirstCharacter(ptr_example e, ptr_character c)
 {
 	ptr_relationship tmp = createRelationshipOneObject(c);
-	addToRow(getExRelRow(e), tmp);
+	addToRow(getExpRelRow(e), tmp);
 }
 
 /** @brief addSecondCharacter
@@ -144,7 +144,7 @@ void addFirstCharacter(ptr_example e, ptr_character c)
 
 void addSecondCharacter(ptr_example e, ptr_character c, int r)
 {
-	modifyRelation(getData(getExRelRow(e)), c, r);
+	modifyRelation(getData(getExpRelRow(e)), c, r);
 }
 
 /** @brief addCharacter
@@ -157,8 +157,8 @@ void addSecondCharacter(ptr_example e, ptr_character c, int r)
 
 void addCharacter(ptr_example e, ptr_character c, int r)
 {
-	ptr_relationship tmp = createRelationship(getData2(getLastData(getExRelRow(e))),c , r);
-	addToRow(getExRelRow(e), tmp);
+	ptr_relationship tmp = createRelationship(getData2(getLastData(getExpRelRow(e))),c , r);
+	addToRow(getExpRelRow(e), tmp);
 }
 
 /** @brief displayExample
@@ -171,7 +171,7 @@ void addCharacter(ptr_example e, ptr_character c, int r)
 void displayExample(ptr_example e)
 {
 	ptr_row tmp;
-	tmp = getExRelRow(e);
+	tmp = getExpRelRow(e);
 	printf("{");
 	if (isEmpty(tmp))
 	{
