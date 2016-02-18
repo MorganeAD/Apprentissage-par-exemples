@@ -103,7 +103,7 @@ void addRelatioship(ptr_model this, ptr_relationship r)
 /** @brief getModRelRow
  *
  * Give the row of relation's stereotype
- * @param this [ptr_model m]
+ * @param this [ptr_model this]
  * @return this->modRelRow [ptr_row]
  */
 
@@ -112,13 +112,38 @@ ptr_row getModRelRow(ptr_model this)
 	return this->modRelRow;
 }
 
+/** @brief deleteRelationshipInModRelRow
+ *
+ * Delete a relationship from the row of relationships in the model
+ * @param this [ptr_model this]
+ * @param r [ptr_relationship r]
+ * @return [void]
+ */
+
+void deleteRelationshipInModRelRow(ptr_model this, ptr_relationship r)
+{
+	deleteObject(getModRelRow(this), r);
+}
+
+/** @brief addRelatioshipFromRow
+ *
+ * Add relationships from a row into ModRelRow
+ * @param this [ptr_model this]
+ * @param r [ptr_row r]
+ * @return [void]
+ */
+
+void addRelatioshipFromRow(ptr_model this, ptr_row r)
+{
+	addToRowFromRow(getModRelRow(this), r);
+}
+
 /** @brief displayModel
  *
  * Display the model
  * @param this [ptr_model m]
  * @return [void]
  */
-
 
 void displayModel(ptr_model this)
 {

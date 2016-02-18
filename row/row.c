@@ -52,7 +52,7 @@
  *
  * Create the empty row.
  * @param [void]
- * @return NULL [ptr_list]
+ * @return tmp [ptr_list]
  */
 
 ptr_row createEmpty()
@@ -67,57 +67,57 @@ ptr_row createEmpty()
 /** @brief isEmpty
  *
  * Tell if the row is empty.
- * @param q [ptr_row]
- * @return q->data==NULL && q->next==NULL [int]
+ * @param this [ptr_row]
+ * @return this->data==NULL && this->next==NULL [int]
  */
 
-int isEmpty(ptr_row q)
+int isEmpty(ptr_row this)
 {
-	return q->data==NULL && q->next==NULL;
+	return this->data==NULL && this->next==NULL;
 }
 
 /** @brief getData
  *
  * Give the data of the first list of the list.
- * @param l [ptr_row]
+ * @param this [ptr_row]
  * @return list->data [void*]
  */
 
-void* getData(ptr_row q)
+void* getData(ptr_row this)
 {
-	assert(!isEmpty(q));
-	return q->data;
+	assert(!isEmpty(this));
+	return this->data;
 }
 
 /** @brief nextRow
  *
  * Give the following list of the list.
- * @param list [ptr_list]
+ * @param this [ptr_list]
  * @return list->next [ptr_list]
  */
 
-ptr_row nextRow(ptr_row q)
+ptr_row nextRow(ptr_row this)
 {
-	assert(!isEmpty(q));
-	return q->next;
+	assert(!isEmpty(this));
+	return this->next;
 }
 
 /** @brief addToRow
  *
  * Add the element to the list.
- * @param q [ptr_row]
+ * @param this [ptr_row]
  * @param n [void*]
  * @return [void]
  */
 
-void addToRow(ptr_row q, void* n)
+void addToRow(ptr_row this, void* n)
 {
 	ptr_row parcours;
-	parcours=q;
-	if (isEmpty(q))
+	parcours=this;
+	if (isEmpty(this))
 	{
-		q->data=n;
-		q->next=createEmpty();
+		this->data=n;
+		this->next=createEmpty();
 	}
 	else
 	{
@@ -133,14 +133,14 @@ void addToRow(ptr_row q, void* n)
 /** @brief getDataI
  *
  * Give the element at the position i
- * @param list [ptr_queue]
+ * @param this [ptr_row]
  * @param n [int]
  * @return tmp->data [void*]
  */
 
-void* getDataI(ptr_row q, int n)
+void* getDataI(ptr_row this, int n)
 {
-	ptr_row tmp = q;
+	ptr_row tmp = this;
 	int i;
 	for (i = 0; i < n; i++)
 	{
@@ -149,19 +149,71 @@ void* getDataI(ptr_row q, int n)
 	return getData(tmp);
 }
 
-/** @brief getLastData(ptr_row q, int n)
+/** @brief getLastData
  *
  * Give the last element
- * @param list [ptr_queue]
+ * @param this [ptr_row]
  * @return tmp->data [void*]
  */
 
-void* getLastData(ptr_row q)
+void* getLastData(ptr_row this)
 {
-	ptr_row tmp = q;
+	ptr_row tmp = this;
 	while(!isEmpty(nextRow(tmp)))
 	{
 		tmp = nextRow(tmp);
 	}
 	return getData(tmp);
+}
+
+/** @brief deleteObject
+ *
+ * Delete the Object from the row
+ * @param this [ptr_row]
+ * @param r [void*]
+ * @return [void]
+ */
+
+void deleteObject(ptr_row this, void* r)
+{
+	assert(!isEmpty(this));
+	ptr_row tmp = this;
+	while(!isEmpty(tmp) && getData(tmp)!=r)
+	{
+		tmp = nextRow(tmp);
+	}
+	if (isEmpty(tmp))
+	{
+		printf("Error : The object is not in the list, can't delete it\n");
+	}
+	else
+	{
+		while(!isEmpty(nextRow(tmp)))
+		{
+			tmp->data = getData(nextRow(tmp));
+			tmp->next = nextRow(nextRow(tmp));
+			tmp = nextRow(tmp);
+		}
+		free(nextRow(tmp));
+		tmp->data = NULL;
+		tmp->next = NULL;
+	}
+}
+
+/** @brief addToRowFromRow
+ *
+ * Add all the object of the row r to the row this
+ * @param this [ptr_row]
+ * @param r [void*]
+ * @return [void]
+ */
+
+void addToRowFromRow(ptr_row this, ptr_row r)
+{
+	ptr_row tmp = r;
+	while(!isEmpty(tmp))
+	{
+		addToRow(this, getData(tmp));
+		tmp = nextRow(tmp);
+	}
 }
