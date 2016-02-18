@@ -187,3 +187,94 @@ void displayModel(ptr_model this)
 	}
 	printf("}");
 }
+
+/** @brief deleteGeneralModRel
+ *
+ * Delete the most general relationships of a model.
+ * @param m [ptr_model]
+ * @return [void]
+ */
+
+void deleteGeneralModRel(ptr_model m)
+{
+	ptr_row rs1, rs2;
+
+	rs1=getModRelRow(m);
+	while(rs1!=createEmpty())
+	{
+		rs2=nextRow(rs1);
+		while(rs2!=createEmpty)
+		{
+			/* Verify if the relation of rs1 and rs2 are the same : */
+			if(getRelation(rs1)==getRelation(rs2))
+			{
+				/* Verify is there is no relation : */
+				if(getRelation(rs1)=-1)
+				{
+					tmp1=compSS(getData1(rs1), getData2(rs2));
+
+					/* Delete the relation rs1 if it is too general : */
+					if(equalStereotypes(tmp, getData1(rs1)))
+					{
+						deleteObject(getModRelRow(m), getData(rs1));
+					}
+
+					/* Delete the relation rs2 if it is too general : */
+					else if(equalStereotypes(tmp, getData1(rs2)))
+					{
+						deleteObject(getModRelRow(m), getData(rs2));
+					}
+				}
+
+				/* If relation != -1 : */
+				else
+				{
+					tmp1=compSS(getData1(rs1), getData1(rs2));
+					tmp2=compSS(getData2(rs1), getData2(rs2));
+
+					/* Delete the relation rs1 if it is too general : */
+					if(equalStereotypes(getData1(rs1), tmp1) &&
+					   equalStereotypes(getData2(rs1), tmp2))
+					{
+						deleteObject(getModRelRow(m), getData(rs1));
+					}
+
+					/* Delete the relation rs2 if it is too general : */
+					else if(equalStereotypes(getData1(rs2), tmp1) &&
+							equalStereotypes(getData2(rs2), tmp2))
+					{
+						deleteObject(getModRelRow(m), getData(rs2));
+					}
+				}
+			}
+
+			/* If relation are not the same : */
+			else if(getRelation(rs1)==-1 &&
+					getRelation(rs2)!==-1)
+			{
+				tmp1=compSS(getData1(rs1), getData1(rs2));
+				tmp2=compSS(getData1(rs1), getData2(rs2));
+
+				if(equalStereotypes(getData1(rs1), tmp1) ||
+				   equalStereotypes(getData1(rs1), tmp2))
+				{
+					deleteObject(getModRelRow(m), getData(rs1));
+				}
+			}
+			else if(getRelation(rs1)==-1 &&
+					getRelation(rs2)!==-1)
+			{
+				tmp1=compSS(getData1(rs1), getData1(rs2));
+				tmp2=compSS(getData1(rs1), getData2(rs2));
+
+				if(equalStereotypes(getData1(rs1), tmp1) ||
+				   equalStereotypes(getData1(rs1), tmp2))
+				{
+					deleteObject(getModRelRow(m), getData(rs1));
+				}
+			}
+			rs2=nextRow(rs2);
+		}
+		rs1=nextRow(rs1);
+	}
+}

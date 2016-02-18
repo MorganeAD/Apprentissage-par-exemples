@@ -79,7 +79,7 @@ void alignmentsComparison(int as[], ptr_stereotype s, ptr_character c);
  * @return a [int]
  */
 
-int min(int a, int b)
+int min(int a, int b);
 
 /** @brief max
  *
@@ -89,7 +89,7 @@ int min(int a, int b)
  * @return a [int]
  */
 
-int max(int a, int b)
+int max(int a, int b);
 
 /** @brief compSC
  *
@@ -111,6 +111,16 @@ ptr_stereotype compSC(ptr_stereotype s, ptr_character c);
  */
 
 ptr_stereotype compCC(ptr_character c1, ptr_character c2);
+
+/** @brief compSS
+ *
+ * Compare two stereotype and return a model.
+ * @param s1 [ptr_stereotype]
+ * @param s2 [ptr_stereotype]
+ * @return newS [ptr_stereotype]
+ */
+
+ptr_stereotype compSS(ptr_stereotype s1, ptr_stereotype s2);
 
 /** @brief compEM
  *
