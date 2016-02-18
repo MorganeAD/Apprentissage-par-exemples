@@ -218,6 +218,7 @@ ptr_stereotype compCC(ptr_character c1, ptr_character c2)
  * @return m [ptr_row]
  */
 
+/* ####################################################################
 ptr_model compEM(ptr_example e, ptr_model m)
 {
 	ptr_row tmpExp, tmpMod;
@@ -243,42 +244,4 @@ ptr_model compEM(ptr_example e, ptr_model m)
 
 	return m;
 }
-
-/** @brief stereotypeGenerator
- *
- * Generate stereotypes and add them to the row of stereotypes. Add stereotypes came from
- * a comparison between a character and existing stereotypes. This function will
- * add new stereotypes to a row called "stereotypesRowAux" which will be linked to
- * "stereotypesRow" at the end of the function. "rowBrowser" will be used to
- * browse the stereotypesRow (ie. the original stereotypes row).
- * @param stereotypesRow [ptr_row]
- * @param character [ptr_character]
- * @return  [ptr_row]
- */
-
-ptr_row stereotypeGenerator(ptr_row stereotypesRow, ptr_character c)
-{
-	ptr_row  stereotypesRowAux, rowBrowser;
-	ptr_stereotype toAdd;
-
-	stereotypesRowAux=createEmpty();
-	rowBrowser=stereotypesRow;
-	while(rowBrowser->next!=createEmpty())
-	{
-		toAdd=stereotypesRow->data;
-
-		/* Comparison of types.*/
-		typeComparison(toAdd, c);
-
-		/* Comparison of influences.*/
-		influencesComparison(toAdd, c);
-	
-		/* Comparison of alignments.*/
-		alignmentsComparison(toAdd, c);
-
-		/* Add the "toAdd" stereotype to the row of stereotypes "stereotypesRowAux".*/
-		addToRow(stereotypesRowAux, toAdd);
-	}
-
-	return stereotypesRow;
-}
+####################################################################*/

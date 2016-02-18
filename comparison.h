@@ -12,34 +12,6 @@
  * @author BENMILOUD--JOSSELIN Alexis <alexis.benmiloud.josselin@gmail.com>
  *
  * @version 0.0.1 / 2016/01/25
- * @todo #0000 []
- * @bug #0000 []
- */
-
-/**
- * @file comparison.h
- * @brief 
- *
- * This file contains the prototype of the functions related to comparison
- * between a model and an character.
- */
-
-/*-----------------------------------------------------------------------*/
-
-/**
- * Polytech Marseille
- * Case 925 - 163, avenue de Luminy
- * 13288 Marseille CEDEX 9
- *
- * This file is the work of students from Polytech Marseille. It can not be
- * reproduced, modified or used without the express opinion of its authors.
- */
-
-/**
- * @author ALONSO Morgane <alonso.morgane@gmail.com>
- * @author BENMILOUD--JOSSELIN Alexis <alexis.benmiloud.josselin@gmail.com>
- *
- * @version 0.0.1 / 2016/01/25
  * @version 0.0.2 / 2016/02/15
  * @todo #0000 []
  * @bug #0000 []
@@ -120,7 +92,9 @@ void compSC(ptr_stereotype s, ptr_character c);
  * @param c2 [ptr_character]
  * @return stereotype [ptr_stereotype]
  */
- 
+
+ptr_stereotype compCC(ptr_character c1, ptr_character c2);
+
  /** @brief compEM
  *
  * Do the comparison between the example e - a row of relations between two
@@ -133,18 +107,4 @@ void compSC(ptr_stereotype s, ptr_character c);
 
 ptr_model compEM(ptr_example e, ptr_model m);
 
-ptr_stereotype compCC(ptr_character c1, ptr_character c2);
 
-/** @brief modelGenerator
- *
- * Generate models and add them to the row of models. Add models came from
- * a comparison between a character and existing models. This function will
- * add new models to a row called "stereotypesRowAux" which will be linked to
- * "stereotypesRow" at the end of the function. "rowBrowser" will be used to
- * browse the stereotypesRow (ie. the original models row).
- * @param stereotypesRow [ptr_row]
- * @param character [ptr_character]
- * @return  [ptr_row]
- */
-
-ptr_row modelGenerator(ptr_row stereotypesRow, ptr_character c);
