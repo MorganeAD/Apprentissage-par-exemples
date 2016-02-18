@@ -29,7 +29,7 @@
  *
  * Create the empty row.
  * @param [void]
- * @return NULL [ptr_list]
+ * @return tmp [ptr_list]
  */
 
 ptr_row createEmpty();
@@ -37,56 +37,75 @@ ptr_row createEmpty();
 /** @brief isEmpty
  *
  * Tell if the row is empty.
- * @param l [ptr_row]
- * @return l->valeur==NULL && l->next==NULL [int]
+ * @param this [ptr_row]
+ * @return this->data==NULL && this->next==NULL [int]
  */
 
-int isEmpty(ptr_row l);
+int isEmpty(ptr_row this);
 
 /** @brief getData
  *
  * Give the data of the first list of the list.
- * @param l [ptr_row]
+ * @param this [ptr_row]
  * @return list->data [void*]
  */
 
-void* getData(ptr_row l);
+void* getData(ptr_row this);
 
 /** @brief nextRow
  *
  * Give the following list of the list.
- * @param list [ptr_list]
+ * @param this [ptr_list]
  * @return list->next [ptr_list]
  */
 
-ptr_row nextRow(ptr_row l);
+ptr_row nextRow(ptr_row this);
 
 /** @brief addToRow
  *
  * Add the element to the list.
- * @param l [ptr_row]
+ * @param this [ptr_row]
  * @param n [void*]
  * @return [void]
  */
 
-void addToRow(ptr_row l, void* n);
+void addToRow(ptr_row this, void* n);
 
 /** @brief getDataI
  *
  * Give the element at the position i
- * @param list [ptr_queue]
+ * @param this [ptr_row]
  * @param n [int]
  * @return tmp->data [void*]
  */
 
-void* getDataI(ptr_row q, int n);
+void* getDataI(ptr_row this, int n);
 
-
-/** @brief getLastData(ptr_row q, int n)
+/** @brief getLastData
  *
  * Give the last element
- * @param list [ptr_queue]
+ * @param this [ptr_row]
  * @return tmp->data [void*]
  */
 
-void* getLastData(ptr_row q);
+void* getLastData(ptr_row this);
+
+/** @brief deleteObject
+ *
+ * Delete the Object from the row
+ * @param this [ptr_row]
+ * @param r [void*]
+ * @return [void]
+ */
+
+void deleteObject(ptr_row this, void* r);
+
+/** @brief addToRowFromRow
+ *
+ * Add all the object of the row r to the row this
+ * @param this [ptr_row]
+ * @param r [void*]
+ * @return [void]
+ */
+
+void addToRowFromRow(ptr_row this, ptr_row r);

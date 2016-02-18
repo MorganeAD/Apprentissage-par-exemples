@@ -165,6 +165,12 @@ int main(int argc, char* argv[])
 	ptr_relationship r2;
 	r2 = createRelationshipOneObject(s1);
 
+	ptr_relationship r3;
+	r3 = createRelationship(s1, s1, 0);
+
+	ptr_relationship r4;
+	r4 = createRelationshipOneObject(s2);
+
 	ptr_model m1;
 	m1 = createEmptyModel();
 	displayModel(m1);
@@ -175,12 +181,38 @@ int main(int argc, char* argv[])
 	addRelatioship(m1, r2);
 	displayModel(m1);
 	printf("\n\n");
-	addRelatioship(m1, r1);
+	addRelatioship(m1, r3);
 	displayModel(m1);
 	printf("\n\n");
-	
-	printf("Test of the compCharChar\n\n");
+	addRelatioship(m1, r4);
+	displayModel(m1);
+	printf("\n\n");
+
+	printf("Test of the compCharChar\n");
 	displayStereotype(compCharChar(c1, c3));
+	printf("\n");
+	printf("\n");
+
+	printf("Test of deleteRelation from a row\n");
+	deleteRelationshipInModRelRow(m1, r4);
+	displayModel(m1);
+	printf("\n");
+	printf("\n");
+
+
+
+	printf("Test of addToRowFromRow\n");
+
+	ptr_row rs1;
+	rs1 = createEmpty();
+	addToRow(rs1, r1);
+	addToRow(rs1, r2);
+	addToRow(rs1, r3);
+	addToRow(rs1, r4);
+
+	addRelatioshipFromRow(m1, rs1);
+	displayModel(m1);
+	printf("\n");
 	printf("\n");
 
 	return 0;
