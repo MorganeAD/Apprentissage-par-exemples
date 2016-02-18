@@ -53,8 +53,6 @@
 #include "function_stereotype.h"
 #endif
 
-#ifndef MAX_ALIGNMENT
-#define MAX_ALIGNMENT 4
 
 /*-----------------------------------------------------------------------*/
 
@@ -68,18 +66,21 @@
  * @return stereotype [ptr_stereotype]
  */
 
-ptr_stereotype createStereotype(ptr_tree t, int minI, int maxI, int as[MAX_ALIGNMENT])
+ptr_stereotype createStereotype(ptr_tree t, int minI, int maxI, int as[])
 {
 	ptr_stereotype tmp=(ptr_stereotype)malloc(sizeof(stereotype));
 
 	tmp->type=t;
 	tmp->minInfluence=minI;
 	tmp->maxInfluence=maxI;
-	for (int i = 0; i < MAX_ALIGNMENT; i++)
+
+	int i;
+	for (i = 0; i < 4; i++)
 	{
-		tmp->alignment[i]=as[i];
+		tmp->alignments[i]=as[i];
 	}
-	
+
+	// *tmp->alignments=as;	
 	return tmp;
 }
 
@@ -97,8 +98,11 @@ ptr_stereotype initStereotype(ptr_character c)
 	tmp->type=c->type;
 	tmp->minInfluence=c->influence;
 	tmp->maxInfluence=c->influence;
-	tmp->alignment[0]=c->alignment;
-	tmp->nbAlign=1;
+	for (int i = 0; i < 4; i++)
+	{
+		tmp->alignments[i]=0;
+	}
+	tmp->alignments[c->alignment-1]=1;
 
 	return tmp;
 }
@@ -112,7 +116,6 @@ ptr_stereotype initStereotype(ptr_character c)
 
 void displayStereotype(ptr_stereotype s)
 {
-	int count;
 	printf("(Type : ");
 	switch (s->type->value) 
 	{
@@ -160,29 +163,37 @@ void displayStereotype(ptr_stereotype s)
 
 	/* A "for" loop is needed to display the list of alignments. */
 	printf("Alignment : ");
-	for(count=0 ; count<s->nbAlign; count++)
+	int algnAlready = 0;
+	if (s->alignments[0])
 	{
-		switch (s->alignment[count]) 
-		{
-			case 1 :
-				printf("Vilain");
-				break;
-			case 2 :
-				printf("Neutral");
-				break;
-			case 3 :
-				printf("Kind");
-				break;
-			case 4 :
-				printf("Good");
-				break;
-			// default: 
-			// 	printf("Unknown");
-		}		
-		if(count < s->nbAlign-1)
+		printf("Vilain");
+		algnAlready = 1;
+	}
+	if (s->alignments[1])
+	{
+		if (algnAlready)
 		{
 			printf(", ");
 		}
+		printf("Neutral");
+		algnAlready = 1;
+	}
+	if (s->alignments[2])
+	{
+		if (algnAlready)
+		{
+			printf(", ");
+		}
+		printf("Kind");
+		algnAlready = 1;
+	}
+	if (s->alignments[3])
+	{
+		if (algnAlready)
+		{
+			printf(", ");
+		}
+		printf("Good");
 	}
 	printf(")");
 }
@@ -223,33 +234,17 @@ int getMaxInfluence(ptr_stereotype s)
 	return s->maxInfluence;
 }
 
-/** @brief getNbAlignments
+/** @brief getAlignments
  *
- * Give the alignment i of the stereotype.
+ * Give the array of alignement.
  * @param s [ptr_stereotype]
- * @return s->nbAlign [int]
- */
-/*############################################################
-
-int getNbAlignments(ptr_stereotype s)
-{
-	return s->nbAlign;
-}
-##############################################################*/
-
-/** @brief getAlignmentI
- *
- * Give the alignment i of the stereotype.
- * @param s [ptr_stereotype]
- * @return s->nbAlign [int]
+ * @return s->alignment [int[]]
  */
 
-/*############################################################
-int getAlignmentI(ptr_stereotype s, int i)
+int* getAlignments(ptr_stereotype s)
 {
-	return s->alignments[i];
+	return s->alignments;
 }
-##############################################################*/
 
 /** @brief sameTypes
  *
@@ -297,33 +292,27 @@ int sameInfluences(ptr_stereotype s1, ptr_stereotype s2)
  * Tell if two stereotypes have the same alignments.
  * @param s1 [ptr_stereotype]
  * @param s2 [ptr_stereotype]
- * @return same [int]
+ * @return ok [int]
  */
  
-/*#########################################################
 int sameAlignments(ptr_stereotype s1, ptr_stereotype s2)
 {
-	int same, count;
-
-	same=1;
-	if(getNbAlignments(s1)==getNbAlignments(s2))
+	int ok, i;
+	ok = 1;
+	i = 0;
+	while(ok && i < 4)
 	{
-		count=0
-		while(count<getNbAlignments(s1) && same==1)
+		if (s1->alignments[i]!=s2->alignments[i])
 		{
-			if(searchAlignment(getAlignmentI(s1, count), &getAlignmentI(s2, 0)))
-			{
-				same=0;
-			}
+			ok = 0;
+		}
+		else
+		{
+			i++;
 		}
 	}
-	else
-	{
-		same=0;
-	}
-	return same;
+	return ok;
 }
-#############################################################*/
 
 /** @brief equalStereotypes
  *
@@ -339,8 +328,8 @@ int equalStereotypes(ptr_stereotype s1, ptr_stereotype s2)
 
 	areEqual=1;
 	if(!sameTypes(s1, s2) ||
-		!sameInfluences(s1, s2)/* ||
-		!sameAlignments(s1, s2)*/)
+		!sameInfluences(s1, s2) ||
+		!sameAlignments(s1, s2))
 	{
 		areEqual=0;
 	}

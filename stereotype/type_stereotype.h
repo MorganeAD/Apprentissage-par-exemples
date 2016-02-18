@@ -44,6 +44,5 @@ typedef struct stereotype
 	struct tree *type;
 	int minInfluence;
 	int maxInfluence;
-	int alignment[4];
-	int nbAlign;
+	int alignments[4];
 }stereotype, *ptr_stereotype;

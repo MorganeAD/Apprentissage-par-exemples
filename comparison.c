@@ -27,6 +27,13 @@
 
 /*-----------------------------------------------------------------------*/
 
+// #################
+#ifndef LSTDIO
+#define LSTDIO
+#include <stdio.h>
+#endif 
+// #################
+
 #ifndef LTREE
 #define LTREE
 #include "type_tree.h"
@@ -74,8 +81,9 @@
 #include "comparison.h"
 #endif 
 
+#ifndef NULL
 #define NULL 0
-#define MAX_ALIGNMENT 4
+#endif
 
 /*-----------------------------------------------------------------------*/
 
@@ -83,85 +91,87 @@
 /*                             TOOL FUNCTIONS                            */
 /*-----------------------------------------------------------------------*/
 
-/** @brief searchAlignment
- *
- * Do a research of an alignment into a row of alignment (see the
- * "type_character.c" file).
- * @param a [int]
- * @param row [int array]
- * @return isInto [int]
- */
-
-int searchAlignment(int a, int row[])
-{
-	int i, find;
-	
-	i=0;
-	find=0;
-	while(!find && i<MAX_ALIGNMENT)
-	{
-		if(a==row[i])
-		{
-			find=1;
-		}
-		else
-		{
-			i++;
-		}
-	}
-	return find;
-}
-
 /** @brief typeComparison
  *
  * Do a comparison of types between the stereotype and an character in order to
  * enlarge, or not, the stereotype.
- * @param type1 [ptr_tree]
- * @param type2 [ptr_tree]
- * @return stereotype [ptr_tree]
+ * @param s [ptr_stereotype]
+ * @param c [ptr_character]
+ * @return tmp [ptr_tree]
  */
 
-void typeComparison(ptr_stereotype s, ptr_character c)
+ptr_tree typeComparison(ptr_stereotype s, ptr_character c)
 {
-	s->type=commonFather(s->type, c->type);
+	ptr_tree tmp;
+	tmp=commonFather(s->type, c->type);
+	return tmp;
 }
 
-/** @brief influencesComparison
+/** @brief influencesMinComparison
  *
- * Do a comparison of influences between the stereotype and an character in
+ * Do a comparison of influences between the min influence of a stereotype and an character in
  * order to enlarge, or not, the stereotype.
- * @param type1 [ptr_tree]
- * @param type2 [ptr_tree]
- * @return stereotype [ptr_tree]
+ * @param s [ptr_stereotype]
+ * @param c [ptr_character]
+ * @return tmp [int]
  */
 
-void influencesComparison(ptr_stereotype s, ptr_character c)
+int influencesMinComparison(ptr_stereotype s, ptr_character c)
 {
-	if(s->minInfluence>c->influence)
+	int tmp;
+	if(s->minInfluence > c->influence)
 	{
-		s->minInfluence=c->influence;
+		tmp = c->influence;
 	}
-	else if(s->maxInfluence<c->influence)
+	else
 	{
-		s->maxInfluence=c->influence;
+		tmp = s->minInfluence;
 	}
+	return tmp;
+}
+
+/** @brief influencesMaxComparison
+ *
+ * Do a comparison of influences between the max influence of a stereotype and an character in
+ * order to enlarge, or not, the stereotype.
+ * @param s [ptr_stereotype]
+ * @param c [ptr_character]
+ * @return tmp [int]
+ */
+
+int influencesMaxComparison(ptr_stereotype s, ptr_character c)
+{
+	int tmp;
+	if(s->maxInfluence < c->influence)
+	{
+		tmp = c->influence;
+	}
+	else
+	{
+		tmp = s->maxInfluence;
+	}
+	return tmp;
 }
 
 /** @brief alignementsComparison
  *
  * Do a comparison of alignments between the stereotype and an character in
  * order to enlarge, or not, the stereotype.
- * @param type1 [ptr_tree]
- * @param type2 [ptr_tree]
- * @return stereotype [ptr_tree]
+ * @param s [ptr_stereotype]
+ * @param c [ptr_character]
+ * @return tmp [int[]]
  */
 
-void alignmentsComparison(ptr_stereotype s, ptr_character c)
+void alignmentsComparison(int as[], ptr_stereotype s, ptr_character c)
 {
-	if(!searchAlignment(c->alignment, s->alignment))
+	int i;
+	for (i = 0; i < 4; i++)
 	{
-		s->alignment[s->nbAlign]=c->alignment;
-		s->nbAlign++;
+		as[i]=s->alignments[i];
+	}
+	if(as[c->alignment-1]==0)
+	{
+		as[c->alignment-1]=1;
 	}
 }
 
@@ -178,16 +188,19 @@ void alignmentsComparison(ptr_stereotype s, ptr_character c)
  * @return stereotype [ptr_stereotype]
  */
 
-void compSC(ptr_stereotype s, ptr_character c)
+ptr_stereotype compSC(ptr_stereotype s, ptr_character c)
 {
-	/* Comparison of types.*/
-	typeComparison(s, c);
+	ptr_stereotype tmp;
 
-	/* Comparison of influences.*/
-	influencesComparison(s, c);
+	int tmpAlgn[4];
+	alignmentsComparison(tmpAlgn, s, c);
 
-	/* Comparison of alignments.*/
-	alignmentsComparison(s, c);
+	tmp = createStereotype(typeComparison(s, c),
+		influencesMinComparison(s, c),
+		influencesMaxComparison(s, c), 
+		tmpAlgn);
+
+	return tmp;
 }
 
 /** @brief compCC
@@ -215,11 +228,11 @@ ptr_stereotype compCC(ptr_character c1, ptr_character c2)
  * stereotypes.
  * @param e [ptr_example]
  * @param m [ptr_model]
- * @return m [ptr_row]
+ * @return [void]
  */
 
 /* ####################################################################
-ptr_model compEM(ptr_example e, ptr_model m)
+void compEM(ptr_example e, ptr_model m)
 {
 	ptr_row tmpExp, tmpMod;
 	ptr_model modelAux;
@@ -232,16 +245,69 @@ ptr_model compEM(ptr_example e, ptr_model m)
 		tmpMod=getModRelRow(m);
 		while(tmpMod!=createEmpty())
 		{
-			RExpRModComp(modelAux,
-			getData(tmpExp),
-			getData(tmpMod));
+			compRmRe(modelAux,
+				getData(tmpMod),
+				getData(tmpExp));
 			tmpMod=nextRow(tmpMod);
 		}
 		tmpExp=nextRow(tmpExp);
 	}
 	deleteGeneralModRel(modelAux);
 	addToRow(getModRelRow(m), getModRelRow(modelAux));
-
-	return m;
 }
+
 ####################################################################*/
+
+/** @brief compRmRe
+ *
+ * Do the comparison between a relation from an example and a relation
+ * from a model and add the new relations model into the row.
+ * @param l [ptr_row]
+ * @param rm [ptr_relationship]
+ * @param re [ptr_relationship]
+ * @return [void]
+ */
+
+void compRmRe(ptr_row l, ptr_relationship rm, ptr_relationship re)
+{
+	if (isRelationshipOneObject(re) && isRelationshipOneObject(rm))
+	{
+		addToRow(l, 
+			createRelationshipOneObject(compSC(getData1(rm), getData1(re))));
+	}
+	else if(isRelationshipOneObject(re) && !isRelationshipOneObject(rm))
+	{
+		addToRow(l, 
+			createRelationshipOneObject(compSC(getData1(rm), getData1(re))));
+		addToRow(l, 
+			createRelationshipOneObject(compSC(getData2(rm), getData1(re))));
+	}
+	else if(!isRelationshipOneObject(re) && isRelationshipOneObject(rm))
+	{
+		addToRow(l, 
+			createRelationshipOneObject(compSC(getData1(rm), getData1(re))));
+		addToRow(l, 
+			createRelationshipOneObject(compSC(getData1(rm), getData2(re))));
+	}
+	else
+	{
+		if (getRelation(rm)==getRelation(re))
+		{
+			addToRow(l, 
+				createRelationship(compSC(getData1(rm), getData1(re)), 
+					compSC(getData2(rm), getData2(re)), 
+					getRelation(rm)));
+		}
+		else
+		{
+			addToRow(l, 
+				createRelationshipOneObject(compSC(getData1(rm), getData1(re))));
+			addToRow(l, 
+				createRelationshipOneObject(compSC(getData2(rm), getData1(re))));		
+			addToRow(l, 
+				createRelationshipOneObject(compSC(getData1(rm), getData2(re))));
+			addToRow(l, 
+				createRelationshipOneObject(compSC(getData2(rm), getData2(re))));		
+		}
+	}
+}

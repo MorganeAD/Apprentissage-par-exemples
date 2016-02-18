@@ -27,63 +27,60 @@
 
 /*-----------------------------------------------------------------------*/
 
-/** @brief searchAlignment
- *
- * Do a research of an alignment into a row of alignment (see the
- * "type_character.c" file).
- * @param a [int]
- * @param row [int array]
- * @return isInto [int]
- */
-
-int searchAlignment(int a, int row[]);
-
 /** @brief typeComparison
  *
- * Do a comparison of types between the model and an character in order to
- * enlarge, or not, the model.
- * @param type1 [ptr_tree]
- * @param type2 [ptr_tree]
- * @return model [ptr_tree]
+ * Do a comparison of types between the stereotype and an character in order to
+ * enlarge, or not, the stereotype.
+ * @param s [ptr_stereotype]
+ * @param c [ptr_character]
+ * @return tmp [ptr_tree]
  */
 
-void typeComparison(ptr_stereotype s, ptr_character c);
-/** @brief influencesComparison
+ptr_tree typeComparison(ptr_stereotype s, ptr_character c);
+
+/** @brief influencesMinComparison
  *
- * Do a comparison of influences between the stereotype and an character in
+ * Do a comparison of influences between the min influence of a stereotype and an character in
  * order to enlarge, or not, the stereotype.
- * @param type1 [ptr_tree]
- * @param type2 [ptr_tree]
- * @return stereotype [ptr_tree]
+ * @param s [ptr_stereotype]
+ * @param c [ptr_character]
+ * @return tmp [int]
  */
 
-void influencesComparison(ptr_stereotype s, ptr_character c);
+int influencesMinComparison(ptr_stereotype s, ptr_character c);
+
+/** @brief influencesMaxComparison
+ *
+ * Do a comparison of influences between the max influence of a stereotype and an character in
+ * order to enlarge, or not, the stereotype.
+ * @param s [ptr_stereotype]
+ * @param c [ptr_character]
+ * @return tmp [int]
+ */
+
+int influencesMaxComparison(ptr_stereotype s, ptr_character c);
 
 /** @brief alignementsComparison
  *
  * Do a comparison of alignments between the stereotype and an character in
  * order to enlarge, or not, the stereotype.
- * @param type1 [ptr_tree]
- * @param type2 [ptr_tree]
- * @return stereotype [ptr_tree]
+ * @param s [ptr_stereotype]
+ * @param c [ptr_character]
+ * @return tmp [int[]]
  */
 
-void alignmentsComparison(ptr_stereotype s, ptr_character c);
-
-/*-----------------------------------------------------------------------*/
-/*                         COMPARISON FUNCTIONS                          */
-/*-----------------------------------------------------------------------*/
+void alignmentsComparison(int as[], ptr_stereotype s, ptr_character c);
 
 /** @brief compSC
  *
- * Do a comparison between the model and an character in order to enlarge,
- * or not, the model.
- * @param model [ptr_stereotype]
+ * Do a comparison between the stereotype and an character in order to enlarge,
+ * or not, the stereotype.
+ * @param stereotype [ptr_stereotype]
  * @param character [ptr_character]
- * @return model [ptr_stereotype]
+ * @return stereotype [ptr_stereotype]
  */
 
-void compSC(ptr_stereotype s, ptr_character c);
+ptr_stereotype compSC(ptr_stereotype s, ptr_character c);
 
 /** @brief compCC
  *
@@ -95,16 +92,26 @@ void compSC(ptr_stereotype s, ptr_character c);
 
 ptr_stereotype compCC(ptr_character c1, ptr_character c2);
 
- /** @brief compEM
+/** @brief compEM
  *
  * Do the comparison between the example e - a row of relations between two
  * characters - and the model m - a row of relations between two
  * stereotypes.
  * @param e [ptr_example]
  * @param m [ptr_model]
- * @return m [ptr_row]
+ * @return [void]
  */
 
-ptr_model compEM(ptr_example e, ptr_model m);
+void compEM(ptr_example e, ptr_model m);
 
+/** @brief compRmRe
+ *
+ * Do the comparison between a relation from an example and a relation
+ * from a model and add the new relations model into the row.
+ * @param l [ptr_row]
+ * @param rm [ptr_relationship]
+ * @param re [ptr_relationship]
+ * @return [void]
+ */
 
+void compRmRe(ptr_row l, ptr_relationship rm, ptr_relationship re);

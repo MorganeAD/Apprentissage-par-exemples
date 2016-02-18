@@ -25,7 +25,19 @@
 
 /*-----------------------------------------------------------------------*/
 
-/** @brief initStereotype
+/** @brief createStereotype
+ *
+ * Create the first stereotype from parameters
+ * @param t [ptr_tree]
+ * @param minI [int]
+ * @param maxI [int]
+ * @param as [int[]]
+ * @return stereotype [ptr_stereotype]
+ */
+
+ptr_stereotype createStereotype(ptr_tree t, int minI, int maxI, int as[]);
+
+/** @brief initstereotype
  *
  * Create the first stereotype from an character.
  * @param character [ptr_character]
@@ -51,7 +63,6 @@ void displayStereotype(ptr_stereotype s);
  */
 
 ptr_tree getStereotypeType(ptr_stereotype s);
-
 /** @brief getMinInfluence
  *
  * Give the minInfluence of the stereotype.
@@ -70,23 +81,14 @@ int getMinInfluence(ptr_stereotype s);
 
 int getMaxInfluence(ptr_stereotype s);
 
-/** @brief getNbAlignments
+/** @brief getAlignments
  *
- * Give the alignment i of the stereotype.
+ * Give the array of alignement.
  * @param s [ptr_stereotype]
- * @return s->nbAlign [int]
+ * @return s->alignment [int[]]
  */
 
-//int getNbAlignments(ptr_stereotype s);
-
-/** @brief getAlignmentI
- *
- * Give the alignment i of the stereotype.
- * @param s [ptr_stereotype]
- * @return s->nbAlign [int]
- */
-
-//int getAlignmentI(ptr_stereotype s, int i);
+int* getAlignments(ptr_stereotype s);
 
 /** @brief sameTypes
  *
@@ -97,7 +99,6 @@ int getMaxInfluence(ptr_stereotype s);
  */
 
 int sameTypes(ptr_stereotype s1, ptr_stereotype s2);
-
 /** @brief sameInfluences
  *
  * Tell if two stereotypes have the same influences.
@@ -113,10 +114,10 @@ int sameInfluences(ptr_stereotype s1, ptr_stereotype s2);
  * Tell if two stereotypes have the same alignments.
  * @param s1 [ptr_stereotype]
  * @param s2 [ptr_stereotype]
- * @return same [int]
+ * @return ok [int]
  */
-
-//int sameAlignments(ptr_stereotype s1, ptr_stereotype s2);
+ 
+int sameAlignments(ptr_stereotype s1, ptr_stereotype s2);
 
 /** @brief equalStereotypes
  *
@@ -127,4 +128,3 @@ int sameInfluences(ptr_stereotype s1, ptr_stereotype s2);
  */
 
 int equalStereotypes(ptr_stereotype s1, ptr_stereotype s2);
-
