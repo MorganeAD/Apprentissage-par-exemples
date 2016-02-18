@@ -222,10 +222,10 @@ void deleteGeneralModRel(ptr_row l)
 	ptr_stereotype tmp1, tmp2;
 
 	rs1=l;
-	while(rs1!=createEmpty())
+	while(!isEmpty(rs1))
 	{
 		rs2=nextRow(rs1);
-		while(rs2!=createEmpty())
+		while(!isEmpty(rs2))
 		{
 			/* Verify if the relation of rs1 and rs2 are the same : */
 			if(getRelation(getData(rs1))==getRelation(getData(rs2)))
@@ -233,7 +233,7 @@ void deleteGeneralModRel(ptr_row l)
 				/* Verify is there is no relation : */
 				if(getRelation(getData(rs1))==-1)
 				{
-					tmp1=compSS(getData1(getData(rs1)), getData2(getData(rs2)));
+					tmp1=compSS(getData1(getData(rs1)), getData1(getData(rs2)));
 
 					/* Delete the relation rs1 if it is too general : */
 					if(equalStereotypes(tmp1, getData1(getData(rs1))))
@@ -254,18 +254,17 @@ void deleteGeneralModRel(ptr_row l)
 					tmp1=compSS(getData1(getData(rs1)), getData1(getData(rs2)));
 					tmp2=compSS(getData2(getData(rs1)), getData2(getData(rs2)));
 
-					/* Delete the relation rs1 if it is too general : */
-					if(equalStereotypes(getData1(getData(rs1)), tmp1) &&
-					   equalStereotypes(getData2(getData(rs1)), tmp2))
-					{
-						deleteObject(l, getData(getData(rs1)));
-					}
-
 					/* Delete the relation rs2 if it is too general : */
-					else if(equalStereotypes(getData1(getData(rs2)), tmp1) &&
+					if(equalStereotypes(getData1(getData(rs2)), tmp1) &&
 							equalStereotypes(getData2(getData(rs2)), tmp2))
 					{
-						deleteObject(l, getData(getData(rs2)));
+						deleteObject(l, getData(rs2));
+					}
+					/* Delete the relation rs1 if it is too general : */
+					else if(equalStereotypes(getData1(getData(rs1)), tmp1) &&
+					   equalStereotypes(getData2(getData(rs1)), tmp2))
+					{
+						deleteObject(l, getData(rs1));
 					}
 				}
 			}
@@ -287,7 +286,7 @@ void deleteGeneralModRel(ptr_row l)
 					getRelation(getData(rs1))!=-1)
 			{
 				tmp1=compSS(getData1(getData(rs1)), getData1(getData(rs2)));
-				tmp2=compSS(getData1(getData(rs1)), getData2(getData(rs2)));
+				tmp2=compSS(getData2(getData(rs1)), getData1(getData(rs2)));
 
 				if(equalStereotypes(getData1(getData(rs2)), tmp1) ||
 				   equalStereotypes(getData1(getData(rs2)), tmp2))
@@ -358,7 +357,7 @@ ptr_stereotype compCC(ptr_character c1, ptr_character c2)
 ptr_stereotype compSS(ptr_stereotype s1, ptr_stereotype s2)
 {
 	int i;
-	int tmp[4];
+	int tmp[4]={0};
 	ptr_stereotype newS;
 
 	for(i=0 ; i<4 ; i++)

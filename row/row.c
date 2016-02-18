@@ -178,6 +178,7 @@ void deleteObject(ptr_row this, void* r)
 {
 	assert(!isEmpty(this));
 	ptr_row tmp = this;
+	ptr_row old;
 	while(!isEmpty(tmp) && getData(tmp)!=r)
 	{
 		tmp = nextRow(tmp);
@@ -188,15 +189,18 @@ void deleteObject(ptr_row this, void* r)
 	}
 	else
 	{
-		while(!isEmpty(nextRow(tmp)))
+		if (isEmpty(nextRow(tmp)))
 		{
-			tmp->data = getData(nextRow(tmp));
-			tmp->next = nextRow(nextRow(tmp));
-			tmp = nextRow(tmp);
+			// deux petit malloc perdus...
+			tmp = createEmpty();
 		}
-		free(nextRow(tmp));
-		tmp->data = NULL;
-		tmp->next = NULL;
+		else
+		{	
+			tmp->data = getData(nextRow(tmp));
+			old = nextRow(tmp);
+			tmp->next = nextRow(nextRow(tmp));
+			free(old);
+		}
 	}
 }
 
