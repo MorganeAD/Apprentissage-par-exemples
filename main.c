@@ -128,14 +128,14 @@ int main(int argc, char* argv[])
 	printf("\n");
 
 	printf("Comparison between model and character 2...\n");
-	comparison(s1, c2);
+	compSC(s1, c2);
 	displayStereotype(s1);
 	printf("\n");
 
 	printf("Comparison between model and character 3...\n");
 	ptr_stereotype s2;
 	s2=initStereotype(c1);
-	comparison(s2, c3);
+	compSC(s2, c3);
 	displayStereotype(s2);
 	printf("\n");
 
@@ -188,8 +188,8 @@ int main(int argc, char* argv[])
 	displayModel(m1);
 	printf("\n\n");
 
-	printf("Test of the compCharChar\n");
-	displayStereotype(compCharChar(c1, c3));
+	printf("Test of the compCC\n");
+	displayStereotype(compCC(c1, c3));
 	printf("\n");
 	printf("\n");
 
