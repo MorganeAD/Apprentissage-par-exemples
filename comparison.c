@@ -209,6 +209,98 @@ int max(int a, int b)
 	return a;
 }
 
+/** @brief deleteGeneralModRel
+ *
+ * Delete the most general relationships of a model.
+ * @param m [ptr_model]
+ * @return [void]
+ */
+
+void deleteGeneralModRel(ptr_row l)
+{
+	ptr_row rs1, rs2;
+	ptr_stereotype tmp1, tmp2;
+
+	rs1=l;
+	while(rs1!=createEmpty())
+	{
+		rs2=nextRow(rs1);
+		while(rs2!=createEmpty())
+		{
+			/* Verify if the relation of rs1 and rs2 are the same : */
+			if(getRelation(getData(rs1))==getRelation(getData(rs2)))
+			{
+				/* Verify is there is no relation : */
+				if(getRelation(getData(rs1))==-1)
+				{
+					tmp1=compSS(getData1(getData(rs1)), getData2(getData(rs2)));
+
+					/* Delete the relation rs1 if it is too general : */
+					if(equalStereotypes(tmp1, getData1(getData(rs1))))
+					{
+						deleteObject(l, getData(rs1));
+					}
+
+					/* Delete the relation rs2 if it is too general : */
+					else if(equalStereotypes(tmp1, getData1(getData(rs2))))
+					{
+						deleteObject(l, getData(rs2));
+					}
+				}
+
+				/* If relation != -1 : */
+				else
+				{
+					tmp1=compSS(getData1(getData(rs1)), getData1(getData(rs2)));
+					tmp2=compSS(getData2(getData(rs1)), getData2(getData(rs2)));
+
+					/* Delete the relation rs1 if it is too general : */
+					if(equalStereotypes(getData1(getData(rs1)), tmp1) &&
+					   equalStereotypes(getData2(getData(rs1)), tmp2))
+					{
+						deleteObject(l, getData(getData(rs1)));
+					}
+
+					/* Delete the relation rs2 if it is too general : */
+					else if(equalStereotypes(getData1(getData(rs2)), tmp1) &&
+							equalStereotypes(getData2(getData(rs2)), tmp2))
+					{
+						deleteObject(l, getData(getData(rs2)));
+					}
+				}
+			}
+
+			/* If relation are not the same : */
+			else if(getRelation(getData(rs1))==-1 &&
+					getRelation(getData(rs2))!=-1)
+			{
+				tmp1=compSS(getData1(getData(rs1)), getData1(getData(rs2)));
+				tmp2=compSS(getData1(getData(rs1)), getData2(getData(rs2)));
+
+				if(equalStereotypes(getData1(getData(rs1)), tmp1) ||
+				   equalStereotypes(getData1(getData(rs1)), tmp2))
+				{
+					deleteObject(l, getData(rs1));
+				}
+			}
+			else if(getRelation(getData(rs2))==-1 &&
+					getRelation(getData(rs1))!=-1)
+			{
+				tmp1=compSS(getData1(getData(rs1)), getData1(getData(rs2)));
+				tmp2=compSS(getData1(getData(rs1)), getData2(getData(rs2)));
+
+				if(equalStereotypes(getData1(getData(rs2)), tmp1) ||
+				   equalStereotypes(getData1(getData(rs2)), tmp2))
+				{
+					deleteObject(l, getData(rs2));
+				}
+			}
+			rs2=nextRow(rs2);
+		}
+		rs1=nextRow(rs1);
+	}
+}
+
 /*-----------------------------------------------------------------------*/
 /*                         COMPARISON FUNCTIONS                          */
 /*-----------------------------------------------------------------------*/
@@ -271,7 +363,7 @@ ptr_stereotype compSS(ptr_stereotype s1, ptr_stereotype s2)
 
 	for(i=0 ; i<4 ; i++)
 	{
-		if(s1->alignment[i] || s2->alignment[i])
+		if(s1->alignments[i] || s2->alignments[i])
 		{
 			tmp[i]=1;
 		}
@@ -299,15 +391,15 @@ ptr_stereotype compSS(ptr_stereotype s1, ptr_stereotype s2)
 void compEM(ptr_example e, ptr_model m)
 {
 	ptr_row tmpExp, tmpMod;
-	ptr_model modelAux;
+	ptr_row modelAux;
 
 	tmpExp=getExpRelRow(e);
 	tmpMod=getModRelRow(m);
-	modelAux=createEmptyModel();
-	while(tmpExp!=createEmpty())
+	modelAux=createEmpty();
+	while(!isEmpty(tmpExp))
 	{
 		tmpMod=getModRelRow(m);
-		while(tmpMod!=createEmpty())
+		while(!isEmpty(tmpMod))
 		{
 			compRmRe(modelAux,
 				getData(tmpMod),
@@ -317,7 +409,7 @@ void compEM(ptr_example e, ptr_model m)
 		tmpExp=nextRow(tmpExp);
 	}
 	deleteGeneralModRel(modelAux);
-	addToRow(getModRelRow(m), getModRelRow(modelAux));
+	addToRowFromRow(getModRelRow(m), modelAux);
 }
 
 /** @brief compRmRe

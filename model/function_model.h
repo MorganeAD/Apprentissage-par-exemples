@@ -81,12 +81,3 @@ void deleteRelationshipInModRelRow(ptr_model this, ptr_relationship r);
 void addRelatioshipFromRow(ptr_model this, ptr_row r);
 
 void displayModel(ptr_model this);
-
-/** @brief deleteGeneralModRel
- *
- * Delete the most general relationships of a model.
- * @param m [ptr_model]
- * @return [void]
- */
-
-void deleteGeneralModRel(ptr_model m);

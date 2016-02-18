@@ -91,6 +91,15 @@ int min(int a, int b);
 
 int max(int a, int b);
 
+/** @brief deleteGeneralModRel
+ *
+ * Delete the most general relationships of a model.
+ * @param m [ptr_model]
+ * @return [void]
+ */
+
+void deleteGeneralModRel(ptr_row l);
+
 /** @brief compSC
  *
  * Do a comparison between the stereotype and an character in order to enlarge,
