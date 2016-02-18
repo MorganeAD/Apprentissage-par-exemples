@@ -45,7 +45,7 @@
 #define LCHR
 #include "type_character.h"
 #include "function_character.h"
-#endif 
+#endif
 
 #ifndef LSTR
 #define LSTR
@@ -53,7 +53,35 @@
 #include "function_stereotype.h"
 #endif
 
+#ifndef MAX_ALIGNMENT
+#define MAX_ALIGNMENT 4
+
 /*-----------------------------------------------------------------------*/
+
+/** @brief createStereotype
+ *
+ * Create the first stereotype from parameters
+ * @param t [ptr_tree]
+ * @param minI [int]
+ * @param maxI [int]
+ * @param as [int[]]
+ * @return stereotype [ptr_stereotype]
+ */
+
+ptr_stereotype createStereotype(ptr_tree t, int minI, int maxI, int as[MAX_ALIGNMENT])
+{
+	ptr_stereotype tmp=(ptr_stereotype)malloc(sizeof(stereotype));
+
+	tmp->type=t;
+	tmp->minInfluence=minI;
+	tmp->maxInfluence=maxI;
+	for (int i = 0; i < MAX_ALIGNMENT; i++)
+	{
+		tmp->alignment[i]=as[i];
+	}
+	
+	return tmp;
+}
 
 /** @brief initstereotype
  *
@@ -130,7 +158,7 @@ void displayStereotype(ptr_stereotype s)
 	printf("; ");
 	printf("Influence : from %d to %d; ", s->minInfluence, s->maxInfluence);
 
-	// A "for" loop is needed to display the list of alignments.
+	/* A "for" loop is needed to display the list of alignments. */
 	printf("Alignment : ");
 	for(count=0 ; count<s->nbAlign; count++)
 	{
@@ -157,4 +185,164 @@ void displayStereotype(ptr_stereotype s)
 		}
 	}
 	printf(")");
+}
+
+/** @brief getStereotypeType
+ *
+ * Give the type of the stereotype.
+ * @param s [ptr_stereotype]
+ * @return s->type [ptr_tree]
+ */
+
+ptr_tree getStereotypeType(ptr_stereotype s)
+{
+	return s->type;
+}
+
+/** @brief getMinInfluence
+ *
+ * Give the minInfluence of the stereotype.
+ * @param s [ptr_stereotype]
+ * @return s->minInfluence [int]
+ */
+
+int getMinInfluence(ptr_stereotype s)
+{
+	return s->minInfluence;
+}
+
+/** @brief getMaxInfluence
+ *
+ * Give the maxInfluence of the stereotype.
+ * @param s [ptr_stereotype]
+ * @return s->maxInfluence [int]
+ */
+
+int getMaxInfluence(ptr_stereotype s)
+{
+	return s->maxInfluence;
+}
+
+/** @brief getNbAlignments
+ *
+ * Give the alignment i of the stereotype.
+ * @param s [ptr_stereotype]
+ * @return s->nbAlign [int]
+ */
+/*############################################################
+
+int getNbAlignments(ptr_stereotype s)
+{
+	return s->nbAlign;
+}
+##############################################################*/
+
+/** @brief getAlignmentI
+ *
+ * Give the alignment i of the stereotype.
+ * @param s [ptr_stereotype]
+ * @return s->nbAlign [int]
+ */
+
+/*############################################################
+int getAlignmentI(ptr_stereotype s, int i)
+{
+	return s->alignments[i];
+}
+##############################################################*/
+
+/** @brief sameTypes
+ *
+ * Tell if two stereotypes have the same type.
+ * @param s1 [ptr_stereotype]
+ * @param s2 [ptr_stereotype]
+ * @return same [int]
+ */
+
+int sameTypes(ptr_stereotype s1, ptr_stereotype s2)
+{
+	int same;
+
+	same=1;
+	if(getStereotypeType(s1)!=getStereotypeType(s2))
+	{
+		same=0;
+	}
+	return same;
+}
+
+/** @brief sameInfluences
+ *
+ * Tell if two stereotypes have the same influences.
+ * @param s1 [ptr_stereotype]
+ * @param s2 [ptr_stereotype]
+ * @return same [int]
+ */
+
+int sameInfluences(ptr_stereotype s1, ptr_stereotype s2)
+{
+	int same;
+
+	same=1;
+	if(getMinInfluence(s1)!=getMinInfluence(s2) ||
+		getMaxInfluence(s1)!=getMaxInfluence(s2))
+	{
+		same=0;
+	}
+	return same;
+}
+
+/** @brief sameAlignments
+ *
+ * Tell if two stereotypes have the same alignments.
+ * @param s1 [ptr_stereotype]
+ * @param s2 [ptr_stereotype]
+ * @return same [int]
+ */
+ 
+/*#########################################################
+int sameAlignments(ptr_stereotype s1, ptr_stereotype s2)
+{
+	int same, count;
+
+	same=1;
+	if(getNbAlignments(s1)==getNbAlignments(s2))
+	{
+		count=0
+		while(count<getNbAlignments(s1) && same==1)
+		{
+			if(searchAlignment(getAlignmentI(s1, count), &getAlignmentI(s2, 0)))
+			{
+				same=0;
+			}
+		}
+	}
+	else
+	{
+		same=0;
+	}
+	return same;
+}
+#############################################################*/
+
+/** @brief equalStereotypes
+ *
+ * Tell if two stereotype are equal.
+ * @param s1 [ptr_stereotype]
+ * @param s2 [ptr_stereotype]
+ * @return areEqual [int]
+ */
+
+int equalStereotypes(ptr_stereotype s1, ptr_stereotype s2)
+{
+	int areEqual;
+
+	areEqual=1;
+	if(!sameTypes(s1, s2) ||
+		!sameInfluences(s1, s2)/* ||
+		!sameAlignments(s1, s2)*/)
+	{
+		areEqual=0;
+	}
+	return areEqual;
 }
