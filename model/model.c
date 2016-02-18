@@ -41,10 +41,28 @@
 #include "function_row.h"
 #endif 
 
+#ifndef LTREE
+#define LTREE
+#include "type_tree.h"
+#include "function_tree.h"
+#endif 
+
 #ifndef LRLT
 #define LRLT
 #include "type_relationship.h"
 #include "function_relationship.h"
+#endif 
+
+#ifndef LCHR
+#define LCHR
+#include "type_character.h"
+#include "function_character.h"
+#endif 
+
+#ifndef LSTR
+#define LSTR
+#include "type_stereotype.h"
+#include "function_stereotype.h"
 #endif 
 
 #ifndef LMDL
@@ -69,11 +87,11 @@ ptr_model createEmptyModel(void)
 	return tmp;
 }
 
-/** @brief addStereotype
+/** @brief addRelatioship
  *
- * Create a empty model
- * @param m [ptr_model m]
- * @param s [ptr_stereotype]
+ * Add a new relationship of stereotype in the row
+ * @param this [ptr_model m]
+ * @param r [ptr_relationship]
  * @return [void]
  */
 
@@ -82,15 +100,30 @@ void addRelatioship(ptr_model this, ptr_relationship r)
 	addToRow(this->modRelRow, r);
 }
 
+/** @brief getModRelRow
+ *
+ * Give the row of relation's stereotype
+ * @param this [ptr_model m]
+ * @return this->modRelRow [ptr_row]
+ */
+
 ptr_row getModRelRow(ptr_model this)
 {
 	return this->modRelRow;
 }
 
+/** @brief displayModel
+ *
+ * Display the model
+ * @param this [ptr_model m]
+ * @return [void]
+ */
+
+
 void displayModel(ptr_model this)
 {
 	ptr_row tmp;
-	tmp = getExRelRow(this);
+	tmp = getModRelRow(this);
 	printf("{");
 	if (isEmpty(tmp))
 	{

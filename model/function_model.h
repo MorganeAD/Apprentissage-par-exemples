@@ -24,3 +24,41 @@
  */
 
 /*-----------------------------------------------------------------------*/
+
+ /** @brief createEmptyModel
+ *
+ * Create a empty model
+ * @param [void]
+ * @return tmp [ptr_model]
+ */
+
+ptr_model createEmptyModel(void);
+
+/** @brief addRelatioship
+ *
+ * Add a new relationship of stereotype in the row
+ * @param this [ptr_model m]
+ * @param r [ptr_relationship]
+ * @return [void]
+ */
+
+void addRelatioship(ptr_model this, ptr_relationship r);
+
+/** @brief getModRelRow
+ *
+ * Give the row of relation's stereotype
+ * @param this [ptr_model m]
+ * @return this->modRelRow [ptr_row]
+ */
+
+ptr_row getModRelRow(ptr_model this);
+
+/** @brief displayModel
+ *
+ * Display the model
+ * @param this [ptr_model m]
+ * @return [void]
+ */
+
+
+void displayModel(ptr_model this);

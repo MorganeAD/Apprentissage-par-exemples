@@ -179,9 +179,9 @@ int main(int argc, char* argv[])
 	displayModel(m1);
 	printf("\n\n");
 	
-	printf("compCharChar\n\n");
+	printf("Test of the compCharChar\n\n");
 	displayStereotype(compCharChar(c1, c3));
 	printf("\n");
-	
+
 	return 0;
 }
