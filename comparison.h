@@ -71,6 +71,26 @@ int influencesMaxComparison(ptr_stereotype s, ptr_character c);
 
 void alignmentsComparison(int as[], ptr_stereotype s, ptr_character c);
 
+/** @brief min
+ *
+ * Give the minimum value between two integers.
+ * @param a [int]
+ * @param b [int]
+ * @return a [int]
+ */
+
+int min(int a, int b)
+
+/** @brief max
+ *
+ * Give the maximum value between two integers.
+ * @param a [int]
+ * @param b [int]
+ * @return a [int]
+ */
+
+int max(int a, int b)
+
 /** @brief compSC
  *
  * Do a comparison between the stereotype and an character in order to enlarge,

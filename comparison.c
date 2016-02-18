@@ -175,6 +175,40 @@ void alignmentsComparison(int as[], ptr_stereotype s, ptr_character c)
 	}
 }
 
+/** @brief min
+ *
+ * Give the minimum value between two integers.
+ * @param a [int]
+ * @param b [int]
+ * @return a [int]
+ */
+
+int min(int a, int b)
+{
+	if(b<a)
+	{
+		a=b;
+	}
+	return a;
+}
+
+/** @brief max
+ *
+ * Give the maximum value between two integers.
+ * @param a [int]
+ * @param b [int]
+ * @return a [int]
+ */
+
+int max(int a, int b)
+{
+	if(b>a)
+	{
+		a=b;
+	}
+	return a;
+}
+
 /*-----------------------------------------------------------------------*/
 /*                         COMPARISON FUNCTIONS                          */
 /*-----------------------------------------------------------------------*/
@@ -221,6 +255,37 @@ ptr_stereotype compCC(ptr_character c1, ptr_character c2)
 	return s;
 }
 
+/** @brief compSS
+ *
+ * Compare two stereotype and return a model.
+ * @param s1 [ptr_stereotype]
+ * @param s2 [ptr_stereotype]
+ * @return newS [ptr_stereotype]
+ */
+
+ptr_stereotype compSS(ptr_stereotype s1, ptr_stereotype s2)
+{
+	int i;
+	int tmp[4];
+	ptr_stereotype newS;
+
+	for(i=0 ; i<4 ; i++)
+	{
+		if(s1->alignment[i] || s2->alignment[i])
+		{
+			tmp[i]=1;
+		}
+	}
+
+	newS=createStereotype(
+					 commonFather(getStereotypeType(s1), getStereotypeType(s2)),
+					 min(getMinInfluence(s1), getMinInfluence(s2)),
+					 max(getMaxInfluence(s1), getMaxInfluence(s2)),
+					 tmp);
+					 
+	return newS;
+}
+
 /** @brief compEM
  *
  * Do the comparison between the example e - a row of relations between two
@@ -231,7 +296,6 @@ ptr_stereotype compCC(ptr_character c1, ptr_character c2)
  * @return [void]
  */
 
-/* ####################################################################
 void compEM(ptr_example e, ptr_model m)
 {
 	ptr_row tmpExp, tmpMod;
@@ -255,8 +319,6 @@ void compEM(ptr_example e, ptr_model m)
 	deleteGeneralModRel(modelAux);
 	addToRow(getModRelRow(m), getModRelRow(modelAux));
 }
-
-####################################################################*/
 
 /** @brief compRmRe
  *
