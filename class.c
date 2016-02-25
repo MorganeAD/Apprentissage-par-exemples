@@ -37,8 +37,6 @@
 #include "class.h"
 #endif 
 
-
-
 /*-----------------------------------------------------------------------*/
 
 /** @brief initClass
@@ -67,5 +65,5 @@ void initClass(void)
 	combat=createSon(8, droid);
 	pacific=createSon(9, droid);
 
-	chasseur=createSon(11, bandit);
+	hunter=createSon(11, bandit);
 }

@@ -116,7 +116,7 @@ ptr_stereotype initStereotype(ptr_character c)
 
 void displayStereotype(ptr_stereotype s)
 {
-	printf("(Type : ");
+	printf("Type : ");
 	switch (s->type->value) 
 	{
 		case 1 :
@@ -158,8 +158,8 @@ void displayStereotype(ptr_stereotype s)
 		default: 
 			printf("Unknown");
 	}
-	printf("; ");
-	printf("Influence : from %d to %d; ", s->minInfluence, s->maxInfluence);
+	printf(" ; ");
+	printf("Influence : from %d to %d ; ", s->minInfluence, s->maxInfluence);
 
 	/* A "for" loop is needed to display the list of alignments. */
 	printf("Alignment : ");
@@ -195,7 +195,6 @@ void displayStereotype(ptr_stereotype s)
 		}
 		printf("Good");
 	}
-	printf(")");
 }
 
 /** @brief getStereotypeType

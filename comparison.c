@@ -227,30 +227,83 @@ void deleteGeneralModRel(ptr_row l)
 		rs2=nextRow(rs1);
 		while(!isEmpty(rs2))
 		{
+			ptr_model TEST = createEmptyModel();
+			addRelationshipFromRow(TEST, l);
+			printf("\e[31m");
+			printf("Liste des modèles temporaires : \n");
+			displayModel(TEST);
+			printf("\n");
+			printf("\e[33m");
+			printf("Les deux relations en cours de comparaison : \n");			
+			printf("RS1 : ");
+			printf("<");
+			displayStereotype(getData1(getData(rs1)));
+			printf(">");
+			if(!isRelationshipOneObject(getData(rs1)))
+			{
+				if (getRelation(getData(rs1)) == 0)
+				{
+					printf(" serves ");
+				}
+				else
+				{
+					printf(" tracks ");
+				}
+				printf("<");
+				displayStereotype(getData2(getData(rs1)));
+				printf(">");
+			}
+			printf("\n");
+			printf("RS2 : ");
+			printf("<");
+			displayStereotype(getData1(getData(rs2)));
+			printf(">");
+			if(!isRelationshipOneObject(getData(rs2)))
+			{
+				if (getRelation(getData(rs2)) == 0)
+				{
+					printf(" serves ");
+				}
+				else
+				{
+					printf(" tracks ");
+				}
+				printf("<");
+				displayStereotype(getData2(getData(rs2)));
+				printf(">");
+			}
+			printf("\n");
+			printf("\e[36m");
 			/* Verify if the relation of rs1 and rs2 are the same : */
 			if(getRelation(getData(rs1))==getRelation(getData(rs2)))
 			{
+				printf("Les relations sont identiques\n");
 				/* Verify is there is no relation : */
 				if(getRelation(getData(rs1))==-1)
 				{
+					printf("Comparaison de 2 relations à 1 objet\n");
 					tmp1=compSS(getData1(getData(rs1)), getData1(getData(rs2)));
 
-					/* Delete the relation rs1 if it is too general : */
-					if(equalStereotypes(tmp1, getData1(getData(rs1))))
+					/* Delete the relation rs2 if it is too general : */
+					if(equalStereotypes(tmp1, getData1(getData(rs2))))
 					{
-						deleteObject(l, getData(rs1));
+						printf("RS2 est trop general\n");
+						deleteObject(l, getData(rs2));
 					}
 
-					/* Delete the relation rs2 if it is too general : */
-					else if(equalStereotypes(tmp1, getData1(getData(rs2))))
+					/* Delete the relation rs1 if it is too general : */
+					else if(equalStereotypes(tmp1, getData1(getData(rs1))))
 					{
-						deleteObject(l, getData(rs2));
+						printf("RS1 est trop general\n");
+						deleteObject(l, getData(rs1));
+						rs1=l;
 					}
 				}
 
 				/* If relation != -1 : */
 				else
 				{
+					printf("Comparaison de 2 relations à 2 objets\n");
 					tmp1=compSS(getData1(getData(rs1)), getData1(getData(rs2)));
 					tmp2=compSS(getData2(getData(rs1)), getData2(getData(rs2)));
 
@@ -258,13 +311,16 @@ void deleteGeneralModRel(ptr_row l)
 					if(equalStereotypes(getData1(getData(rs2)), tmp1) &&
 							equalStereotypes(getData2(getData(rs2)), tmp2))
 					{
+						printf("RS2 est trop general\n");
 						deleteObject(l, getData(rs2));
 					}
 					/* Delete the relation rs1 if it is too general : */
 					else if(equalStereotypes(getData1(getData(rs1)), tmp1) &&
 					   equalStereotypes(getData2(getData(rs1)), tmp2))
 					{
+						printf("RS1 est trop general\n");
 						deleteObject(l, getData(rs1));
+						rs1=l;
 					}
 				}
 			}
@@ -273,28 +329,36 @@ void deleteGeneralModRel(ptr_row l)
 			else if(getRelation(getData(rs1))==-1 &&
 					getRelation(getData(rs2))!=-1)
 			{
+				printf("Les relations ne sont pas identiques et une est à un objet\n");
 				tmp1=compSS(getData1(getData(rs1)), getData1(getData(rs2)));
 				tmp2=compSS(getData1(getData(rs1)), getData2(getData(rs2)));
 
+				/* rs1 is more general : */
 				if(equalStereotypes(getData1(getData(rs1)), tmp1) ||
 				   equalStereotypes(getData1(getData(rs1)), tmp2))
 				{
+					printf("RS1 est trop general\n");
 					deleteObject(l, getData(rs1));
+					rs1=l;
 				}
 			}
 			else if(getRelation(getData(rs2))==-1 &&
 					getRelation(getData(rs1))!=-1)
 			{
+				printf("Les relations ne sont pas identiques et une est à un objet\n");
 				tmp1=compSS(getData1(getData(rs1)), getData1(getData(rs2)));
 				tmp2=compSS(getData2(getData(rs1)), getData1(getData(rs2)));
 
 				if(equalStereotypes(getData1(getData(rs2)), tmp1) ||
 				   equalStereotypes(getData1(getData(rs2)), tmp2))
 				{
+					printf("RS2 est trop general\n");
 					deleteObject(l, getData(rs2));
 				}
 			}
 			rs2=nextRow(rs2);
+			printf("\n");
+			printf("\e[0m\n");
 		}
 		rs1=nextRow(rs1);
 	}

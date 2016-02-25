@@ -134,44 +134,32 @@ int main(int argc, char* argv[])
 	ptr_stereotype s1;
 	s1 = initStereotype(c1);
 	ptr_stereotype s2;
-	s2 = initStereotype(c2);
+	s2 = compSC(s1, c2);
+	ptr_stereotype s3;
+	s3=initStereotype(c3);
+	ptr_stereotype s4;
+	s4 = compSC(s3, c4);
 
 	printf("Preparing the examples...\n");
 	ptr_example e1;
 	e1 = createEmptyExample();
 	addFirstCharacter(e1, c1);
-	ptr_example e2;
-	e2 = createEmptyExample();
-	addFirstCharacter(e2, c1);
-	addSecondCharacter(e2, c2, 0);
-	ptr_example e3;
-	e3 = createEmptyExample();
-	addFirstCharacter(e3, c1);
-	addSecondCharacter(e3, c2, 1);
+	addSecondCharacter(e1, c2, 0);
+	addCharacter(e1, c4, 1);
 
 	printf("Preparing the models...\n");
 	SETJAUNE
 	ptr_relationship r1;
-	r1 = createRelationshipOneObject(s1);
-	ptr_model m1 = createEmptyModel();
-	addRelatioship(m1, r1);
+	r1 = createRelationship(s1, s2, 0);
 	ptr_relationship r2;
-	r2 = createRelationshipOneObject(s1);
-	ptr_model m2 = createEmptyModel();
-	addRelatioship(m2, r2);
+	r2 = createRelationshipOneObject(s3);
 	ptr_relationship r3;
-	r3 = createRelationship(s1, s2, 0);
-	ptr_model m3 = createEmptyModel();
-	addRelatioship(m3, r3);
-	ptr_relationship r4;
-	r4 = createRelationship(s1, s2, 0);
-	ptr_model m4 = createEmptyModel();
-	addRelatioship(m4, r4);
-	ptr_relationship r5;
-	r5 = createRelationship(s1, s2, 0);	
-	ptr_model m5 = createEmptyModel();
-	addRelatioship(m5, r5);
-	
+	r3 = createRelationship(s3, s4, 1);
+	ptr_model m1;
+	m1 = createEmptyModel();
+	addRelatioship(m1, r1);
+	addRelatioship(m1, r2);
+	addRelatioship(m1, r3);
 	printf("L'exemple : \n");
 	displayExample(e1);
 	printf("\n\n");
@@ -192,96 +180,5 @@ int main(int argc, char* argv[])
 	displayModel(m1);
 	printf("\n");
 
-	/* CHECKPOINT ! */
-	checkpoint=scanf("%c", &checkpoint);
-	SETJAUNE
-	printf("L'exemple : \n");
-	displayExample(e2);
-	printf("\n\n");
-
-	printf("Le modèle : \n");
-	displayModel(m2);
-	printf("\n\n");
-	SETBLANC
-	/* CHECKPOINT ! */
-	checkpoint=scanf("%c", &checkpoint);
-
-	/* Main function of the project. */
-	SETJAUNE
-	printf("Comparing the example with the model...\n");
-	SETBLANC
-	compEM(e2, m2);
-	printf("La nouvelle liste de modèles après toutes les comparaisons :\n");
-	displayModel(m2);
-	printf("\n");
-
-	/* CHECKPOINT ! */
-	checkpoint=scanf("%c", &checkpoint);	
-	SETJAUNE
-	printf("L'exemple : \n");
-	displayExample(e1);
-	printf("\n\n");
-
-	printf("Le modèle : \n");
-	displayModel(m3);
-	printf("\n\n");
-	SETBLANC
-	/* CHECKPOINT ! */
-	checkpoint=scanf("%c", &checkpoint);
-
-	/* Main function of the project. */
-	SETJAUNE
-	printf("Comparing the example with the model...\n");
-	SETBLANC
-	compEM(e1, m3);
-	printf("La nouvelle liste de modèles après toutes les comparaisons :\n");
-	displayModel(m3);
-	printf("\n");
-
-	/* CHECKPOINT ! */
-	checkpoint=scanf("%c", &checkpoint);
-	SETJAUNE	
-	printf("L'exemple : \n");
-	displayExample(e2);
-	printf("\n\n");
-
-	printf("Le modèle : \n");
-	displayModel(m4);
-	printf("\n\n");
-	SETBLANC
-	/* CHECKPOINT ! */
-	checkpoint=scanf("%c", &checkpoint);
-
-	/* Main function of the project. */
-	SETJAUNE
-	printf("Comparing the example with the model...\n");
-	SETBLANC
-	compEM(e2, m4);
-	printf("La nouvelle liste de modèles après toutes les comparaisons :\n");
-	displayModel(m4);
-	printf("\n");
-	
-	/* CHECKPOINT ! */
-	checkpoint=scanf("%c", &checkpoint);
-	SETJAUNE
-	printf("L'exemple : \n");
-	displayExample(e3);
-	printf("\n\n");
-
-	printf("Le modèle : \n");
-	displayModel(m5);
-	printf("\n\n");
-	SETBLANC
-	/* CHECKPOINT ! */
-	checkpoint=scanf("%c", &checkpoint);
-
-	/* Main function of the project. */
-	SETJAUNE
-	printf("Comparing the example with the model...\n");
-	SETBLANC
-	compEM(e3, m5);
-	printf("La nouvelle liste de modèles après toutes les comparaisons :\n");
-	displayModel(m5);
-	printf("\n");
 	return 0;
 }

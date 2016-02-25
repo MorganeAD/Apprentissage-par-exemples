@@ -112,7 +112,7 @@ int getAlignment(ptr_character character)
 
 void displayCharacter(ptr_character character)
 {
-	printf("(Type : ");
+	printf("Type : ");
 	switch (getValue(getType(character))) 
 	{
 		case 1 :
@@ -154,8 +154,8 @@ void displayCharacter(ptr_character character)
 		default: 
 			printf("Unknown");
 	}
-	printf("; ");
-	printf("Influence : %d; ", getInfluence(character));
+	printf(" ; ");
+	printf("Influence : %d ; ", getInfluence(character));
 	printf("Alignment : ");
 	switch (getAlignment(character)) 
 	{
@@ -174,5 +174,4 @@ void displayCharacter(ptr_character character)
 		default: 
 			printf("Unknown");
 	}
-	printf(")");
 }

@@ -185,8 +185,9 @@ void displayExample(ptr_example e)
 	{
 		while(!isEmpty(tmp))
 		{
-			printf("[");
+			printf("<");
 			displayCharacter(getData1(getData(tmp)));
+			printf(">");
 			if (getRelation(getData(tmp)) == 0)
 			{
 				printf(" serves ");
@@ -195,8 +196,9 @@ void displayExample(ptr_example e)
 			{
 				printf(" tracks ");
 			}
+			printf("<");
 			displayCharacter(getData2(getData(tmp)));
-			printf("]");
+			printf(">");
 			tmp = nextRow(tmp);
 			if (!isEmpty(tmp))
 			{

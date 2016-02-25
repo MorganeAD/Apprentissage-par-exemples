@@ -133,7 +133,7 @@ void deleteRelationshipInModRelRow(ptr_model this, ptr_relationship r)
  * @return [void]
  */
 
-void addRelatioshipFromRow(ptr_model this, ptr_row r)
+void addRelationshipFromRow(ptr_model this, ptr_row r)
 {
 	addToRowFromRow(getModRelRow(this), r);
 }
@@ -158,7 +158,7 @@ void displayModel(ptr_model this)
 	{
 		while(!isEmpty(tmp))
 		{
-			printf("[");
+			printf("<");
 			if (isRelationshipOneObject(getData(tmp)))
 			{
 				displayStereotype(getData1(getData(tmp)));
@@ -167,6 +167,7 @@ void displayModel(ptr_model this)
 			{
 
 				displayStereotype(getData1(getData(tmp)));
+				printf(">");
 				if (getRelation(getData(tmp)) == 0)
 				{
 					printf(" serves ");
@@ -175,9 +176,10 @@ void displayModel(ptr_model this)
 				{
 					printf(" tracks ");
 				}
+				printf("<");
 				displayStereotype(getData2(getData(tmp)));			
 			}
-			printf("]");
+			printf(">");
 			tmp = nextRow(tmp);
 			if (!isEmpty(tmp))
 			{

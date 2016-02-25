@@ -33,6 +33,6 @@
  * @return [void]
  */
 
-ptr_tree person, force, weak, jedi, sith, council, droid, bandit, senator, combat, pacific, chasseur;
+ptr_tree person, force, weak, jedi, sith, council, droid, bandit, senator, combat, pacific, hunter;
 
 void initClass(void);

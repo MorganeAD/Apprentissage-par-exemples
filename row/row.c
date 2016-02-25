@@ -174,6 +174,7 @@ void* getLastData(ptr_row this)
  * @return [void]
  */
 
+/*
 void deleteObject(ptr_row this, void* r)
 {
 	assert(!isEmpty(this));
@@ -192,13 +193,53 @@ void deleteObject(ptr_row this, void* r)
 		if (isEmpty(nextRow(tmp)))
 		{
 			// deux petit malloc perdus...
-			tmp = createEmpty();
+			free(nextRow(tmp));
+			tmp->data=NULL;
+			tmp->next=NULL;
 		}
 		else
 		{	
 			tmp->data = getData(nextRow(tmp));
 			old = nextRow(tmp);
 			tmp->next = nextRow(nextRow(tmp));
+			free(old);
+		}
+	}
+}
+*/
+void deleteObject(ptr_row this, void* r)
+{
+	assert(!isEmpty(this));
+	ptr_row tmp = this;
+	ptr_row old;
+	if(getData(tmp)==r)
+	{
+		if(isEmpty(nextRow(tmp)))
+		{
+			tmp = createEmpty();
+		}
+		else
+		{
+			old = nextRow(tmp);
+			tmp->data = getData(old);
+			tmp->next = nextRow(old);
+			free(old);
+		}
+	}
+	else
+	{
+		while(!isEmpty(nextRow(tmp)) && getData(nextRow(tmp))!=r)
+		{
+			tmp = nextRow(tmp);
+		}
+		if (isEmpty(nextRow(tmp)))
+		{
+			printf("Error : The object is not in the list, can't delete it\n");
+		}
+		else
+		{
+			old = nextRow(tmp);
+			tmp->next=nextRow(old);
 			free(old);
 		}
 	}

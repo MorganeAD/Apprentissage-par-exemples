@@ -78,6 +78,6 @@ void deleteRelationshipInModRelRow(ptr_model this, ptr_relationship r);
  * @return [void]
  */
 
-void addRelatioshipFromRow(ptr_model this, ptr_row r);
+void addRelationshipFromRow(ptr_model this, ptr_row r);
 
 void displayModel(ptr_model this);
